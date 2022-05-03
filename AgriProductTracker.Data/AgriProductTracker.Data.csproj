@@ -23,8 +23,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Configurations\" />
     <Folder Include="MigrationScripts\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AgriProductTracker.Model\AgriProductTracker.Model.csproj" />
   </ItemGroup>
 
 </Project>
