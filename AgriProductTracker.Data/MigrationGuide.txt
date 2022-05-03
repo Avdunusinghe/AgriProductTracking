@@ -1,0 +1,8 @@
+﻿Update-Database -Project AgriProductTracker.Data -StartUp AgriProductTracker.RestApi -Verbose
+
+
+
+Add-Migration AgriProductTracker00001 -Project  AgriProductTracker.Data -StartUp griProductTracker.RestApi -Verbose
+
+
+Script-Migration -From AgriProductTracker00001 -Project  AgriProductTracker.Data -StartUp griProductTracker.RestApi -Verbose
