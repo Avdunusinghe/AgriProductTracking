@@ -3,7 +3,43 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32421.90
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgriProductTracker.Model", "AgriProductTracker.Model\AgriProductTracker.Model.csproj", "{B1BE98E4-BDEB-46E6-B4BA-A0B099C91D63}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgriProductTracker.ViewModel", "AgriProductTracker.ViewModel\AgriProductTracker.ViewModel.csproj", "{9C80C4AA-DE71-46E7-8226-A1B71299DE3A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgriProductTracker.Business", "AgriProductTracker.Business\AgriProductTracker.Business.csproj", "{8F81B965-867E-43D0-B89A-1A76973531F8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgriProductTracker.Data", "AgriProductTracker.Data\AgriProductTracker.Data.csproj", "{5993FC20-540E-4B0E-975A-09236014EFC5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgriProductTracker.RestApi", "AgriProductTracker.RestApi\AgriProductTracker.RestApi.csproj", "{FDC6F383-56FE-4ACC-8B1F-73CC6A53B9C2}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B1BE98E4-BDEB-46E6-B4BA-A0B099C91D63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1BE98E4-BDEB-46E6-B4BA-A0B099C91D63}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1BE98E4-BDEB-46E6-B4BA-A0B099C91D63}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1BE98E4-BDEB-46E6-B4BA-A0B099C91D63}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C80C4AA-DE71-46E7-8226-A1B71299DE3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C80C4AA-DE71-46E7-8226-A1B71299DE3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C80C4AA-DE71-46E7-8226-A1B71299DE3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C80C4AA-DE71-46E7-8226-A1B71299DE3A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F81B965-867E-43D0-B89A-1A76973531F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F81B965-867E-43D0-B89A-1A76973531F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F81B965-867E-43D0-B89A-1A76973531F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F81B965-867E-43D0-B89A-1A76973531F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5993FC20-540E-4B0E-975A-09236014EFC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5993FC20-540E-4B0E-975A-09236014EFC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5993FC20-540E-4B0E-975A-09236014EFC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5993FC20-540E-4B0E-975A-09236014EFC5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FDC6F383-56FE-4ACC-8B1F-73CC6A53B9C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FDC6F383-56FE-4ACC-8B1F-73CC6A53B9C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FDC6F383-56FE-4ACC-8B1F-73CC6A53B9C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FDC6F383-56FE-4ACC-8B1F-73CC6A53B9C2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
