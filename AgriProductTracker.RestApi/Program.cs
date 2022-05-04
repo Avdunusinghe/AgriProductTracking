@@ -1,25 +1,29 @@
+using AgriProductTracker.Data.Data;
 using AgriProductTracker.RestApi.Infrastructure;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http.Features;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
-
-
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
+builder.Services.AddCustomeDbContext(builder.Configuration);
 builder.Services.EnableCors(builder.Configuration);
 builder.Services.EnableMultiPartBody(builder.Configuration);
+builder.Services.AddAuthorization();
 builder.Services.AddSwagger();
 
 // Call UseServiceProviderFactory on the Host sub property 
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory())
-    .ConfigureContainer<ContainerBuilder>(builder =>
+    .ConfigureContainer< ContainerBuilder>(builder =>
     {
         builder.RegisterModule(new ApplicationModule());
     });
@@ -46,10 +50,23 @@ app.MapControllers();
 app.Run();
 
 
-//public static IMvcBuilder AddControllers(this IServiceCollection services, Action<MvcOptions>? configure)
 
 public static class CustomeExtenstionMethod
 {
+    public static IServiceCollection AddCustomeDbContext(this IServiceCollection service, IConfiguration configuration)
+    {
+        service.AddEntityFrameworkSqlServer().AddDbContext<AgriProductTrackerDbContext>(options =>
+        {
+            options.UseLazyLoadingProxies()
+            .UseSqlServer(configuration["AgriProductTrackerDbConnectionString"],
+                          sqlServerOptionsAction: sqlOptions =>
+                          {
+                              sqlOptions.EnableRetryOnFailure(maxRetryCount: 10, maxRetryDelay: TimeSpan.FromSeconds(30), errorNumbersToAdd: null);
+                          });
+        });
+
+        return service;
+    }
     public static IServiceCollection AddSwagger(this IServiceCollection services)
     {
         services.AddSwaggerGen(options =>
@@ -59,7 +76,7 @@ public static class CustomeExtenstionMethod
             {
                 Title = "Agri Management. - Web API",
                 Version = "v1",
-                Description = "The web service for Sliit",
+                Description = "The web service for SE3020 -Distributed Systems Assignment 2 Rest Api",
                 TermsOfService = new Uri("https://example.com/terms")
             });
             options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
@@ -125,4 +142,33 @@ public static class CustomeExtenstionMethod
 
         return services;
     }
+
+    public static IServiceCollection EnableJWTAuthentication(this IServiceCollection services, IConfiguration configuration)
+    {
+
+        services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+        .AddJwtBearer(options =>
+        {
+          options.RequireHttpsMetadata = false;
+          options.SaveToken = true;
+          options.TokenValidationParameters = new TokenValidationParameters
+          {
+              ValidateIssuer = true,
+              ValidateAudience = true,
+              ValidateLifetime = true,
+              ValidateIssuerSigningKey = true,
+              ValidIssuer = configuration["Tokens:Issuer"],
+              ValidAudiences = new List<string>
+              {
+                              "admin","webapp"
+              },
+
+              IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Tokens:Key"])),
+              ClockSkew = TimeSpan.Zero
+          };
+        });
+
+        return services;
+    }
+
 }

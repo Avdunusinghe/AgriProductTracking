@@ -21,4 +21,8 @@
     <Folder Include="Infrastructure\Services\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\AgriProductTracker.Data\AgriProductTracker.Data.csproj" />
+  </ItemGroup>
+
 </Project>
