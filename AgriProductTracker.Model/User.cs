@@ -45,5 +45,10 @@ namespace AgriProductTracker.Model
 
         #endregion
 
+        #region Navigation Property Payment
+        public virtual ICollection<Payment> CreatedUser { get; set; }
+        public virtual ICollection<Payment> UpdatedUser { get; set; }
+
+        #endregion
     }
 }
