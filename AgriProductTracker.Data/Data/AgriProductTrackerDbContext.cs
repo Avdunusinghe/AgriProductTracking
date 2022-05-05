@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AgriProductTracker.Model;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,17 +17,23 @@ namespace AgriProductTracker.Data.Data
 
         public AgriProductTrackerDbContext(DbContextOptions<AgriProductTrackerDbContext> options) : base(options)
         {
+           
 
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            base.OnConfiguring(optionsBuilder);
+            optionsBuilder.UseSqlServer("Server=DESKTOP-PSI7D8C\\SQLEXPRESS;Database=APT;User Id=sa;Password=1qaz2wsx@;");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             
         }
+
+        #region Database Entities
+        public DbSet<Product> Products { get; set; }
+        public DbSet<ProductCategory> ProductCategories { get; set; } 
+        #endregion
     }
 }
