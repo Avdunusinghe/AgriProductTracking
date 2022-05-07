@@ -9,10 +9,10 @@ namespace AgriProductTracker.Model
     public class User
     {
 
-        public int Id { get; set; }
+        public long Id { get; set; }
         public string FullName { get; set; }
         public string Email { get; set; }
-        public string MobileNo { get; set; }
+        public string MobileNumber { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
         public DateTime LastLoginDate { get; set; }
@@ -21,9 +21,9 @@ namespace AgriProductTracker.Model
         public int LoginsessionId { get; set; }
         public bool IsActive { get; set; }
         public DateTime CreateOn { get; set; }
-        public int? CreatedById { get; set; }
+        public long? CreatedById { get; set; }
         public DateTime UpdatedOn { get; set; }
-        public int? UpdatedById { get; set; }
+        public long? UpdatedById { get; set; }
 
 
 
@@ -35,15 +35,29 @@ namespace AgriProductTracker.Model
         public virtual ICollection<UserRole> CreatedUserRoles { get; set; }
         public virtual ICollection<UserRole> UpdatedUserRoles { get; set; }
 
-        public virtual ICollection<User> CreatedUserss { get; set; }
-        public virtual ICollection<User> UpdatedUserss { get; set; }
+        public virtual ICollection<User> CreatedUsers { get; set; }
+        public virtual ICollection<User> UpdatedUsers { get; set; }
 
 
         #region Navigation Property Product
-        public virtual ICollection<Product> CreatedUsers { get; set; }
-        public virtual ICollection<Product> UpdatedUsers { get; set; }
+        public virtual ICollection<Product> CreatedProducts { get; set; }
+        public virtual ICollection<Product> UpdatedProducts { get; set; }
 
         #endregion
 
+        #region Navigation Property Payment
+        public virtual ICollection<Payment> CreatedPayments { get; set; }
+        public virtual ICollection<Payment> UpdatedPayments { get; set; }
+
+        #endregion
+
+        #region Navigation Property DeliveryService
+        public virtual ICollection<DeliveryService> CreatedDeliveryServices { get; set; }
+        public virtual ICollection<DeliveryService> UpdatedDeliveryServices { get; set; }
+        #endregion
+
+        #region Navigation Property Orders
+        public virtual ICollection<Order> PlaceOders { get; set; } 
+        #endregion
     }
 }
