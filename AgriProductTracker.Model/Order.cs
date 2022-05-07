@@ -17,7 +17,7 @@ namespace AgriProductTracker.Model
 
         public  virtual User Customer { get; set; }
 
-        public ICollection<OrderItem> OrderItems { get; set; }
+        public virtual ICollection<OrderItem> OrderItems { get; set; }
 
     }
 }

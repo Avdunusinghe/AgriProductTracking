@@ -17,6 +17,9 @@ namespace AgriProductTracker.Data.Configurations
 
             builder.HasKey(x => x.Id);
 
+            builder.Property(p => p.Price)
+                .HasPrecision(14, 2);
+
             builder.HasOne<ProductCategory>(p => p.ProductCategory)
                 .WithMany(p => p.Products)
                 .HasForeignKey(fk => fk.CategoryId)
@@ -31,13 +34,19 @@ namespace AgriProductTracker.Data.Configurations
 
             builder.HasOne<User>(u => u.UpdatedBy)
                .WithMany(c => c.UpdatedProducts)
-               .HasForeignKey(fk => fk.UpdatedBy)
+               .HasForeignKey(fk => fk.UpdatedById)
                .OnDelete(DeleteBehavior.Restrict)
                .IsRequired(true);
 
             builder.HasOne<OrderItem>(o => o.OrderItem)
                .WithOne(p=>p.Product)
                .HasForeignKey<OrderItem>(f => f.ProductId);
+
+          
+
+            /*modelBuilder.Entity<Part>()
+        .Property(p => p.Size)
+        .HasColumnType("decimal(18,4)");*/
         }
     }
 }

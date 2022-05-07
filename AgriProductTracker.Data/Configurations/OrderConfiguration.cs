@@ -17,6 +17,9 @@ namespace AgriProductTracker.Data.Configurations
 
             builder.HasKey(x => x.Id);
 
+            builder.Property(t => t.TotalPrice)
+               .HasPrecision(14, 2);
+
             builder.HasOne<User>(u=>u.Customer)
                 .WithMany(u=>u.PlaceOders)
                 .HasForeignKey(fk=>fk.CustomerId)

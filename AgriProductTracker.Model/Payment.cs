@@ -14,7 +14,7 @@ namespace AgriProductTracker.Model
         public decimal Amount { get; set; }
         public PaymentType PaymentType { get; set; }
         //payment via mobile number
-        public int MobileNumber { get; set; }
+        public string MobileNumber { get; set; }
         public int MobileOperator { get; set; }
         //payment via credit card
         public CardType CardType { get; set; }
@@ -31,8 +31,6 @@ namespace AgriProductTracker.Model
         public virtual User CreatedBy { get; set; }
         public virtual User UpdatedBy { get; set; }
 
-        public virtual ICollection<User> CreatedUser { get; set; }
-        public virtual ICollection<User> UpdatedUser { get; set; }
 
     }
 }

@@ -26,6 +26,9 @@ namespace AgriProductTracker.Data.Configurations
             builder.HasIndex(x => x.CVV)
                 .IsUnique();
 
+            builder.Property(a=>a.Amount)
+              .HasPrecision(14, 2); 
+
             builder.HasOne<User>(u => u.CreatedBy)
                 .WithMany(u => u.CreatedPayments)
                 .HasForeignKey(f => f.CreatedById)
