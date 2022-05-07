@@ -25,6 +25,7 @@ namespace AgriProductTracker.Business
             this._configuration = _configuration;
         }
 
+        // Save User Service
         public async Task<ResponseViewModel> SaveUser(UserViewModel vm)
         {
             var response = new ResponseViewModel();
@@ -148,6 +149,31 @@ namespace AgriProductTracker.Business
                 response.IsSuccess = false;
                 response.Message = UserServiceConstants.USER_SAVE_EXCEPTION_MESSAGE;
             }
+            return response;
+        }
+
+        // Delete User service
+        public async Task<ResponseViewModel> DeleteUser(int id)
+        {
+            var response = new ResponseViewModel();
+            try
+            {
+                var user = _db.Users.FirstOrDefault(x => x.Id == id);
+
+                user.IsActive = false;
+
+                _db.Users.Update(user);
+                await _db.SaveChangesAsync();
+
+                response.IsSuccess = true;
+                response.Message = UserServiceConstants.EXISTING_USER_DELETE_SUCCESS_MESSAGE;
+            }
+            catch (Exception ex)
+            {
+                response.IsSuccess = false;
+                response.Message = UserServiceConstants.EXISTING_USER_DELETE_EXCEPTION_MESSAGE;
+            }
+
             return response;
         }
     }
