@@ -25,6 +25,7 @@ namespace AgriProductTracker.Data.Data
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("Server=DESKTOP-PSI7D8C\\SQLEXPRESS;Database=APT;User Id=sa;Password=1qaz2wsx@;");
+            optionsBuilder.UseLazyLoadingProxies();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
