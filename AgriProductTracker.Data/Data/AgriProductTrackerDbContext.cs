@@ -1,4 +1,5 @@
-﻿using AgriProductTracker.Model;
+﻿using AgriProductTracker.Data.Configurations;
+using AgriProductTracker.Model;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -28,12 +29,30 @@ namespace AgriProductTracker.Data.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            
+            modelBuilder.ApplyConfiguration(new UserConfiguration());
+            modelBuilder.ApplyConfiguration(new UserRoleConfigurations());
+            modelBuilder.ApplyConfiguration(new RoleConfiguration());
+
+            modelBuilder.ApplyConfiguration(new ProductConfiguration());
+            modelBuilder.ApplyConfiguration(new ProductCategoryConfiguration());
+            modelBuilder.ApplyConfiguration(new OrderConfiguration());
+            modelBuilder.ApplyConfiguration(new OrderItemConfiguration());
+            modelBuilder.ApplyConfiguration(new DeliveryServiceConfiguration());
+            modelBuilder.ApplyConfiguration(new PaymentConfiguration());
+
+
         }
 
         #region Database Entities
+        public DbSet<User> Users { get; set; }
+        public DbSet<UserRole> UserRoles { get; set; }
+        public DbSet<Role> Roles { get; set; }
         public DbSet<Product> Products { get; set; }
-        public DbSet<ProductCategory> ProductCategories { get; set; } 
+        public DbSet<ProductCategory> ProductCategories { get; set; }
+        public DbSet<Payment> Payments { get; set; }
+        public DbSet<DeliveryService> DeliveryServices { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderItem> OrderItems { get; set; }
         #endregion
     }
 }

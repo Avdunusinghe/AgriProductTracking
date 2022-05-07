@@ -24,16 +24,20 @@ namespace AgriProductTracker.Data.Configurations
                 .IsRequired(true);
 
             builder.HasOne<User>(u => u.CreatedBy)
-                .WithMany(c => c.CreatedUsers)
+                .WithMany(c => c.CreatedProducts)
                 .HasForeignKey(fk => fk.CreatedById)
                 .OnDelete(DeleteBehavior.Restrict)
                 .IsRequired(true);
 
             builder.HasOne<User>(u => u.UpdatedBy)
-               .WithMany(c => c.UpdatedUsers)
+               .WithMany(c => c.UpdatedProducts)
                .HasForeignKey(fk => fk.UpdatedBy)
                .OnDelete(DeleteBehavior.Restrict)
                .IsRequired(true);
+
+            builder.HasOne<OrderItem>(o => o.OrderItem)
+               .WithOne(p=>p.Product)
+               .HasForeignKey<OrderItem>(f => f.ProductId);
         }
     }
 }

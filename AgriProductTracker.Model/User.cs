@@ -40,15 +40,24 @@ namespace AgriProductTracker.Model
 
 
         #region Navigation Property Product
-        public virtual ICollection<Product> CreatedUsers { get; set; }
-        public virtual ICollection<Product> UpdatedUsers { get; set; }
+        public virtual ICollection<Product> CreatedProducts { get; set; }
+        public virtual ICollection<Product> UpdatedProducts { get; set; }
 
         #endregion
 
         #region Navigation Property Payment
-        public virtual ICollection<Payment> CreatedUser { get; set; }
-        public virtual ICollection<Payment> UpdatedUser { get; set; }
+        public virtual ICollection<Payment> CreatedPayments { get; set; }
+        public virtual ICollection<Payment> UpdatedPayments { get; set; }
 
+        #endregion
+
+        #region Navigation Property DeliveryService
+        public virtual ICollection<DeliveryService> CreatedDeliveryServices { get; set; }
+        public virtual ICollection<DeliveryService> UpdatedDeliveryServices { get; set; }
+        #endregion
+
+        #region Navigation Property Orders
+        public virtual ICollection<Order> PlaceOders { get; set; } 
         #endregion
     }
 }

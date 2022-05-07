@@ -27,13 +27,13 @@ namespace AgriProductTracker.Data.Configurations
                 .IsUnique();
 
             builder.HasOne<User>(u => u.CreatedBy)
-                .WithMany(u => u.CreatedUser)
+                .WithMany(u => u.CreatedPayments)
                 .HasForeignKey(f => f.CreatedById)
                 .OnDelete(DeleteBehavior.Restrict)
                 .IsRequired(false);
 
             builder.HasOne<User>(u => u.UpdatedBy)
-                .WithMany(u => u.UpdatedUser)
+                .WithMany(u => u.UpdatedPayments)
                 .HasForeignKey(f => f.UpdatedById)
                 .OnDelete(DeleteBehavior.Restrict)
                 .IsRequired(false);
