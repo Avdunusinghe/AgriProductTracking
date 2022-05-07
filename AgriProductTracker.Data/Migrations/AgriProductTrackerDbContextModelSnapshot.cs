@@ -316,11 +316,11 @@ namespace AgriProductTracker.Data.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreateOn")
-                        .HasColumnType("datetime2");
-
                     b.Property<long?>("CreatedById")
                         .HasColumnType("bigint");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(450)");
@@ -370,6 +370,36 @@ namespace AgriProductTracker.Data.Migrations
                         .HasFilter("[UserName] IS NOT NULL");
 
                     b.ToTable("User", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            CreatedOn = new DateTime(2022, 5, 7, 11, 56, 5, 6, DateTimeKind.Utc).AddTicks(4912),
+                            Email = "avdunusinghe@gmail.com",
+                            FullName = "SuperAdmin",
+                            IsActive = true,
+                            LastLoginDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LoginsessionId = 0,
+                            MobileNumber = "0703375581",
+                            Password = "4daXfVcF7xh6hUzHFDTZtVN/33euJ2fdMtQZbFvTqG8=",
+                            UpdatedOn = new DateTime(2022, 5, 7, 11, 56, 5, 6, DateTimeKind.Utc).AddTicks(4915),
+                            UserName = "avdunusinghe@gmail.com"
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            CreatedOn = new DateTime(2022, 5, 7, 11, 56, 5, 72, DateTimeKind.Utc).AddTicks(5147),
+                            Email = "admin@gmail.com",
+                            FullName = "Admin",
+                            IsActive = true,
+                            LastLoginDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LoginsessionId = 0,
+                            MobileNumber = "0112487086",
+                            Password = "9oTQThg/VdWdzT3lniHuFGymyls+HgLF3I05FzSbwuM=",
+                            UpdatedOn = new DateTime(2022, 5, 7, 11, 56, 5, 72, DateTimeKind.Utc).AddTicks(5151),
+                            UserName = "admin@gmail.com"
+                        });
                 });
 
             modelBuilder.Entity("AgriProductTracker.Model.UserRole", b =>

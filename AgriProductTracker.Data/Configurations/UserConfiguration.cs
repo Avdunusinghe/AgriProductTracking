@@ -1,4 +1,5 @@
 ﻿using AgriProductTracker.Model;
+using AgriProductTracking.util;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -36,14 +37,14 @@ namespace AgriProductTracker.Data.Configurations
                 .OnDelete(DeleteBehavior.Restrict)
                 .IsRequired(false);
 
-           /* var farmer = new User()
+            var farmer = new User()
             {
                 Id = 1,
                 FullName = "SuperAdmin",
 
                 Email = "avdunusinghe@gmail.com",
-                Username = "avdunusinghe@gmail.com",
-                MobileNo = "0703375581",
+                UserName = "avdunusinghe@gmail.com",
+                MobileNumber = "0703375581",
                 Password = CustomPasswordHasher.GenerateHash("pass@123!"),
                 IsActive = true,
                 CreatedOn = DateTime.UtcNow,
@@ -55,16 +56,16 @@ namespace AgriProductTracker.Data.Configurations
                 Id = 2,
                 FullName = "Admin",
                 Email = "admin@gmail.com",
-                Username = "admin@gmail.com",
-                MobileNo = "0112487086",
+                UserName = "admin@gmail.com",
+                MobileNumber = "0112487086",
                 Password = CustomPasswordHasher.GenerateHash("pass@123!"),
                 IsActive = true,
                 CreatedOn = DateTime.UtcNow,
                 UpdatedOn = DateTime.UtcNow
             };
 
-            builder.HasData(superAdmin, admin);
-           */
+            builder.HasData(farmer, admin);
+           
         }
 
         

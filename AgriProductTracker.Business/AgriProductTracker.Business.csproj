@@ -6,4 +6,10 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\AgriProductTracker.Data\AgriProductTracker.Data.csproj" />
+    <ProjectReference Include="..\AgriProductTracker.ViewModel\AgriProductTracker.ViewModel.csproj" />
+    <ProjectReference Include="..\AgriProductTracking.util\AgriProductTracking.util.csproj" />
+  </ItemGroup>
+
 </Project>

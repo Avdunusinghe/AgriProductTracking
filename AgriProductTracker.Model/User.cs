@@ -20,7 +20,7 @@ namespace AgriProductTracker.Model
         public string Address { get; set; }
         public int LoginsessionId { get; set; }
         public bool IsActive { get; set; }
-        public DateTime CreateOn { get; set; }
+        public DateTime CreatedOn { get; set; }
         public long? CreatedById { get; set; }
         public DateTime UpdatedOn { get; set; }
         public long? UpdatedById { get; set; }

@@ -1,4 +1,6 @@
-﻿using Autofac;
+﻿using AgriProductTracker.Business;
+using AgriProductTracker.Business.Interfaces;
+using Autofac;
 
 namespace AgriProductTracker.RestApi.Infrastructure
 {
@@ -11,7 +13,14 @@ namespace AgriProductTracker.RestApi.Infrastructure
 
         protected override void Load(ContainerBuilder builder)
         {
+            builder.RegisterType<HttpContextAccessor>()
+              .As<IHttpContextAccessor>()
+              .SingleInstance();
 
+
+            builder.RegisterType<AuthService>()
+                .As<IAuthService>()
+                .InstancePerLifetimeScope();
         }
     }
 }
