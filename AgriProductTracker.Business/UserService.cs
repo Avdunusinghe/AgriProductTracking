@@ -121,9 +121,9 @@ namespace AgriProductTracker.Business
                         {
                             RoleId = item,
                             IsActive = true,
-                           CreatedById = vm.Id,
+                            CreatedById = vm.Id,
                             CreatedOn = DateTime.UtcNow,
-                           UpdatedById = vm.Id,
+                            UpdatedById = vm.Id,
                             UpdatedOn = DateTime.UtcNow
                         };
 
@@ -175,6 +175,41 @@ namespace AgriProductTracker.Business
             }
 
             return response;
+        }
+
+        //GetUserById
+
+        public UserViewModel GetUserbyId(int id)
+        {
+            var response = new UserViewModel();
+
+            var user = _db.Users.FirstOrDefault(x => x.Id == id);
+
+
+            response.Id = (int)user.Id;
+            response.FullName = user.FullName;
+            response.UserName = user.UserName;
+            response.Address = user.Address;
+            response.Email = user.Email;
+            response.MobileNumber = user.MobileNumber;
+            response.IsActive = user.IsActive;
+            response.ProfileImage = user.ProfileImage;
+
+            var assignedRoles = user.UserRoles.Where(x => x.IsActive == true);
+
+            foreach (var item in assignedRoles)
+            {
+                response.Roles.Add((int)item.RoleId);
+            }
+
+            return response;
+        }
+
+        //Get All roles
+
+        public List<DropDownViewModel> GetAllRoles()
+        {
+            return _db.Roles.Where(x => x.IsActive == true).Select(r => new DropDownViewModel() { Id = (int)r.Id, Name = r.Name }).ToList();
         }
     }
     }

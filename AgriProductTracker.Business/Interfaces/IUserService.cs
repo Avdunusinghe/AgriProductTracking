@@ -12,6 +12,8 @@ namespace AgriProductTracker.Business.Interfaces
     {
         Task<ResponseViewModel> SaveUser(UserViewModel vm);
         Task<ResponseViewModel> DeleteUser(int id);
+        UserViewModel GetUserbyId(int id);
+        List<DropDownViewModel> GetAllRoles();
 
 
     }
