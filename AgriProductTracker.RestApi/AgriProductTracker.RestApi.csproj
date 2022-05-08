@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-    <Nullable>enable</Nullable>
+    <Nullable>disable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
@@ -22,10 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Infrastructure\Services\" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <ProjectReference Include="..\AgriProductTracker.Business\AgriProductTracker.Business.csproj" />
     <ProjectReference Include="..\AgriProductTracker.Data\AgriProductTracker.Data.csproj" />
   </ItemGroup>
 
