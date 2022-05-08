@@ -3,6 +3,7 @@ using AgriProductTracker.Data.Data;
 using AgriProductTracker.Model;
 using AgriProductTracker.ViewModel;
 using AgriProductTracker.ViewModel.Product;
+using AgriProductTracking.util;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -83,7 +84,6 @@ namespace AgriProductTracker.Business
                     product.UpdatedById = loggedInUser.Id;
                     product.CreatedOn = DateTime.UtcNow;
                     product.CreatedById = loggedInUser.Id;
-                    product = _db.Products.FirstOrDefault(p => p.Id == vm.Id);
 
                     _db.Products.Add(product);
 
@@ -118,6 +118,71 @@ namespace AgriProductTracker.Business
 
             return response;
         }
+
+        public async Task<ResponseViewModel> UploadProductImage(FileContainerViewModel container)
+        {
+            var response = new ResponseViewModel();
+
+            try
+            {
+                var product = _db.Products.FirstOrDefault(x => x.Id == container.Id);
+
+                var folderPath = GetProductImageFolderPath(product, _configuration);
+                var firstFile = container.Files.FirstOrDefault();
+
+                if (!Directory.Exists(folderPath))
+                {
+                    Directory.CreateDirectory(folderPath);
+                }
+
+                if (firstFile != null && firstFile.Length > 0)
+                {
+                    var fileName = GetProductImageName(product, Path.GetExtension(firstFile.FileName));
+                    var filePath = string.Format(@"{0}\{1}", folderPath, fileName);
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await firstFile.CopyToAsync(stream);
+                       /* var expenseImage = new ExpenseImage()
+                        {
+                            AttachementName = fileName,
+                            Attachment = filePath
+
+                        };*/
+
+                       // expense.ExpenseImages.Add(expenseImage);
+                        response.Message = "Product image has been uploaded succesfully";
+                    }
+                }
+
+                await _db.SaveChangesAsync();
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            return response;
+        }
+
+
+        #region Private Methods
+        private string GetProductImageFolderPath(Product model, IConfiguration configuration)
+        {
+            return string.Format(@"{0}{1}\{2}", configuration.GetSection("FileUploadPath").Value, FolderNames.PRODUCT, model.Id);
+        }
+
+        public static string GetProductImageName(Product model, string extension)
+        {
+            return string.Format(@"Product-Image-{0}-{1}{2}", model.Id, Guid.NewGuid(), extension);
+        }
+
+        /*public static string GetExpenseImagePath(ExpenseImage model, IConfiguration config, long expenseId)
+        {
+            return string.Format(@"{0}{1}\{2}\{3}", config.GetSection("FileUploadPath").Value, FolderNames.EXPENSES, model.ExpenseId, model.AttachementName);
+
+        }*/
+        #endregion
     }
 
    

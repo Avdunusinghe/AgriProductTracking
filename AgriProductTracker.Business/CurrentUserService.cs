@@ -13,6 +13,11 @@ namespace AgriProductTracker.Business
     {
         private readonly AgriProductTrackerDbContext _db;
 
+        public CurrentUserService(AgriProductTrackerDbContext _db)
+        {
+            this ._db = _db;
+        }
+
         public User GetUserByUsername(string userName)
         {
             var user = _db.Users.FirstOrDefault(x => x.UserName == userName);
