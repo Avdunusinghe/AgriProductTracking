@@ -11,8 +11,7 @@ namespace AgriProductTracker.Model
         public long Id { get; set; }
         public long ProductId { get; set; }
         public string Attachment { get; set; }
-        public string AttachmentName { get; set; }
-
+        public string AttachementName { get; set; }
         public virtual Product Product { get; set; }
     }
 }

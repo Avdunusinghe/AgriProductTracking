@@ -13,6 +13,7 @@ namespace AgriProductTracker.Business.Interfaces
         Task<ResponseViewModel> ProductSave(ProductViewModel vm, string userName);
         Task<ResponseViewModel> ProductDelete (long id);
         Task<ResponseViewModel> UploadProductImage(FileContainerViewModel container);
+        ProductViewModel GetPrductById (long id, int productCategoryId);
 
     }
 }

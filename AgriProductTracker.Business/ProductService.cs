@@ -26,6 +26,7 @@ namespace AgriProductTracker.Business
             this._currentUserService = _currentUserService;
         }
 
+        #region Business Services Methods
         public async Task<ResponseViewModel> ProductDelete(long id)
         {
             var response = new ResponseViewModel();
@@ -34,7 +35,7 @@ namespace AgriProductTracker.Business
             {
                 var product = _db.Products.FirstOrDefault(x => x.Id == id && x.IsActive == true);
 
-                if(product != null)
+                if (product != null)
                 {
                     product.IsActive = false;
 
@@ -51,9 +52,10 @@ namespace AgriProductTracker.Business
 
                 await _db.SaveChangesAsync();
 
-            }catch (Exception ex)
+            }
+            catch (Exception ex)
             {
-                response.IsSuccess=false;
+                response.IsSuccess = false;
                 response.Message = ex.Message;
 
             }
@@ -68,9 +70,9 @@ namespace AgriProductTracker.Business
             var loggedInUser = _currentUserService.GetUserByUsername(userName);
             try
             {
-                
+
                 var product = _db.Products.FirstOrDefault(p => p.Id == vm.Id);
-  
+
 
                 if (product == null)
                 {
@@ -107,8 +109,8 @@ namespace AgriProductTracker.Business
 
                 }
 
-               await _db.SaveChangesAsync();
-                                                                                                                                                                                                                                     
+                await _db.SaveChangesAsync();
+
             }
             catch (Exception ex)
             {
@@ -142,14 +144,16 @@ namespace AgriProductTracker.Business
                     using (var stream = new FileStream(filePath, FileMode.Create))
                     {
                         await firstFile.CopyToAsync(stream);
-                       /* var expenseImage = new ExpenseImage()
+                        var productImage = new ProductImage()
                         {
                             AttachementName = fileName,
                             Attachment = filePath
 
-                        };*/
+                        };
 
-                       // expense.ExpenseImages.Add(expenseImage);
+                        product.ProductImages.Add(productImage);
+
+                        response.IsSuccess = true;
                         response.Message = "Product image has been uploaded succesfully";
                     }
                 }
@@ -159,11 +163,56 @@ namespace AgriProductTracker.Business
             }
             catch (Exception ex)
             {
-
+                response.IsSuccess = false;
+                response.Message = "Product image Upload Faild,Please try again";
             }
 
             return response;
         }
+        public ProductViewModel GetPrductById(long id, int productCategoryId)
+        {
+            var response = new ProductViewModel();
+            try
+            {
+                var query = _db.Products.Where(x => x.Id == id && x.CategoryId == productCategoryId).FirstOrDefault();
+
+                response.Id = query.Id;
+                response.Name = query.Name;
+                response.Description = query.Description;
+                response.CategoryId = query.CategoryId;
+
+                var  productImages = query.ProductImages.ToList();
+
+                foreach (var item in productImages)
+                {
+                    if (!string.IsNullOrEmpty(item.AttachementName))
+                    {
+                        var productImage = string.Format(@"{0}{1}\{2}\{3}", _configuration.GetSection("FileUploadPath").Value, FolderNames.PRODUCT, query.Id, item.AttachementName);
+
+                        if (File.Exists(productImage))
+                        {
+                            response.ProductImages.Add(new ProductImageViewModel()
+                            {
+                                Id = item.Id,
+                                AttachmentName = item.Attachment,
+                                Attachment = "data:image/jpg;base64," + ImageHelper.getThumnialImage(productImage),
+                            });
+                        }
+                    }
+                }
+                
+
+
+            }catch (Exception ex)
+            {
+                
+            }
+
+            return response;
+            
+        }
+        #endregion
+
 
 
         #region Private Methods
@@ -177,11 +226,12 @@ namespace AgriProductTracker.Business
             return string.Format(@"Product-Image-{0}-{1}{2}", model.Id, Guid.NewGuid(), extension);
         }
 
-        /*public static string GetExpenseImagePath(ExpenseImage model, IConfiguration config, long expenseId)
+        public static string GetProductImagePath(ProductImage model, IConfiguration config, long expenseId)
         {
-            return string.Format(@"{0}{1}\{2}\{3}", config.GetSection("FileUploadPath").Value, FolderNames.EXPENSES, model.ExpenseId, model.AttachementName);
+            return string.Format(@"{0}{1}\{2}\{3}", config.GetSection("FileUploadPath").Value, FolderNames.PRODUCT, model.ProductId, model.AttachementName);
 
-        }*/
+        }
+
         #endregion
     }
 
