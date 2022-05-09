@@ -159,8 +159,52 @@ namespace AgriProductTracker.Business
             return deliveryservices;
         }
 
-       
+        public PaginatedItemsViewModel<BasicDeliveryServiceViewModel> GetDeliveryServiceList(string searchText, int currentPage, int pageSize, int deliveryserviceId)
+        {
+            int totalRecordCount = 0;
+            double totalPages = 0;
+            int totalPageCount = 0;
 
+            var vmu = new List<BasicDeliveryServiceViewModel>();
+
+            var deliveryservices = _db.DeliveryServices.Where(x => x.IsActive == true).OrderBy(u => u.Name);
+
+            if (!string.IsNullOrEmpty(searchText))
+            {
+                deliveryservices = deliveryservices.Where(x => x.Name.Contains(searchText)).OrderBy(u => u.Name);
+            }
+
+
+            totalRecordCount = deliveryservices.Count();
+            totalPages = (double)totalRecordCount / pageSize;
+            totalPageCount = (int)Math.Ceiling(totalPages);
+
+            var deliveryServiceList = deliveryservices.Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
+
+            deliveryServiceList.ForEach(deliveryservice =>
+            {
+                var vm = new BasicDeliveryServiceViewModel()
+                {
+                    Id = deliveryservice.Id,
+                    Name = deliveryservice.Name,
+                    Address = deliveryservice.Address,
+                    Email = deliveryservice.Email,
+                    TelePhoneNumber = deliveryservice.TelePhoneNumber,
+                    DiliveryDetails = deliveryservice.DiliveryDetails,
+                    CreatedByName = ((int)deliveryservice.CreatedById). ? deliveryservice.CreatedBy.FullName : string.Empty,
+                    CreatedOn = DateTime.UtcNow,
+                    //UpdatedByName = deliveryservice.UpdatedById.HasValue ? deliveryservice.UpdatedBy.FullName : string.Empty,
+                    UpdatedOn = DateTime.UtcNow,
+
+                    
+                };
+                vmu.Add(vm);
+            });
+
+            var container = new PaginatedItemsViewModel<BasicDeliveryServiceViewModel>(currentPage, pageSize, totalPageCount, totalRecordCount, vmu);
+
+            return container;
+        }
     }
 }
 #endregion

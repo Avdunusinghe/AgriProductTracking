@@ -14,6 +14,6 @@ namespace AgriProductTracker.Business.Interfaces
         Task<ResponseViewModel> DeliveryServiceDelete(long id);
         List<DeliveryServiceViewModel> GetAllDeliveryServiceList();
         List<DropDownViewModel> GetAllDeliveryServices();
-        //PaginatedItemsViewModel<BasicDeliveryServiceViewModel> GetDeliveryServiceList(string searchText, int currentPage, int pageSize, int deliveryserviceId);
+        PaginatedItemsViewModel<BasicDeliveryServiceViewModel> GetDeliveryServiceList(string searchText, int currentPage, int pageSize, int deliveryserviceId);
     }
 }
