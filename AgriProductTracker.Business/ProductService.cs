@@ -3,6 +3,7 @@ using AgriProductTracker.Data.Data;
 using AgriProductTracker.Model;
 using AgriProductTracker.ViewModel;
 using AgriProductTracker.ViewModel.Product;
+using AgriProductTracking.util;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -25,6 +26,7 @@ namespace AgriProductTracker.Business
             this._currentUserService = _currentUserService;
         }
 
+        #region Business Services Methods
         public async Task<ResponseViewModel> ProductDelete(long id)
         {
             var response = new ResponseViewModel();
@@ -33,7 +35,7 @@ namespace AgriProductTracker.Business
             {
                 var product = _db.Products.FirstOrDefault(x => x.Id == id && x.IsActive == true);
 
-                if(product != null)
+                if (product != null)
                 {
                     product.IsActive = false;
 
@@ -50,9 +52,10 @@ namespace AgriProductTracker.Business
 
                 await _db.SaveChangesAsync();
 
-            }catch (Exception ex)
+            }
+            catch (Exception ex)
             {
-                response.IsSuccess=false;
+                response.IsSuccess = false;
                 response.Message = ex.Message;
 
             }
@@ -67,9 +70,9 @@ namespace AgriProductTracker.Business
             var loggedInUser = _currentUserService.GetUserByUsername(userName);
             try
             {
-                
+
                 var product = _db.Products.FirstOrDefault(p => p.Id == vm.Id);
-  
+
 
                 if (product == null)
                 {
@@ -83,7 +86,6 @@ namespace AgriProductTracker.Business
                     product.UpdatedById = loggedInUser.Id;
                     product.CreatedOn = DateTime.UtcNow;
                     product.CreatedById = loggedInUser.Id;
-                    product = _db.Products.FirstOrDefault(p => p.Id == vm.Id);
 
                     _db.Products.Add(product);
 
@@ -107,8 +109,8 @@ namespace AgriProductTracker.Business
 
                 }
 
-               await _db.SaveChangesAsync();
-                                                                                                                                                                                                                                     
+                await _db.SaveChangesAsync();
+
             }
             catch (Exception ex)
             {
@@ -118,6 +120,119 @@ namespace AgriProductTracker.Business
 
             return response;
         }
+
+        public async Task<ResponseViewModel> UploadProductImage(FileContainerViewModel container)
+        {
+            var response = new ResponseViewModel();
+
+            try
+            {
+                var product = _db.Products.FirstOrDefault(x => x.Id == container.Id);
+
+                var folderPath = GetProductImageFolderPath(product, _configuration);
+                var firstFile = container.Files.FirstOrDefault();
+
+                if (!Directory.Exists(folderPath))
+                {
+                    Directory.CreateDirectory(folderPath);
+                }
+
+                if (firstFile != null && firstFile.Length > 0)
+                {
+                    var fileName = GetProductImageName(product, Path.GetExtension(firstFile.FileName));
+                    var filePath = string.Format(@"{0}\{1}", folderPath, fileName);
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await firstFile.CopyToAsync(stream);
+                        var productImage = new ProductImage()
+                        {
+                            AttachementName = fileName,
+                            Attachment = filePath
+
+                        };
+
+                        product.ProductImages.Add(productImage);
+
+                        response.IsSuccess = true;
+                        response.Message = "Product image has been uploaded succesfully";
+                    }
+                }
+
+                await _db.SaveChangesAsync();
+
+            }
+            catch (Exception ex)
+            {
+                response.IsSuccess = false;
+                response.Message = "Product image Upload Faild,Please try again";
+            }
+
+            return response;
+        }
+        public ProductViewModel GetPrductById(long id, int productCategoryId)
+        {
+            var response = new ProductViewModel();
+            try
+            {
+                var query = _db.Products.Where(x => x.Id == id && x.CategoryId == productCategoryId).FirstOrDefault();
+
+                response.Id = query.Id;
+                response.Name = query.Name;
+                response.Description = query.Description;
+                response.CategoryId = query.CategoryId;
+
+                var  productImages = query.ProductImages.ToList();
+
+                foreach (var item in productImages)
+                {
+                    if (!string.IsNullOrEmpty(item.AttachementName))
+                    {
+                        var productImage = string.Format(@"{0}{1}\{2}\{3}", _configuration.GetSection("FileUploadPath").Value, FolderNames.PRODUCT, query.Id, item.AttachementName);
+
+                        if (File.Exists(productImage))
+                        {
+                            response.ProductImages.Add(new ProductImageViewModel()
+                            {
+                                Id = item.Id,
+                                AttachmentName = item.Attachment,
+                                Attachment = "data:image/jpg;base64," + ImageHelper.getThumnialImage(productImage),
+                            });
+                        }
+                    }
+                }
+                
+
+
+            }catch (Exception ex)
+            {
+                
+            }
+
+            return response;
+            
+        }
+        #endregion
+
+
+
+        #region Private Methods
+        private string GetProductImageFolderPath(Product model, IConfiguration configuration)
+        {
+            return string.Format(@"{0}{1}\{2}", configuration.GetSection("FileUploadPath").Value, FolderNames.PRODUCT, model.Id);
+        }
+
+        public static string GetProductImageName(Product model, string extension)
+        {
+            return string.Format(@"Product-Image-{0}-{1}{2}", model.Id, Guid.NewGuid(), extension);
+        }
+
+        public static string GetProductImagePath(ProductImage model, IConfiguration config, long expenseId)
+        {
+            return string.Format(@"{0}{1}\{2}\{3}", config.GetSection("FileUploadPath").Value, FolderNames.PRODUCT, model.ProductId, model.AttachementName);
+
+        }
+
+        #endregion
     }
 
    

@@ -41,7 +41,7 @@ namespace AgriProductTracker.Business
                     return response;
                 }
                 var test = CustomPasswordHasher.GenerateHash(model.Password);
-                if (test != user.Password)
+                if (model.Password != user.Password)
                 {
                     response.IsLoginSuccess = false;
                     response.LoginMessage = "Login failed Username or Password Invalid.";

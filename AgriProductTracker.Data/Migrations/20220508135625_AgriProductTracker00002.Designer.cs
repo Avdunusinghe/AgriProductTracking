@@ -4,6 +4,7 @@ using AgriProductTracker.Data.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AgriProductTracker.Data.Migrations
 {
     [DbContext(typeof(AgriProductTrackerDbContext))]
-    partial class AgriProductTrackerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220508135625_AgriProductTracker00002")]
+    partial class AgriProductTracker00002
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -280,10 +282,10 @@ namespace AgriProductTracker.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
 
-                    b.Property<string>("AttachementName")
+                    b.Property<string>("Attachment")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Attachment")
+                    b.Property<string>("AttachmentName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<long>("ProductId")
@@ -399,29 +401,29 @@ namespace AgriProductTracker.Data.Migrations
                         new
                         {
                             Id = 1L,
-                            CreatedOn = new DateTime(2022, 5, 8, 14, 4, 31, 321, DateTimeKind.Utc).AddTicks(8065),
+                            CreatedOn = new DateTime(2022, 5, 8, 13, 56, 24, 868, DateTimeKind.Utc).AddTicks(7447),
                             Email = "avdunusinghe@gmail.com",
                             FullName = "SuperAdmin",
                             IsActive = true,
                             LastLoginDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LoginsessionId = 0,
                             MobileNumber = "0703375581",
-                            Password = "r+rNgUse87Xp2SO7fOpqOqjws8xSGrPzr2nBT6QKW7U=",
-                            UpdatedOn = new DateTime(2022, 5, 8, 14, 4, 31, 321, DateTimeKind.Utc).AddTicks(8068),
+                            Password = "VfVhdwEeZLLo99lbFKIc0JHwxfeEVFPFWEG0poBHx/A=",
+                            UpdatedOn = new DateTime(2022, 5, 8, 13, 56, 24, 868, DateTimeKind.Utc).AddTicks(7450),
                             UserName = "avdunusinghe@gmail.com"
                         },
                         new
                         {
                             Id = 2L,
-                            CreatedOn = new DateTime(2022, 5, 8, 14, 4, 31, 374, DateTimeKind.Utc).AddTicks(2589),
+                            CreatedOn = new DateTime(2022, 5, 8, 13, 56, 24, 924, DateTimeKind.Utc).AddTicks(7185),
                             Email = "admin@gmail.com",
                             FullName = "Admin",
                             IsActive = true,
                             LastLoginDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LoginsessionId = 0,
                             MobileNumber = "0112487086",
-                            Password = "DgBvmVmvGdzZv+1HA7atLH67moRXwmUs9QWlqzni+ow=",
-                            UpdatedOn = new DateTime(2022, 5, 8, 14, 4, 31, 374, DateTimeKind.Utc).AddTicks(2593),
+                            Password = "nUNFtPYIpUHTU0IJrsH4fv4aGo2W0EwoeQlH1gGbcaU=",
+                            UpdatedOn = new DateTime(2022, 5, 8, 13, 56, 24, 924, DateTimeKind.Utc).AddTicks(7188),
                             UserName = "admin@gmail.com"
                         });
                 });
