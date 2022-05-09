@@ -14,6 +14,7 @@ namespace AgriProductTracker.Business.Interfaces
         Task<ResponseViewModel> ProductDelete (long id);
         Task<ResponseViewModel> UploadProductImage(FileContainerViewModel container);
         ProductViewModel GetPrductById (long id, int productCategoryId);
+        PaginatedItemsViewModel<ProductViewModel> GellAllProducts(ProductFilterViewModel filter);
 
     }
 }
