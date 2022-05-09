@@ -14,10 +14,12 @@ namespace AgriProductTracker.RestApi.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
+        private readonly IIdentityService _identityService;
 
-        public UserController(IUserService _userService)
+        public UserController(IUserService _userService , IIdentityService _identityServic)
         {
             this._userService = _userService;
+            this._identityService = _identityService;
         }
 
 
@@ -25,20 +27,11 @@ namespace AgriProductTracker.RestApi.Controllers
         [Route("getUserById/{id}")]
         public ActionResult GetUserById(int id)
         {
-            var response = _userService.GetUserbyId;
+            var response = _userService.GetUserbyId(id);
             return Ok(response);
         }
 
-       // [HttpPost]
-        //public async Task<ActionResult> Post([FromBody] UserViewModel vm)
-       // {
-            //var userName = IdentityService.GetUserName();
-           // var response = await _userService.SaveUser(vm, us);
-
-          //  return Ok(response);
-        //}
-
-         [HttpGet]
+        [HttpGet]
         [Route("getAllRoles")]
         public IActionResult GetAllRoles()
         {
@@ -46,6 +39,7 @@ namespace AgriProductTracker.RestApi.Controllers
 
             return Ok(response);
         }
+
 
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)

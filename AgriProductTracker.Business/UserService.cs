@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -18,6 +19,8 @@ namespace AgriProductTracker.Business
     {
         private readonly AgriProductTrackerDbContext _db;
         private readonly IConfiguration _configuration;
+        private readonly ICurrentUserService _currentUserService;
+      
 
         public UserService(AgriProductTrackerDbContext _db , IConfiguration _configuration)
         {
@@ -26,7 +29,7 @@ namespace AgriProductTracker.Business
         }
 
         // Save User Service
-        public async Task<ResponseViewModel> SaveUser(UserViewModel vm)
+        public async Task<ResponseViewModel> SaveUser(UserViewModel vm, string userName)
         {
             var response = new ResponseViewModel();
             try
@@ -192,8 +195,8 @@ namespace AgriProductTracker.Business
             response.Address = user.Address;
             response.Email = user.Email;
             response.MobileNumber = user.MobileNumber;
-            response.IsActive = user.IsActive;
-            response.ProfileImage = user.ProfileImage;
+           
+           
 
             var assignedRoles = user.UserRoles.Where(x => x.IsActive == true);
 
@@ -210,6 +213,127 @@ namespace AgriProductTracker.Business
         public List<DropDownViewModel> GetAllRoles()
         {
             return _db.Roles.Where(x => x.IsActive == true).Select(r => new DropDownViewModel() { Id = (int)r.Id, Name = r.Name }).ToList();
+        }
+
+
+        // upload user image
+
+        public async Task<ResponseViewModel> UploadUserImage(FileContainerViewModel container)
+        {
+            var response = new ResponseViewModel();
+
+            try
+            {
+                var product = _db.Products.FirstOrDefault(x => x.Id == container.Id);
+
+                var folderPath = GetProductImageFolderPath(product, _configuration);
+                var firstFile = container.Files.FirstOrDefault();
+
+                if (!Directory.Exists(folderPath))
+                {
+                    Directory.CreateDirectory(folderPath);
+                }
+
+                if (firstFile != null && firstFile.Length > 0)
+                {
+                    var fileName = GetProductImageName(product, Path.GetExtension(firstFile.FileName));
+                    var filePath = string.Format(@"{0}\{1}", folderPath, fileName);
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await firstFile.CopyToAsync(stream);
+                        var productImage = new ProductImage()
+                        {
+                            AttachementName = fileName,
+                            Attachment = filePath
+
+                        };
+
+                        product.ProductImages.Add(productImage);
+
+                        response.IsSuccess = true;
+                        response.Message = "Product image has been uploaded succesfully";
+                    }
+                }
+
+                await _db.SaveChangesAsync();
+
+            }
+            catch (Exception ex)
+            {
+                response.IsSuccess = false;
+                response.Message = "Product image Upload Faild,Please try again";
+            }
+
+            return response;
+        }
+
+        private string GetProductImageFolderPath(Product model, IConfiguration configuration)
+        {
+            return string.Format(@"{0}{1}\{2}", configuration.GetSection("FileUploadPath").Value, FolderNames.PRODUCT, model.Id);
+        }
+
+        public static string GetProductImageName(Product model, string extension)
+        {
+            return string.Format(@"Product-Image-{0}-{1}{2}", model.Id, Guid.NewGuid(), extension);
+        }
+
+        public static string GetProductImagePath(ProductImage model, IConfiguration config, long expenseId)
+        {
+            return string.Format(@"{0}{1}\{2}\{3}", config.GetSection("FileUploadPath").Value, FolderNames.PRODUCT, model.ProductId, model.AttachementName);
+
+        }
+
+        //paginated 
+
+        public PaginatedItemsViewModel<BasicUserViewModel> GetUserList(string searchText, int currentPage, int pageSize, int roleId)
+        {
+            int totalRecordCount = 0;
+            double totalPages = 0;
+            int totalPageCount = 0;
+
+            var vmu = new List<BasicUserViewModel>();
+
+            var users = _db.Users.Where(x => x.IsActive == true).OrderBy(u => u.FullName);
+
+            if (!string.IsNullOrEmpty(searchText))
+            {
+                users = users.Where(x => x.FullName.Contains(searchText)).OrderBy(u => u.FullName);
+            }
+
+            if (roleId > 0)
+            {
+                users = users.Where(x => x.UserRoles.Any(x => x.RoleId == roleId)).OrderBy(x => x.FullName);
+            }
+
+
+            totalRecordCount = users.Count();
+            totalPages = (double)totalRecordCount / pageSize;
+            totalPageCount = (int)Math.Ceiling(totalPages);
+
+            var userList = users.Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
+
+            userList.ForEach(user =>
+            {
+                var vm = new BasicUserViewModel()
+                {
+                    Id = (int)user.Id,
+                    FullName = user.FullName,
+                    Email = user.Email,
+                    MobileNumber = user.MobileNumber,
+                    UserName = user.UserName,
+                    Address = user.Address,
+                    CreatedByName = user.CreatedById.HasValue ? user.CreatedBy.FullName : string.Empty,
+                    CreatedOn = user.CreatedOn,
+                    UpdatedByName = user.UpdatedById.HasValue ? user.UpdatedBy.FullName : string.Empty,
+                    UpdatedOn = user.UpdatedOn,
+                };
+                vmu.Add(vm);
+            });
+
+            var container = new PaginatedItemsViewModel<BasicUserViewModel>(currentPage, pageSize, totalPageCount, totalRecordCount, vmu);
+
+            return container;
+
         }
     }
     }
