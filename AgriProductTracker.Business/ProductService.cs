@@ -211,6 +211,64 @@ namespace AgriProductTracker.Business
             return response;
             
         }
+        public PaginatedItemsViewModel<ProductViewModel> GellAllProducts(ProductFilterViewModel filter)
+        {
+            int totalRecordCount = 0;
+            int totalPageCount = 0;
+            
+
+                var data = new List<ProductViewModel>();
+
+                var query = _db.Products.Where(x=>x.IsActive == true);
+
+                if(filter.CaregoryId > 0)
+                {
+                    query.Where(x=>x.CategoryId == filter.CaregoryId).OrderBy(x=>x.CreatedOn);
+                }
+
+                totalRecordCount = query.Count();
+
+                totalPageCount = (int)Math.Ceiling((Convert.ToDecimal(totalRecordCount) / filter.PageSize));
+
+                var pageData = query.Skip((filter.CurrentPage - 1) * filter.PageSize).Take(filter.PageSize).ToList();
+
+                foreach (var item in pageData)
+                {
+                    var product = new ProductViewModel();
+
+                    product.Id = item.Id;
+                    product.Name = item.Name;
+                    product.Description = item.Description;
+                    product.CategoryId = item.CategoryId;
+
+                    var productImages = item.ProductImages.ToList();
+
+                    foreach(var image in productImages)
+                    {
+                        if (!string.IsNullOrEmpty(image.AttachementName))
+                        {
+                            var productImage = string.Format(@"{0}{1}\{2}\{3}", _configuration.GetSection("FileUploadPath").Value, FolderNames.PRODUCT, item.Id, image.AttachementName);
+
+                            if (File.Exists(productImage))
+                            {
+                                product.ProductImages.Add(new ProductImageViewModel()
+                                {
+                                    Id = image.Id,
+                                    AttachmentName = image.AttachementName,
+                                    Attachment = "data:image/jpg;base64," + ImageHelper.getThumnialImage(productImage),
+                                });
+                            }
+                        }
+                    }
+                    
+                    data.Add(product);
+                }
+
+                var productDataSet = new PaginatedItemsViewModel<ProductViewModel>(filter.CurrentPage, filter.PageSize, totalPageCount, totalRecordCount, data);
+
+                return productDataSet;
+          
+        }
         #endregion
 
 
@@ -226,11 +284,13 @@ namespace AgriProductTracker.Business
             return string.Format(@"Product-Image-{0}-{1}{2}", model.Id, Guid.NewGuid(), extension);
         }
 
-        public static string GetProductImagePath(ProductImage model, IConfiguration config, long expenseId)
+        public static string GetProductImagePath(ProductImage model, IConfiguration configuration, long expenseId)
         {
-            return string.Format(@"{0}{1}\{2}\{3}", config.GetSection("FileUploadPath").Value, FolderNames.PRODUCT, model.ProductId, model.AttachementName);
+            return string.Format(@"{0}{1}\{2}\{3}", configuration.GetSection("FileUploadPath").Value, FolderNames.PRODUCT, model.ProductId, model.AttachementName);
 
         }
+
+       
 
         #endregion
     }

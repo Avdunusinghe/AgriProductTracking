@@ -41,6 +41,7 @@ namespace AgriProductTracker.Data.Data
             modelBuilder.ApplyConfiguration(new OrderItemConfiguration());
             modelBuilder.ApplyConfiguration(new DeliveryServiceConfiguration());
             modelBuilder.ApplyConfiguration(new PaymentConfiguration());
+            modelBuilder.ApplyConfiguration(new ProductImageConfiguration());
 
 
         }
@@ -55,6 +56,7 @@ namespace AgriProductTracker.Data.Data
         public DbSet<DeliveryService> DeliveryServices { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
+        public DbSet<ProductImage> ProductImages { get; set; }
         #endregion
     }
 }

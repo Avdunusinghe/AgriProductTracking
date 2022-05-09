@@ -9,7 +9,7 @@ namespace AgriProductTracker.Model
 {
     public class Payment
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public decimal Amount { get; set; }
         public PaymentType PaymentType { get; set; }
@@ -24,9 +24,9 @@ namespace AgriProductTracker.Model
         public int CVV { get; set; }
         public bool IsActive { get; set; }
         public DateTime CreatedOn { get; set; }
-        public long CreatedById { get; set; }
+        public int CreatedById { get; set; }
         public DateTime UpdatedOn { get; set; }
-        public long UpdatedById { get; set; }
+        public int UpdatedById { get; set; }
 
         public virtual User CreatedBy { get; set; }
         public virtual User UpdatedBy { get; set; }

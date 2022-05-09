@@ -24,17 +24,17 @@ namespace AgriProductTracker.Data.Migrations
 
             modelBuilder.Entity("AgriProductTracker.Model.DeliveryService", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
+                        .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long>("CreatedById")
-                        .HasColumnType("bigint");
+                    b.Property<int>("CreatedById")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
@@ -54,8 +54,8 @@ namespace AgriProductTracker.Data.Migrations
                     b.Property<string>("TelePhoneNumber")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long>("UpdatedById")
-                        .HasColumnType("bigint");
+                    b.Property<int>("UpdatedById")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("UpdatedOn")
                         .HasColumnType("datetime2");
@@ -71,20 +71,20 @@ namespace AgriProductTracker.Data.Migrations
 
             modelBuilder.Entity("AgriProductTracker.Model.Order", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
+                        .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<long>("CustomerId")
-                        .HasColumnType("bigint");
+                    b.Property<int>("CustomerId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("DateTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<long>("DeleveryServiceId")
-                        .HasColumnType("bigint");
+                    b.Property<int>("DeleveryServiceId")
+                        .HasColumnType("int");
 
                     b.Property<bool>("IsProceesed")
                         .HasColumnType("bit");
@@ -102,20 +102,20 @@ namespace AgriProductTracker.Data.Migrations
 
             modelBuilder.Entity("AgriProductTracker.Model.OrderItem", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
+                        .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<int>("NumberOfItems")
                         .HasColumnType("int");
 
-                    b.Property<long>("OrderId")
-                        .HasColumnType("bigint");
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
 
-                    b.Property<long>("ProductId")
-                        .HasColumnType("bigint");
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -129,11 +129,11 @@ namespace AgriProductTracker.Data.Migrations
 
             modelBuilder.Entity("AgriProductTracker.Model.Payment", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
+                        .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<decimal>("Amount")
                         .HasPrecision(14, 2)
@@ -148,8 +148,8 @@ namespace AgriProductTracker.Data.Migrations
                     b.Property<int>("CardType")
                         .HasColumnType("int");
 
-                    b.Property<long>("CreatedById")
-                        .HasColumnType("bigint");
+                    b.Property<int>("CreatedById")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
@@ -175,8 +175,8 @@ namespace AgriProductTracker.Data.Migrations
                     b.Property<int>("PaymentType")
                         .HasColumnType("int");
 
-                    b.Property<long>("UpdatedById")
-                        .HasColumnType("bigint");
+                    b.Property<int>("UpdatedById")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("UpdatedOn")
                         .HasColumnType("datetime2");
@@ -202,20 +202,20 @@ namespace AgriProductTracker.Data.Migrations
 
             modelBuilder.Entity("AgriProductTracker.Model.Product", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
+                        .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<int>("Availability")
                         .HasColumnType("int");
 
-                    b.Property<long>("CategoryId")
-                        .HasColumnType("bigint");
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
 
-                    b.Property<long>("CreatedById")
-                        .HasColumnType("bigint");
+                    b.Property<int>("CreatedById")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
@@ -236,8 +236,8 @@ namespace AgriProductTracker.Data.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<long>("UpdatedById")
-                        .HasColumnType("bigint");
+                    b.Property<int>("UpdatedById")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("UpdatedOn")
                         .HasColumnType("datetime2");
@@ -255,11 +255,11 @@ namespace AgriProductTracker.Data.Migrations
 
             modelBuilder.Entity("AgriProductTracker.Model.ProductCategory", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
+                        .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
@@ -274,11 +274,11 @@ namespace AgriProductTracker.Data.Migrations
 
             modelBuilder.Entity("AgriProductTracker.Model.ProductImage", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
+                        .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("AttachementName")
                         .HasColumnType("nvarchar(max)");
@@ -286,23 +286,23 @@ namespace AgriProductTracker.Data.Migrations
                     b.Property<string>("Attachment")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long>("ProductId")
-                        .HasColumnType("bigint");
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("ProductImage");
+                    b.ToTable("ProductImage", (string)null);
                 });
 
             modelBuilder.Entity("AgriProductTracker.Model.Role", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
+                        .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
@@ -317,13 +317,19 @@ namespace AgriProductTracker.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 1L,
+                            Id = 1,
                             IsActive = true,
                             Name = "Farmer"
                         },
                         new
                         {
-                            Id = 2L,
+                            Id = 2,
+                            IsActive = true,
+                            Name = "Farmer"
+                        },
+                        new
+                        {
+                            Id = 3,
                             IsActive = true,
                             Name = "Buyer"
                         });
@@ -331,17 +337,17 @@ namespace AgriProductTracker.Data.Migrations
 
             modelBuilder.Entity("AgriProductTracker.Model.User", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
+                        .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long?>("CreatedById")
-                        .HasColumnType("bigint");
+                    b.Property<int?>("CreatedById")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
@@ -370,8 +376,8 @@ namespace AgriProductTracker.Data.Migrations
                     b.Property<string>("ProfileImage")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long?>("UpdatedById")
-                        .HasColumnType("bigint");
+                    b.Property<int?>("UpdatedById")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("UpdatedOn")
                         .HasColumnType("datetime2");
@@ -398,45 +404,59 @@ namespace AgriProductTracker.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 1L,
-                            CreatedOn = new DateTime(2022, 5, 8, 14, 4, 31, 321, DateTimeKind.Utc).AddTicks(8065),
-                            Email = "avdunusinghe@gmail.com",
-                            FullName = "SuperAdmin",
-                            IsActive = true,
-                            LastLoginDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            LoginsessionId = 0,
-                            MobileNumber = "0703375581",
-                            Password = "r+rNgUse87Xp2SO7fOpqOqjws8xSGrPzr2nBT6QKW7U=",
-                            UpdatedOn = new DateTime(2022, 5, 8, 14, 4, 31, 321, DateTimeKind.Utc).AddTicks(8068),
-                            UserName = "avdunusinghe@gmail.com"
-                        },
-                        new
-                        {
-                            Id = 2L,
-                            CreatedOn = new DateTime(2022, 5, 8, 14, 4, 31, 374, DateTimeKind.Utc).AddTicks(2589),
+                            Id = 2,
+                            CreatedOn = new DateTime(2022, 5, 9, 18, 22, 5, 800, DateTimeKind.Utc).AddTicks(8295),
                             Email = "admin@gmail.com",
                             FullName = "Admin",
                             IsActive = true,
                             LastLoginDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LoginsessionId = 0,
                             MobileNumber = "0112487086",
-                            Password = "DgBvmVmvGdzZv+1HA7atLH67moRXwmUs9QWlqzni+ow=",
-                            UpdatedOn = new DateTime(2022, 5, 8, 14, 4, 31, 374, DateTimeKind.Utc).AddTicks(2593),
+                            Password = "pass@123!",
+                            UpdatedOn = new DateTime(2022, 5, 9, 18, 22, 5, 800, DateTimeKind.Utc).AddTicks(8296),
                             UserName = "admin@gmail.com"
+                        },
+                        new
+                        {
+                            Id = 1,
+                            CreatedOn = new DateTime(2022, 5, 9, 18, 22, 5, 800, DateTimeKind.Utc).AddTicks(8289),
+                            Email = "superAdmin@gmail.com",
+                            FullName = "SuperAdmin",
+                            IsActive = true,
+                            LastLoginDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LoginsessionId = 0,
+                            MobileNumber = "0703375581",
+                            Password = "pass@123!",
+                            UpdatedOn = new DateTime(2022, 5, 9, 18, 22, 5, 800, DateTimeKind.Utc).AddTicks(8292),
+                            UserName = "superAdmin@gmail.com"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreatedOn = new DateTime(2022, 5, 9, 18, 22, 5, 800, DateTimeKind.Utc).AddTicks(8296),
+                            Email = "customer@gmail.com",
+                            FullName = "Customer",
+                            IsActive = true,
+                            LastLoginDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LoginsessionId = 0,
+                            MobileNumber = "0112487086",
+                            Password = "pass@123!",
+                            UpdatedOn = new DateTime(2022, 5, 9, 18, 22, 5, 800, DateTimeKind.Utc).AddTicks(8297),
+                            UserName = "customer@gmail.com"
                         });
                 });
 
             modelBuilder.Entity("AgriProductTracker.Model.UserRole", b =>
                 {
-                    b.Property<long>("UserId")
-                        .HasColumnType("bigint");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
-                    b.Property<long>("RoleId")
-                        .HasColumnType("bigint");
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
 
-                    b.Property<long?>("CreatedById")
+                    b.Property<int?>("CreatedById")
                         .IsRequired()
-                        .HasColumnType("bigint");
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
@@ -444,9 +464,9 @@ namespace AgriProductTracker.Data.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<long?>("UpdatedById")
+                    b.Property<int?>("UpdatedById")
                         .IsRequired()
-                        .HasColumnType("bigint");
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("UpdatedOn")
                         .HasColumnType("datetime2");
