@@ -226,9 +226,9 @@ namespace AgriProductTracker.Business
             return string.Format(@"Product-Image-{0}-{1}{2}", model.Id, Guid.NewGuid(), extension);
         }
 
-        public static string GetProductImagePath(ProductImage model, IConfiguration config, long expenseId)
+        public static string GetProductImagePath(ProductImage model, IConfiguration configuration, long expenseId)
         {
-            return string.Format(@"{0}{1}\{2}\{3}", config.GetSection("FileUploadPath").Value, FolderNames.PRODUCT, model.ProductId, model.AttachementName);
+            return string.Format(@"{0}{1}\{2}\{3}", configuration.GetSection("FileUploadPath").Value, FolderNames.PRODUCT, model.ProductId, model.AttachementName);
 
         }
 

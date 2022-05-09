@@ -1,5 +1,6 @@
 ﻿using AgriProductTracker.Business.Interfaces;
 using AgriProductTracker.RestApi.Infrastructure.Services;
+using AgriProductTracker.ViewModel;
 using AgriProductTracker.ViewModel.Product;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -35,6 +36,39 @@ namespace AgriProductTracker.RestApi.Controllers
 
             return Ok(response);
         }
+
+        [HttpGet]
+        [Route("getPrductById/{id:int}/{productCategoryId:int}")]
+        public IActionResult getExpenseById(int id, int productCategoryId)
+        {
+            var response = _productService.GetPrductById(id, productCategoryId);
+
+            return Ok(response);
+        }
+
+        [HttpPost]
+        [RequestSizeLimit(long.MaxValue)]
+        [Route("uploadProductImage")]
+        public async Task<IActionResult> UploadProductImage()
+        {
+            var container = new FileContainerViewModel();
+
+            var request = await Request.ReadFormAsync();
+
+            container.Id = int.Parse(request["id"]);
+            container.Type = int.Parse(request["type"]);
+
+            foreach (var file in request.Files)
+            {
+                container.Files.Add(file);
+            }
+
+            var response = await _productService.UploadProductImage(container);
+
+            return Ok(response);
+        }
+
+       
 
     }
 }
