@@ -9,7 +9,7 @@ namespace AgriProductTracker.Model
     public class User
     {
 
-        public long Id { get; set; }
+        public int Id { get; set; }
         public string FullName { get; set; }
         public string Email { get; set; }
         public string MobileNumber { get; set; }
@@ -21,9 +21,9 @@ namespace AgriProductTracker.Model
         public int LoginsessionId { get; set; }
         public bool IsActive { get; set; }
         public DateTime CreatedOn { get; set; }
-        public long? CreatedById { get; set; }
+        public int? CreatedById { get; set; }
         public DateTime UpdatedOn { get; set; }
-        public long? UpdatedById { get; set; }
+        public int? UpdatedById { get; set; }
 
 
 

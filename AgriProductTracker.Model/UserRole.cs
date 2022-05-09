@@ -8,13 +8,13 @@ namespace AgriProductTracker.Model
 {
     public  class UserRole
     {
-        public long UserId { get; set; }
-        public long RoleId { get; set; }
+        public int UserId { get; set; }
+        public int RoleId { get; set; }
         public bool IsActive { get; set; }
         public DateTime CreatedOn { get; set; }
-        public long? CreatedById { get; set; }
+        public int? CreatedById { get; set; }
         public DateTime UpdatedOn { get; set; }
-        public long? UpdatedById { get; set; }
+        public int? UpdatedById { get; set; }
 
         public virtual User User { get; set; }
         public virtual Role Role { get; set; }

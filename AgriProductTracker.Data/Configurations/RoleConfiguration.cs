@@ -17,23 +17,30 @@ namespace AgriProductTracker.Data.Configurations
 
             builder.HasKey(x => x.Id);
 
-            var farmer = new Role()
+            var admin = new Role()
             {
                 Id = 1,
                 IsActive = true,
                 Name = "Farmer"
             };
 
-            var buyer = new Role()
+            var farmer = new Role()
             {
                 Id = 2,
+                IsActive = true,
+                Name = "Farmer"
+            };
+
+            var buyer = new Role()
+            {
+                Id = 3,
                 IsActive = true,
                 Name = "Buyer"
             };
 
             
 
-            builder.HasData(farmer, buyer);
+            builder.HasData(admin, farmer, buyer);
         }
 
         

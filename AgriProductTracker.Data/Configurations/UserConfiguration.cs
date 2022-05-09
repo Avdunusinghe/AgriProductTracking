@@ -37,34 +37,47 @@ namespace AgriProductTracker.Data.Configurations
                 .OnDelete(DeleteBehavior.Restrict)
                 .IsRequired(false);
 
-            var farmer = new User()
+            var admin = new User()
             {
                 Id = 1,
                 FullName = "SuperAdmin",
 
-                Email = "avdunusinghe@gmail.com",
-                UserName = "avdunusinghe@gmail.com",
+                Email = "superAdmin@gmail.com",
+                UserName = "superAdmin@gmail.com",
                 MobileNumber = "0703375581",
-                Password = CustomPasswordHasher.GenerateHash("pass@123!"),
+                Password = "pass@123!",
                 IsActive = true,
                 CreatedOn = DateTime.UtcNow,
                 UpdatedOn = DateTime.UtcNow
             };
 
-            var admin = new User()
+            var farmer = new User()
             {
                 Id = 2,
                 FullName = "Admin",
                 Email = "admin@gmail.com",
                 UserName = "admin@gmail.com",
                 MobileNumber = "0112487086",
-                Password = CustomPasswordHasher.GenerateHash("pass@123!"),
+                Password = "pass@123!",
                 IsActive = true,
                 CreatedOn = DateTime.UtcNow,
                 UpdatedOn = DateTime.UtcNow
             };
 
-            builder.HasData(farmer, admin);
+            var buyer = new User()
+            {
+                Id = 3,
+                FullName = "Customer",
+                Email = "customer@gmail.com",
+                UserName = "customer@gmail.com",
+                MobileNumber = "0112487086",
+                Password = "pass@123!",
+                IsActive = true,
+                CreatedOn = DateTime.UtcNow,
+                UpdatedOn = DateTime.UtcNow
+            };
+
+            builder.HasData(farmer, admin, buyer);
            
         }
 
