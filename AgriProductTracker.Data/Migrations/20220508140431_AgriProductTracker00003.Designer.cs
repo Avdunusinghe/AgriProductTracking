@@ -4,6 +4,7 @@ using AgriProductTracker.Data.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AgriProductTracker.Data.Migrations
 {
     [DbContext(typeof(AgriProductTrackerDbContext))]
-    partial class AgriProductTrackerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220508140431_AgriProductTracker00003")]
+    partial class AgriProductTracker00003
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

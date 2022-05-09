@@ -39,14 +39,12 @@ namespace AgriProductTracker.Data.Configurations
                .IsRequired(true);
 
             builder.HasOne<OrderItem>(o => o.OrderItem)
-               .WithOne(p=>p.Product)
-               .HasForeignKey<OrderItem>(f => f.ProductId);
+               .WithOne(p => p.Product)
+               .HasForeignKey<OrderItem>(f => f.ProductId)
+               .OnDelete(DeleteBehavior.Restrict)
+               .IsRequired(false);
 
           
-
-            /*modelBuilder.Entity<Part>()
-        .Property(p => p.Size)
-        .HasColumnType("decimal(18,4)");*/
         }
     }
 }
