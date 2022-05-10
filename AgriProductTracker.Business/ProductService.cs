@@ -15,16 +15,25 @@ namespace AgriProductTracker.Business
 {
     public class ProductService : IProductService
     {
+        #region Private Members
         private readonly AgriProductTrackerDbContext _db;
         private readonly IConfiguration _configuration;
         private readonly ICurrentUserService _currentUserService;
+        #endregion
 
-        public ProductService(AgriProductTrackerDbContext _db, IConfiguration _configuration, ICurrentUserService _currentUserService)
+        #region Constructor
+        public ProductService
+        (
+            AgriProductTrackerDbContext _db, 
+            IConfiguration _configuration, 
+            ICurrentUserService _currentUserService
+        )
         {
             this._db = _db;
             this._configuration = _configuration;
             this._currentUserService = _currentUserService;
-        }
+        } 
+        #endregion
 
         #region Business Services Methods
         public async Task<ResponseViewModel> ProductDelete(long id)
@@ -63,7 +72,6 @@ namespace AgriProductTracker.Business
 
             return response;
         }
-
         public async Task<ResponseViewModel> ProductSave(ProductViewModel vm, string userName)
         {
             var response = new ResponseViewModel();
@@ -120,7 +128,6 @@ namespace AgriProductTracker.Business
 
             return response;
         }
-
         public async Task<ResponseViewModel> UploadProductImage(FileContainerViewModel container)
         {
             var response = new ResponseViewModel();
@@ -216,62 +223,59 @@ namespace AgriProductTracker.Business
             int totalRecordCount = 0;
             int totalPageCount = 0;
             
+            var data = new List<ProductViewModel>();
 
-                var data = new List<ProductViewModel>();
+            var query = _db.Products.Where(x=>x.IsActive == true);
 
-                var query = _db.Products.Where(x=>x.IsActive == true);
+            if(filter.CaregoryId > 0)
+            {
+               query.Where(x=>x.CategoryId == filter.CaregoryId).OrderBy(x=>x.CreatedOn);
+            }
 
-                if(filter.CaregoryId > 0)
+            totalRecordCount = query.Count();
+
+            totalPageCount = (int)Math.Ceiling((Convert.ToDecimal(totalRecordCount) / filter.PageSize));
+
+            var pageData = query.Skip((filter.CurrentPage - 1) * filter.PageSize).Take(filter.PageSize).ToList();
+
+            foreach (var item in pageData)
+            {
+                var product = new ProductViewModel();
+
+                product.Id = item.Id;
+                product.Name = item.Name;
+                product.Description = item.Description;
+                product.CategoryId = item.CategoryId;
+
+                var productImages = item.ProductImages.ToList();
+
+                foreach(var image in productImages)
                 {
-                    query.Where(x=>x.CategoryId == filter.CaregoryId).OrderBy(x=>x.CreatedOn);
-                }
-
-                totalRecordCount = query.Count();
-
-                totalPageCount = (int)Math.Ceiling((Convert.ToDecimal(totalRecordCount) / filter.PageSize));
-
-                var pageData = query.Skip((filter.CurrentPage - 1) * filter.PageSize).Take(filter.PageSize).ToList();
-
-                foreach (var item in pageData)
-                {
-                    var product = new ProductViewModel();
-
-                    product.Id = item.Id;
-                    product.Name = item.Name;
-                    product.Description = item.Description;
-                    product.CategoryId = item.CategoryId;
-
-                    var productImages = item.ProductImages.ToList();
-
-                    foreach(var image in productImages)
+                    if (!string.IsNullOrEmpty(image.AttachementName))
                     {
-                        if (!string.IsNullOrEmpty(image.AttachementName))
-                        {
-                            var productImage = string.Format(@"{0}{1}\{2}\{3}", _configuration.GetSection("FileUploadPath").Value, FolderNames.PRODUCT, item.Id, image.AttachementName);
+                       var productImage = string.Format(@"{0}{1}\{2}\{3}", _configuration.GetSection("FileUploadPath").Value, FolderNames.PRODUCT, item.Id, image.AttachementName);
 
-                            if (File.Exists(productImage))
-                            {
-                                product.ProductImages.Add(new ProductImageViewModel()
-                                {
-                                    Id = image.Id,
-                                    AttachmentName = image.AttachementName,
-                                    Attachment = "data:image/jpg;base64," + ImageHelper.getThumnialImage(productImage),
-                                });
-                            }
-                        }
-                    }
-                    
-                    data.Add(product);
+                         if (File.Exists(productImage))
+                         {
+                             product.ProductImages.Add(new ProductImageViewModel()
+                             {
+                                  Id = image.Id,
+                                  AttachmentName = image.AttachementName,
+                                  Attachment = "data:image/jpg;base64," + ImageHelper.getThumnialImage(productImage),
+                             });
+                         }
+                     }
                 }
+                    
+                  data.Add(product);
+            }
 
-                var productDataSet = new PaginatedItemsViewModel<ProductViewModel>(filter.CurrentPage, filter.PageSize, totalPageCount, totalRecordCount, data);
+             var productDataSet = new PaginatedItemsViewModel<ProductViewModel>(filter.CurrentPage, filter.PageSize, totalPageCount, totalRecordCount, data);
 
-                return productDataSet;
+             return productDataSet;
           
         }
         #endregion
-
-
 
         #region Private Methods
         private string GetProductImageFolderPath(Product model, IConfiguration configuration)

@@ -16,13 +16,18 @@ namespace AgriProductTracker.Business
 {
     public class AuthService : IAuthService
     {
+        #region Private Members
         private readonly AgriProductTrackerDbContext _db;
         private readonly IConfiguration _configuration;
+        #endregion
+
+        #region Constructor
         public AuthService(AgriProductTrackerDbContext _db, IConfiguration _configuration)
         {
             this._db = _db;
             this._configuration = _configuration;
-        }
+        } 
+        #endregion
 
         #region Public Methods
         public UserTokenViewModel Login(LoginViewModel model)
