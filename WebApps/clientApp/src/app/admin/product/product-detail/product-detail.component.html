@@ -36,7 +36,14 @@
             <div fxFlex="100" fxFlex.gt-sm="50" class="px-1">
               <mat-form-field appearance="outline" class="w-100">
                 <mat-label>Category</mat-label>
-                <mat-select formControlName="categoryId" required> </mat-select>
+                <mat-select formControlName="categoryId" required>
+                  <mat-option
+                    *ngFor="let item of productCategories"
+                    [value]="item.id"
+                  >
+                    <span>{{ item.name }}</span>
+                  </mat-option>
+                </mat-select>
                 <mat-error
                   *ngIf="productForm.controls.categoryId.errors?.required"
                   >Category is required</mat-error
