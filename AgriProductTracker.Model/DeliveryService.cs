@@ -8,7 +8,7 @@ namespace AgriProductTracker.Model
 {
     public  class DeliveryService
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Address { get; set; }
         public string Email { get; set; }
@@ -16,9 +16,9 @@ namespace AgriProductTracker.Model
         public string DiliveryDetails { get; set; }
         public bool IsActive { get; set; }
         public DateTime CreatedOn { get; set; }
-        public long CreatedById { get; set; }
+        public int CreatedById { get; set; }
         public DateTime UpdatedOn { get; set; }
-        public long UpdatedById { get; set; }
+        public int UpdatedById { get; set; }
 
         public virtual User CreatedBy { get; set; }
         public virtual User UpdatedBy { get; set; }

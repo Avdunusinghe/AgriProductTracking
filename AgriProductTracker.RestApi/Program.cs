@@ -1,5 +1,8 @@
+using AgriProductTracker.Business;
+using AgriProductTracker.Business.Interfaces;
 using AgriProductTracker.Data.Data;
 using AgriProductTracker.RestApi.Infrastructure;
+using AgriProductTracker.RestApi.Infrastructure.Services;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -11,38 +14,62 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
+ConfigurationManager configuration = builder.Configuration;
+
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = configuration["Tokens:Issuer"],
+        ValidAudiences = new List<string>
+        {
+            "webapp"
+        },
+        //ValidAudience = "https://localhost:5001",
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey@345"))
+    };
+});
+// Add services to the container.
+
+
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
 builder.Services.AddCustomeDbContext(builder.Configuration);
 builder.Services.EnableCors(builder.Configuration);
 builder.Services.EnableMultiPartBody(builder.Configuration);
-builder.Services.AddAuthorization();
 builder.Services.AddSwagger();
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 // Call UseServiceProviderFactory on the Host sub property 
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory())
-    .ConfigureContainer< ContainerBuilder>(builder =>
+    .ConfigureContainer<ContainerBuilder>(builder =>
     {
         builder.RegisterModule(new ApplicationModule());
     });
 
-
-
 var app = builder.Build();
+
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "AgriProductTracker.RestApi v1"));
+    app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();
 
+
 app.UseCors("CorsPolicy");
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
@@ -106,9 +133,9 @@ public static class CustomeExtenstionMethod
         return services;
 
     }
-    public static IServiceCollection EnableCors( this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection EnableCors(this IServiceCollection services, IConfiguration configuration)
     {
-        
+
         var allowedOrigins = new List<string>();
         var allowOrigins = configuration["AllowedOrigins"].Split(",");
 
@@ -142,33 +169,7 @@ public static class CustomeExtenstionMethod
 
         return services;
     }
-
-    public static IServiceCollection EnableJWTAuthentication(this IServiceCollection services, IConfiguration configuration)
-    {
-
-        services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-        .AddJwtBearer(options =>
-        {
-          options.RequireHttpsMetadata = false;
-          options.SaveToken = true;
-          options.TokenValidationParameters = new TokenValidationParameters
-          {
-              ValidateIssuer = true,
-              ValidateAudience = true,
-              ValidateLifetime = true,
-              ValidateIssuerSigningKey = true,
-              ValidIssuer = configuration["Tokens:Issuer"],
-              ValidAudiences = new List<string>
-              {
-                              "admin","webapp"
-              },
-
-              IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Tokens:Key"])),
-              ClockSkew = TimeSpan.Zero
-          };
-        });
-
-        return services;
-    }
-
 }
+
+    
+

@@ -16,6 +16,7 @@ namespace AgriProductTracker.ViewModel
         public List<IFormFile> Files { get; set; }
 
         public int Id { get; set; }
+        public int Type { get; set; }
 
 
     }

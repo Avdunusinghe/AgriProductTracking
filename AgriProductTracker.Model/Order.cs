@@ -8,10 +8,10 @@ namespace AgriProductTracker.Model
 {
     public class Order
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
         public decimal TotalPrice { get; set; }
-        public long DeleveryServiceId { get; set; }
-        public long CustomerId { get; set; }
+        public int DeleveryServiceId { get; set; }
+        public int CustomerId { get; set; }
         public DateTime DateTime { get; set; }
         public bool IsProceesed { get; set; }
 
