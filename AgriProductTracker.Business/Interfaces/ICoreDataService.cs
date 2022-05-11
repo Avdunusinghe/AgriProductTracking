@@ -1,5 +1,4 @@
-﻿using AgriProductTracker.Model;
-using AgriProductTracker.ViewModel.User;
+﻿using AgriProductTracker.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace AgriProductTracker.Business.Interfaces
 {
-    public interface IAuthService
+    public interface ICoreDataService
     {
-        UserTokenViewModel Login(LoginViewModel model);
+        List<DropDownViewModel> GetProductCategories();
     }
 }
