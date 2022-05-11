@@ -1,5 +1,6 @@
 ﻿using AgriProductTracker.Business.Interfaces;
 using AgriProductTracker.Data.Data;
+using AgriProductTracker.Model;
 using AgriProductTracker.ViewModel.User;
 using AgriProductTracking.util;
 using Microsoft.Extensions.Configuration;
@@ -26,7 +27,8 @@ namespace AgriProductTracker.Business
         {
             this._db = _db;
             this._configuration = _configuration;
-        } 
+        }
+
         #endregion
 
         #region Public Methods
@@ -54,8 +56,9 @@ namespace AgriProductTracker.Business
                     return response;
                 }
 
-                var secretKey  = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Tokens:Key"]));
+                var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey@345"));
                 var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
+
                 string userRole = string.Empty;
                 string roles = string.Join(",", user.UserRoles.Select(r => r.Role.Name).ToList());
 
@@ -67,22 +70,19 @@ namespace AgriProductTracker.Business
                         new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
                         new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                         new Claim(JwtRegisteredClaimNames.Iat, now.ToUniversalTime().ToString(), ClaimValueTypes.Integer64),
-                        new Claim(JwtRegisteredClaimNames.Aud,"mobileapp"),
                         new Claim(JwtRegisteredClaimNames.Aud,"webapp"),
                         new Claim(ClaimTypes.Role,roles)
                 };
 
-
-                var tokenOptions = new JwtSecurityToken(
+                var tokeOptions = new JwtSecurityToken(
                     issuer: _configuration["Tokens:Issuer"],
                     claims: claims,
-                    notBefore: nowDate,
                     expires: nowDate.AddDays(100),
                     signingCredentials: signinCredentials
-
                 );
 
-                var tokenString = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
+                var tokenString = new JwtSecurityTokenHandler().WriteToken(tokeOptions);
+
 
                 response.Token = tokenString;
                 response.IsLoginSuccess = true;

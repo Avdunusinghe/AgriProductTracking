@@ -1,4 +1,5 @@
-﻿using AgriProductTracker.ViewModel.User;
+﻿using AgriProductTracker.Model;
+using AgriProductTracker.ViewModel.User;
 using System;
 using System.Collections.Generic;
 using System.Linq;

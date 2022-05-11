@@ -41,7 +41,7 @@ namespace AgriProductTracker.RestApi.Controllers
 
         [HttpGet]
         [Route("getPrductById/{id:int}/{productCategoryId:int}")]
-        public IActionResult getExpenseById(int id, int productCategoryId)
+        public IActionResult GetPrductById(int id, int productCategoryId)
         {
             var response = _productService.GetPrductById(id, productCategoryId);
 

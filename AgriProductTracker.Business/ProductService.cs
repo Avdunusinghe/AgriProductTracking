@@ -84,17 +84,21 @@ namespace AgriProductTracker.Business
 
                 if (product == null)
                 {
-                    product.Name = vm.Name;
-                    product.Description = vm.Description;
-                    product.Price = vm.Price;
-                    product.CategoryId = vm.CategoryId;
-                    product.Quantity = vm.Quantity;
-                    product.IsActive = true;
-                    product.UpdatedOn = DateTime.UtcNow;
-                    product.UpdatedById = loggedInUser.Id;
-                    product.CreatedOn = DateTime.UtcNow;
-                    product.CreatedById = loggedInUser.Id;
+                    product = new Product()
+                    {
+                        Name = vm.Name,
+                        Description = vm.Description,
+                        Price = vm.Price,
+                        CategoryId = vm.CategoryId,
+                        Quantity = vm.Quantity,
+                        IsActive = true,
+                        UpdatedOn = DateTime.UtcNow,
+                        UpdatedById = loggedInUser.Id,
+                        CreatedOn = DateTime.UtcNow,
+                        CreatedById = loggedInUser.Id,
 
+                    };
+              
                     _db.Products.Add(product);
 
                     response.IsSuccess = true;
