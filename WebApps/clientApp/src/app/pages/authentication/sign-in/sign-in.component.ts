@@ -15,7 +15,9 @@ export class SignInComponent implements OnInit {
 
   authForm:FormGroup;
   clientRegisterForm:FormGroup;
-
+/*
+* Contructor Dependency Injection
+*/
   constructor
   (
     public _formBuilder: FormBuilder, 
@@ -29,7 +31,10 @@ export class SignInComponent implements OnInit {
     this.authForm = this.createAuthForm();
     this.clientRegisterForm = this.createClientRegisterForm();
   }
- 
+
+  /*
+  * Create Login Form
+  */
    createAuthForm():FormGroup
    {
      return this._formBuilder.group({
@@ -38,6 +43,9 @@ export class SignInComponent implements OnInit {
      });
    }
 
+  /*
+  *Create Register Form
+  */
    createClientRegisterForm():FormGroup
    {
      return this._formBuilder.group({

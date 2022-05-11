@@ -4,7 +4,6 @@ import { BehaviorSubject, Observable, of } from 'rxjs';
 import { LoginModel } from 'src/app/models/auth/login.model';
 import { environment } from 'src/environments/environment';
 import { map } from 'rxjs/operators';
-import { UserModel } from './../../models/user/user.model';
 import { UserTokenModel } from 'src/app/models/auth/user.token.model';
 
 @Injectable({

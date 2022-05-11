@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService } from 'ngx-toastr';
 import { CoreDataService } from 'src/app/services/core-data/core-data.service';
+import { ProductService } from 'src/app/services/product/product.service';
 import { DropDownModel } from './../../../models/common/drop.down.model';
 
 @Component({
@@ -17,13 +19,17 @@ export class ProductDetailComponent implements OnInit {
   private sub: any;
   productId:number;
  
-
+/*
+* Contructor Dependency Injection
+*/
   constructor
   (
     public _formBuilder: FormBuilder, 
     private _activatedRoute: ActivatedRoute, 
     private _coreDataService : CoreDataService,
-    private spinner: NgxSpinnerService 
+    private _spinner: NgxSpinnerService,
+    private _productService:ProductService,
+    private _toastr: ToastrService
   ) 
   {
 
@@ -64,17 +70,29 @@ export class ProductDetailComponent implements OnInit {
  */
  getAllProductCategories()
  {
-   this.spinner.show();
+   this._spinner.show();
     this._coreDataService.getAllProductCategories()
       .subscribe(response=>{
       this.productCategories = response;
     },(error)=>{
-      this.spinner.hide();
+      this._spinner.hide();
     })   
  }
 
-  public onSubmit(){
-    console.log(this.productForm.value);
+  saveProduct(){
+    this._spinner.show();
+    if(this.productForm.valid){
+      this._productService.saveProduct(this.productForm.getRawValue()).subscribe((response)=>{
+        if(response.isSuccess){
+            this._toastr.success(response.message, "success");
+        }
+        else{
+          this._toastr.success(response.message, "error");
+        }
+      },(error)=>{
+        this._spinner.hide();
+      })
+    }  
   }
 
  /*
