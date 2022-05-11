@@ -5,24 +5,29 @@ import { LoginModel } from 'src/app/models/auth/login.model';
 import { environment } from 'src/environments/environment';
 import { map } from 'rxjs/operators';
 import { UserModel } from './../../models/user/user.model';
+import { UserTokenModel } from 'src/app/models/auth/user.token.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  private currentUserSubject: BehaviorSubject<UserModel>;
-  public currentUser: Observable<UserModel>;
+  private currentUserSubject: BehaviorSubject<UserTokenModel>;
+  public currentUser: Observable<UserTokenModel>;
 
   constructor
   (
     private httpClient: HttpClient
   ) 
   { 
-    this.currentUserSubject = new BehaviorSubject<UserModel>(
+    this.currentUserSubject = new BehaviorSubject<UserTokenModel>(
       JSON.parse(localStorage.getItem('currentUser'))
     );
     this.currentUser = this.currentUserSubject.asObservable();
+  }
+
+  public get currentUserValue(): UserTokenModel {
+    return this.currentUserSubject.value;
   }
   
   login(loginModel : LoginModel):Observable<any>{

@@ -13,7 +13,8 @@ import { MenuComponent } from './components/menu/menu.component';
 import { FullScreenComponent } from './components/fullscreen/fullscreen.component'; 
 import { MessagesComponent } from './components/messages/messages.component';
 import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component'; 
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 export const routes = [ 
   { 
     path: '', 
@@ -38,13 +39,15 @@ export const routes = [
   declarations: [
     AdminComponent,
     MenuComponent,
-
+   
     FullScreenComponent,
     MessagesComponent,
     BreadcrumbComponent
   ],
   imports: [
-    CommonModule,
+   
+    ToastrModule.forRoot(),
+  CommonModule,
     RouterModule.forChild(routes),
     SharedModule,
     InputFileModule.forRoot(config),
