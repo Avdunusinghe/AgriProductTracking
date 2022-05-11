@@ -40,7 +40,7 @@ namespace AgriProductTracker.Data.Configurations
                     .OnDelete(DeleteBehavior.Restrict)
                     .IsRequired(true);
 
-                /*var farmerRole = new UserRole()
+                var admin = new UserRole()
                 {
                     CreatedOn = DateTime.UtcNow,
                     UpdatedOn = DateTime.UtcNow,
@@ -50,7 +50,7 @@ namespace AgriProductTracker.Data.Configurations
                     UpdatedById = 1,
                     CreatedById = 1,
                 };
-                var buyerRole = new UserRole()
+                var farmer = new UserRole()
                 {
                     CreatedOn = DateTime.UtcNow,
                     UpdatedOn = DateTime.UtcNow,
@@ -61,7 +61,18 @@ namespace AgriProductTracker.Data.Configurations
                     CreatedById = 1,
                 };
 
-                builder.HasData(farmerRole, buyerRole);*/
+                var customer = new UserRole()
+                {
+                    CreatedOn = DateTime.UtcNow,
+                    UpdatedOn = DateTime.UtcNow,
+                    IsActive = true,
+                    RoleId = 3,
+                    UserId = 3,
+                    UpdatedById = 1,
+                    CreatedById = 1,
+                };
+
+            builder.HasData(admin, farmer, customer);
             }
 
       

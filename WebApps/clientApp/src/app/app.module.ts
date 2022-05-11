@@ -25,14 +25,16 @@ import { AppService } from './app.service';
 import { AppInterceptor } from './theme/utils/app-interceptor';
 import { OptionsComponent } from './theme/components/options/options.component';
 import { FooterComponent } from './theme/components/footer/footer.component';
-
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
    imports: [
-    BrowserModule,
+
+ BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
     NgxSpinnerModule,
+    ToastrModule.forRoot(),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyAO7Mg2Cs1qzo_3jkKkZAKY6jtwIlm41-I'
     }),
@@ -48,7 +50,7 @@ import { FooterComponent } from './theme/components/footer/footer.component';
     SidenavMenuComponent,
     BreadcrumbComponent,
     OptionsComponent,
-    FooterComponent    
+    FooterComponent,  
   ], 
   providers: [
     AppSettings,

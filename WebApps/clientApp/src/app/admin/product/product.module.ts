@@ -8,7 +8,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { SwiperModule } from 'ngx-swiper-wrapper';
 import { InputFileModule } from 'ngx-input-file';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 export const routes = [ 
   { path: '', redirectTo: 'product-list', pathMatch: 'full'},
   { path: 'product-list', component: ProductListComponent, data: { breadcrumb: 'Product List' } },
@@ -22,7 +23,10 @@ export const routes = [
     ProductDetailComponent
   ],
   imports: [
-    CommonModule,
+  
+  CommonModule,
+    ToastrModule.forRoot(),
+ 
     RouterModule.forChild(routes),
     ReactiveFormsModule,
     SharedModule,

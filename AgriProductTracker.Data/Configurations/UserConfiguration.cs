@@ -54,8 +54,8 @@ namespace AgriProductTracker.Data.Configurations
             var farmer = new User()
             {
                 Id = 2,
-                FullName = "Admin",
-                Email = "admin@gmail.com",
+                FullName = "farmer",
+                Email = "farmer@gmail.com",
                 UserName = "admin@gmail.com",
                 MobileNumber = "0112487086",
                 Password = "pass@123!",
