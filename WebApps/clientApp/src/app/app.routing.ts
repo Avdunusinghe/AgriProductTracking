@@ -8,7 +8,16 @@ export const routes: Routes = [
     { 
         path: '', 
         component: PagesComponent, children: [
-            { path: 'contact', loadChildren: () => import('./pages/contact/contact.module').then(m => m.ContactModule), data: { breadcrumb: 'Contact' } },
+            { 
+                path: 'authentication', 
+                loadChildren: () => import('./pages/authentication/authentication.module').then(m => m.AuthenticationModule), 
+                data: { breadcrumb: 'Authentication' } 
+            },
+            { 
+                path: 'contact', 
+                loadChildren: () => import('./pages/contact/contact.module').then(m => m.ContactModule), 
+                data: { breadcrumb: 'Contact' } 
+            },
         ]
     },
     { path: 'landing', loadChildren: () => import('./landing/landing.module').then(m => m.LandingModule) },

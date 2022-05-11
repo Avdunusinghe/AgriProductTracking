@@ -97,6 +97,13 @@
   >
   <a
     mat-button
+    routerLink="/authentication"
+    routerLinkActive="horizontal-active-link"
+    [routerLinkActiveOptions]="{ exact: true }"
+    >Sign-In</a
+  >
+  <a
+    mat-button
     routerLink="/admin"
     routerLinkActive="horizontal-active-link"
     [routerLinkActiveOptions]="{ exact: true }"
