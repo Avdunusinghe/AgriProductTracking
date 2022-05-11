@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { CoreDataService } from 'src/app/services/core-data/core-data.service';
 import { DropDownModel } from './../../../models/common/drop.down.model';
 
@@ -21,13 +22,15 @@ export class ProductDetailComponent implements OnInit {
   (
     public _formBuilder: FormBuilder, 
     private _activatedRoute: ActivatedRoute, 
-    private _coreDataService : CoreDataService 
+    private _coreDataService : CoreDataService,
+    private spinner: NgxSpinnerService 
   ) 
   {
 
   }
 
   ngOnInit(): void {
+  
    this._activatedRoute.params.subscribe(params=>{
      this.productId = +params.id;
      
@@ -61,9 +64,12 @@ export class ProductDetailComponent implements OnInit {
  */
  getAllProductCategories()
  {
+   this.spinner.show();
     this._coreDataService.getAllProductCategories()
-      .subscribe((response)=>{
+      .subscribe(response=>{
       this.productCategories = response;
+    },(error)=>{
+      this.spinner.hide();
     })   
  }
 
@@ -79,10 +85,7 @@ export class ProductDetailComponent implements OnInit {
     return this.productForm.get('id').value;
   }
 
-  ngOnDestroy() 
-  {
-    this.sub.unsubscribe();
-  } 
+ 
 
 
 

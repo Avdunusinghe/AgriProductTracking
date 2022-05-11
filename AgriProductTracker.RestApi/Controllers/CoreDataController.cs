@@ -1,5 +1,6 @@
 ﻿using AgriProductTracker.Business.Interfaces;
 using AgriProductTracker.RestApi.Infrastructure.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,6 +19,7 @@ namespace AgriProductTracker.RestApi.Controllers
             this._identityService = _identityService;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         [Route("getAllProductCatagories")]
         public IActionResult GetAllPeoductCategories()
