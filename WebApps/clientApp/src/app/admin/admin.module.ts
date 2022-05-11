@@ -12,7 +12,10 @@ import { AdminComponent } from './admin.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { FullScreenComponent } from './components/fullscreen/fullscreen.component'; 
 import { MessagesComponent } from './components/messages/messages.component';
-import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component'; 
+import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
+import { UsersDetailComponent } from './users/users-detail/users-detail/users-detail.component';
+import { UserListComponent } from './user/user-list/user-list/user-list.component';
+import { UserDetailComponent } from './user/user-detail/user-detail.component'; 
 
 export const routes = [ 
   { 
@@ -41,7 +44,10 @@ export const routes = [
 
     FullScreenComponent,
     MessagesComponent,
-    BreadcrumbComponent
+    BreadcrumbComponent,
+    UsersDetailComponent,
+    UserListComponent,
+    UserDetailComponent
   ],
   imports: [
     CommonModule,
