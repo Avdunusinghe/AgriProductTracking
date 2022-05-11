@@ -153,7 +153,7 @@ namespace AgriProductTracker.Business
         {
             var deliveryservices = _db.DeliveryServices
             .Where(x => x.IsActive == true)
-            .Select(t => new DropDownViewModel() { Id = (int)t.Id, Name = string.Format("{0}", t.Name) })
+            .Select(t => new DropDownViewModel() { Id = t.Id, Name = string.Format("{0}", t.Name) })
             .Distinct().ToList();
 
             return deliveryservices;
@@ -191,9 +191,9 @@ namespace AgriProductTracker.Business
                     Email = deliveryservice.Email,
                     TelePhoneNumber = deliveryservice.TelePhoneNumber,
                     DiliveryDetails = deliveryservice.DiliveryDetails,
-                    CreatedByName = ((int)deliveryservice.CreatedById). ? deliveryservice.CreatedBy.FullName : string.Empty,
+                    CreatedByName = deliveryservice.CreatedBy.FullName,
                     CreatedOn = DateTime.UtcNow,
-                    //UpdatedByName = deliveryservice.UpdatedById.HasValue ? deliveryservice.UpdatedBy.FullName : string.Empty,
+                    UpdatedByName = deliveryservice.UpdatedBy.FullName,
                     UpdatedOn = DateTime.UtcNow,
 
                     

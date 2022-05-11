@@ -1,5 +1,6 @@
 ﻿using AgriProductTracker.Business.Interfaces;
 using AgriProductTracker.RestApi.Infrastructure.Services;
+using AgriProductTracker.ViewModel;
 using AgriProductTracker.ViewModel.DeliveryService;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -18,15 +19,16 @@ namespace AgriProductTracker.RestApi.Controllers
             this._deliveryService = _deliveryService;
             this._identityService = _identityService;
         }
-
+        
         [HttpGet]
         [Route("getAllDeliveryServiceList")]
 
-        public ActionResult GetAllDeliveryServiceList()
+        public IActionResult GetAllDeliveryServiceList()
         {
             var response = _deliveryService.GetAllDeliveryServiceList();
             return Ok(response);
         }
+        
 
         [HttpPost]
         [Route("deliveryServiceSave")]
@@ -38,16 +40,16 @@ namespace AgriProductTracker.RestApi.Controllers
 
             return Ok(response);
         }
-
+        
         [HttpDelete("{id}")]
-        [Route("deliveryServiceDelete")]
-        public async Task<ActionResult> Delete(int id)
+        
+        public async Task<ActionResult> DeliveryServiceDelete(int id)
         {
             var response = await _deliveryService.DeliveryServiceDelete(id);
 
             return Ok(response);
         }
-
+        
 
         [HttpGet]
         [Route("getAllDeliveryServices")]
@@ -57,6 +59,17 @@ namespace AgriProductTracker.RestApi.Controllers
 
             return Ok(response);
         }
+
+
+       [HttpGet]
+        [Route("getDeliveryServiceList")]
+        public PaginatedItemsViewModel<BasicDeliveryServiceViewModel> GetDeliveryServiceList(string searchText, int currentPage, int pageSize, int deliveryserviceId)
+        {
+            var response = _deliveryService.GetDeliveryServiceList(searchText, currentPage, pageSize, deliveryserviceId);
+
+            return response;
+        }
+        
 
     }
 }

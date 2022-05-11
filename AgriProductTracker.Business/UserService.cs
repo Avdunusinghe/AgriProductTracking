@@ -224,9 +224,9 @@ namespace AgriProductTracker.Business
 
             try
             {
-                var product = _db.Products.FirstOrDefault(x => x.Id == container.Id);
+                var user = _db.Users.FirstOrDefault(x => x.Id == container.Id);
 
-                var folderPath = GetProductImageFolderPath(product, _configuration);
+                var folderPath = GetUserImageFolderPath(user, _configuration);
                 var firstFile = container.Files.FirstOrDefault();
 
                 if (!Directory.Exists(folderPath))
@@ -236,22 +236,15 @@ namespace AgriProductTracker.Business
 
                 if (firstFile != null && firstFile.Length > 0)
                 {
-                    var fileName = GetProductImageName(product, Path.GetExtension(firstFile.FileName));
+                    var fileName = GetUserImageName(user, Path.GetExtension(firstFile.FileName));
                     var filePath = string.Format(@"{0}\{1}", folderPath, fileName);
                     using (var stream = new FileStream(filePath, FileMode.Create))
                     {
                         await firstFile.CopyToAsync(stream);
-                        var productImage = new ProductImage()
-                        {
-                            AttachementName = fileName,
-                            Attachment = filePath
-
-                        };
-
-                        product.ProductImages.Add(productImage);
+                        user.ProfileImage = filePath;
 
                         response.IsSuccess = true;
-                        response.Message = "Product image has been uploaded succesfully";
+                        response.Message = "User image has been uploaded succesfully";
                     }
                 }
 
@@ -261,25 +254,25 @@ namespace AgriProductTracker.Business
             catch (Exception ex)
             {
                 response.IsSuccess = false;
-                response.Message = "Product image Upload Faild,Please try again";
+                response.Message = "User image Upload Failed,Please try again";
             }
 
             return response;
         }
 
-        private string GetProductImageFolderPath(Product model, IConfiguration configuration)
+        private string GetUserImageFolderPath(User model, IConfiguration configuration)
         {
-            return string.Format(@"{0}{1}\{2}", configuration.GetSection("FileUploadPath").Value, FolderNames.PRODUCT, model.Id);
+            return string.Format(@"{0}{1}\{2}", configuration.GetSection("FileUploadPath").Value, FolderNames.USER, model.Id);
         }
 
-        public static string GetProductImageName(Product model, string extension)
+        public static string GetUserImageName(User model, string extension)
         {
-            return string.Format(@"Product-Image-{0}-{1}{2}", model.Id, Guid.NewGuid(), extension);
+            return string.Format(@"User-Image-{0}-{1}{2}", model.Id, Guid.NewGuid(), extension);
         }
 
-        public static string GetProductImagePath(ProductImage model, IConfiguration config, long expenseId)
+        public static string GetUserImagePath(User model, IConfiguration config, long expenseId)
         {
-            return string.Format(@"{0}{1}\{2}\{3}", config.GetSection("FileUploadPath").Value, FolderNames.PRODUCT, model.ProductId, model.AttachementName);
+            return string.Format(@"{0}{1}\{2}\{3}", config.GetSection("FileUploadPath").Value, FolderNames.USER, model.Id);
 
         }
 
@@ -316,7 +309,7 @@ namespace AgriProductTracker.Business
             {
                 var vm = new BasicUserViewModel()
                 {
-                    Id = (int)user.Id,
+                    Id = user.Id,
                     FullName = user.FullName,
                     Email = user.Email,
                     MobileNumber = user.MobileNumber,
