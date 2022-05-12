@@ -2,13 +2,17 @@
 using AgriProductTracker.RestApi.Infrastructure.Services;
 using AgriProductTracker.ViewModel;
 using AgriProductTracker.ViewModel.User;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AgriProductTracker.RestApi.Controllers
 {
+
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
+
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
@@ -32,15 +36,16 @@ namespace AgriProductTracker.RestApi.Controllers
 
         [HttpGet]
         [Route("getUserById/{id}")]
-        public ActionResult GetUserById(int id)
+        public IActionResult GetUserById(int id)
         {
             var response = _userService.GetUserbyId(id);
+
             return Ok(response);
         }
 
         [HttpGet]
         [Route("getAllRoles")]
-        public IActionResult GetAllRoles()
+        public ActionResult GetAllRoles()
         {
             var response = _userService.GetAllRoles();
 
@@ -66,7 +71,7 @@ namespace AgriProductTracker.RestApi.Controllers
 
             return response;
         }
-        /*
+        
         [HttpPost]
         [RequestSizeLimit(long.MaxValue)]
         [Route("uploadUserImage")]
@@ -88,7 +93,7 @@ namespace AgriProductTracker.RestApi.Controllers
 
             return Ok(response);
         }
-        */
+        
 
     }
 }

@@ -1,5 +1,6 @@
 ﻿using AgriProductTracker.Business.Interfaces;
 using AgriProductTracker.Data.Data;
+using AgriProductTracker.Model;
 using AgriProductTracker.ViewModel;
 using AgriProductTracker.ViewModel.DeliveryService;
 using Microsoft.Extensions.Configuration;
@@ -74,18 +75,22 @@ namespace AgriProductTracker.Business
 
                 if (deliveryservice == null)
                 {
-                    deliveryservice.Name = vm.Name;
-                    deliveryservice.Address = vm.Address;
-                    deliveryservice.Email = vm.Email;
-                    deliveryservice.TelePhoneNumber = vm.TelePhoneNumber;
-                    deliveryservice.DiliveryDetails = vm.DiliveryDetails;
-                    deliveryservice.IsActive = true;
-                    deliveryservice.UpdatedOn = DateTime.UtcNow;
-                    deliveryservice.UpdatedById = loggedInUser.Id;
-                    deliveryservice.CreatedOn = DateTime.UtcNow;
-                    deliveryservice.CreatedById = loggedInUser.Id;
+                    deliveryservice =  new DeliveryService()
+                    {
+                            Name = vm.Name,
+                          Address = vm.Address,
+                       Email = vm.Email,
+                        TelePhoneNumber = vm.TelePhoneNumber,
+                        DiliveryDetails = vm.DiliveryDetails,
+                       IsActive = true,
+                        UpdatedOn = DateTime.UtcNow,
+                       UpdatedById = loggedInUser.Id,
+                        CreatedOn = DateTime.UtcNow,
+                        CreatedById = loggedInUser.Id
 
-                    _db.DeliveryServices.Add(deliveryservice);
+                };
+
+                _db.DeliveryServices.Add(deliveryservice);
 
                     response.IsSuccess = true;
                     response.Message = "Delivery service has been save Successfully.";

@@ -2,11 +2,13 @@
 using AgriProductTracker.RestApi.Infrastructure.Services;
 using AgriProductTracker.ViewModel;
 using AgriProductTracker.ViewModel.DeliveryService;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AgriProductTracker.RestApi.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class DeliveryServiceController : ControllerBase

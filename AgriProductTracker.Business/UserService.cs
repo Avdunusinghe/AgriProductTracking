@@ -22,19 +22,21 @@ namespace AgriProductTracker.Business
         private readonly ICurrentUserService _currentUserService;
       
 
-        public UserService(AgriProductTrackerDbContext _db , IConfiguration _configuration)
+        public UserService(AgriProductTrackerDbContext _db , IConfiguration _configuration, ICurrentUserService _currentUserService)
         {
             this._db = _db;
             this._configuration = _configuration;
+            this._currentUserService = _currentUserService;
         }
 
         // Save User Service
         public async Task<ResponseViewModel> SaveUser(UserViewModel vm, string userName)
         {
             var response = new ResponseViewModel();
+            
             try
             {
-              
+                var loggedInUser = _currentUserService.GetUserByUsername(userName);
 
                 var user = _db.Users.FirstOrDefault(x => x.Id == vm.Id);
 
@@ -74,9 +76,9 @@ namespace AgriProductTracker.Business
                         Password = vm.Password,
                         IsActive = true,
                         CreatedOn = DateTime.UtcNow,
-                        CreatedById = vm.Id,
+                        CreatedById = loggedInUser.Id,
                         UpdatedOn = DateTime.UtcNow,
-                        UpdatedById = vm.Id
+                        UpdatedById = loggedInUser.Id
                     };
 
                     user.UserRoles = new HashSet<UserRole>();
@@ -87,9 +89,9 @@ namespace AgriProductTracker.Business
                         {
                             RoleId = item,
                             IsActive = true,
-                            CreatedById = vm.Id,
+                            CreatedById = loggedInUser.Id,
                             CreatedOn = DateTime.UtcNow,
-                            UpdatedById = vm.Id,
+                            UpdatedById = loggedInUser.Id,
                             UpdatedOn = DateTime.UtcNow
                         };
 
@@ -98,7 +100,7 @@ namespace AgriProductTracker.Business
 
                     _db.Users.Add(user);
 
-                    EmailHelper.SendRegisterted(vm.Email, vm.UserName, vm.Password);
+                   // EmailHelper.SendRegisterted(vm.Email, vm.UserName, vm.Password);
                     response.IsSuccess = true;
                     response.Message = UserServiceConstants.NEW_USER_SAVE_SUCCESS_MESSAGE;
                 }
@@ -108,7 +110,7 @@ namespace AgriProductTracker.Business
                     user.FullName = vm.FullName;
                     user.Email = vm.Email;
                     user.MobileNumber = vm.MobileNumber;
-                   user.UpdatedById = vm.Id;
+                   user.UpdatedById = loggedInUser.Id;
                     user.UpdatedOn = DateTime.UtcNow;
 
                     var existingRoles = user.UserRoles.ToList();
@@ -124,9 +126,9 @@ namespace AgriProductTracker.Business
                         {
                             RoleId = item,
                             IsActive = true,
-                            CreatedById = vm.Id,
+                            CreatedById = loggedInUser.Id,
                             CreatedOn = DateTime.UtcNow,
-                            UpdatedById = vm.Id,
+                            UpdatedById = loggedInUser.Id,
                             UpdatedOn = DateTime.UtcNow
                         };
 
