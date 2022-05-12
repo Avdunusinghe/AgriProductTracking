@@ -40,8 +40,39 @@ namespace AgriProductTracker.Data.Configurations
                     .OnDelete(DeleteBehavior.Restrict)
                     .IsRequired(true);
 
-                
+                var admin = new UserRole()
+                {
+                    CreatedOn = DateTime.UtcNow,
+                    UpdatedOn = DateTime.UtcNow,
+                    IsActive = true,
+                    RoleId = 1,
+                    UserId = 1,
+                    UpdatedById = 1,
+                    CreatedById = 1,
+                };
+                var farmer = new UserRole()
+                {
+                    CreatedOn = DateTime.UtcNow,
+                    UpdatedOn = DateTime.UtcNow,
+                    IsActive = true,
+                    RoleId = 2,
+                    UserId = 2,
+                    UpdatedById = 1,
+                    CreatedById = 1,
+                };
 
+                var customer = new UserRole()
+                {
+                    CreatedOn = DateTime.UtcNow,
+                    UpdatedOn = DateTime.UtcNow,
+                    IsActive = true,
+                    RoleId = 3,
+                    UserId = 3,
+                    UpdatedById = 1,
+                    CreatedById = 1,
+                };
+
+            builder.HasData(admin, farmer, customer);
             }
 
       

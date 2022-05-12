@@ -30,6 +30,7 @@
     "ngx-perfect-scrollbar": "10.0.1",
     "ngx-spinner": "10.0.1",
     "ngx-swiper-wrapper": "10.0.0",
+    "ngx-toastr": "^14.3.0",
     "rxjs": "6.6.3",
     "swiper": "6.3.5",
     "tslib": "2.0.3",

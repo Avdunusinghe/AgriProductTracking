@@ -17,6 +17,9 @@ import { UsersDetailComponent } from './users/users-detail/users-detail/users-de
 import { UserListComponent } from './user/user-list/user-list/user-list.component';
 import { UserDetailComponent } from './user/user-detail/user-detail.component'; 
 
+import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component'; 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 export const routes = [ 
   { 
     path: '', 
@@ -41,7 +44,7 @@ export const routes = [
   declarations: [
     AdminComponent,
     MenuComponent,
-
+   
     FullScreenComponent,
     MessagesComponent,
     BreadcrumbComponent,
@@ -50,7 +53,9 @@ export const routes = [
     UserDetailComponent
   ],
   imports: [
-    CommonModule,
+   
+    ToastrModule.forRoot(),
+  CommonModule,
     RouterModule.forChild(routes),
     SharedModule,
     InputFileModule.forRoot(config),

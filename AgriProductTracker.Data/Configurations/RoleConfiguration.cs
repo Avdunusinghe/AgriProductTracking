@@ -21,7 +21,7 @@ namespace AgriProductTracker.Data.Configurations
             {
                 Id = 1,
                 IsActive = true,
-                Name = "Farmer"
+                Name = "Admin"
             };
 
             var farmer = new Role()

@@ -306,7 +306,7 @@ namespace AgriProductTracker.Data.Migrations
                 columns: new[] { "Id", "IsActive", "Name" },
                 values: new object[,]
                 {
-                    { 1, true, "Farmer" },
+                    { 1, true, "Admin" },
                     { 2, true, "Farmer" },
                     { 3, true, "Buyer" }
                 });
@@ -316,10 +316,25 @@ namespace AgriProductTracker.Data.Migrations
                 columns: new[] { "Id", "Address", "CreatedById", "CreatedOn", "Email", "FullName", "IsActive", "LastLoginDate", "LoginsessionId", "MobileNumber", "Password", "ProfileImage", "UpdatedById", "UpdatedOn", "UserName" },
                 values: new object[,]
                 {
-                    { 1, null, null, new DateTime(2022, 5, 9, 18, 22, 5, 800, DateTimeKind.Utc).AddTicks(8289), "superAdmin@gmail.com", "SuperAdmin", true, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, "0703375581", "pass@123!", null, null, new DateTime(2022, 5, 9, 18, 22, 5, 800, DateTimeKind.Utc).AddTicks(8292), "superAdmin@gmail.com" },
-                    { 2, null, null, new DateTime(2022, 5, 9, 18, 22, 5, 800, DateTimeKind.Utc).AddTicks(8295), "admin@gmail.com", "Admin", true, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, "0112487086", "pass@123!", null, null, new DateTime(2022, 5, 9, 18, 22, 5, 800, DateTimeKind.Utc).AddTicks(8296), "admin@gmail.com" },
-                    { 3, null, null, new DateTime(2022, 5, 9, 18, 22, 5, 800, DateTimeKind.Utc).AddTicks(8296), "customer@gmail.com", "Customer", true, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, "0112487086", "pass@123!", null, null, new DateTime(2022, 5, 9, 18, 22, 5, 800, DateTimeKind.Utc).AddTicks(8297), "customer@gmail.com" }
+                    { 1, null, null, new DateTime(2022, 5, 11, 12, 28, 55, 781, DateTimeKind.Utc).AddTicks(6990), "superAdmin@gmail.com", "SuperAdmin", true, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, "0703375581", "pass@123!", null, null, new DateTime(2022, 5, 11, 12, 28, 55, 781, DateTimeKind.Utc).AddTicks(6991), "superAdmin@gmail.com" },
+                    { 2, null, null, new DateTime(2022, 5, 11, 12, 28, 55, 781, DateTimeKind.Utc).AddTicks(6993), "farmer@gmail.com", "farmer", true, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, "0112487086", "pass@123!", null, null, new DateTime(2022, 5, 11, 12, 28, 55, 781, DateTimeKind.Utc).AddTicks(6994), "admin@gmail.com" },
+                    { 3, null, null, new DateTime(2022, 5, 11, 12, 28, 55, 781, DateTimeKind.Utc).AddTicks(6995), "customer@gmail.com", "Customer", true, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, "0112487086", "pass@123!", null, null, new DateTime(2022, 5, 11, 12, 28, 55, 781, DateTimeKind.Utc).AddTicks(6995), "customer@gmail.com" }
                 });
+
+            migrationBuilder.InsertData(
+                table: "UserRole",
+                columns: new[] { "RoleId", "UserId", "CreatedById", "CreatedOn", "IsActive", "UpdatedById", "UpdatedOn" },
+                values: new object[] { 1, 1, 1, new DateTime(2022, 5, 11, 12, 28, 55, 788, DateTimeKind.Utc).AddTicks(4476), true, 1, new DateTime(2022, 5, 11, 12, 28, 55, 788, DateTimeKind.Utc).AddTicks(4478) });
+
+            migrationBuilder.InsertData(
+                table: "UserRole",
+                columns: new[] { "RoleId", "UserId", "CreatedById", "CreatedOn", "IsActive", "UpdatedById", "UpdatedOn" },
+                values: new object[] { 2, 2, 1, new DateTime(2022, 5, 11, 12, 28, 55, 788, DateTimeKind.Utc).AddTicks(4482), true, 1, new DateTime(2022, 5, 11, 12, 28, 55, 788, DateTimeKind.Utc).AddTicks(4483) });
+
+            migrationBuilder.InsertData(
+                table: "UserRole",
+                columns: new[] { "RoleId", "UserId", "CreatedById", "CreatedOn", "IsActive", "UpdatedById", "UpdatedOn" },
+                values: new object[] { 3, 3, 1, new DateTime(2022, 5, 11, 12, 28, 55, 788, DateTimeKind.Utc).AddTicks(4530), true, 1, new DateTime(2022, 5, 11, 12, 28, 55, 788, DateTimeKind.Utc).AddTicks(4531) });
 
             migrationBuilder.CreateIndex(
                 name: "IX_DeliveryService_CreatedById",
