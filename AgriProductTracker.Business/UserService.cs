@@ -20,9 +20,9 @@ namespace AgriProductTracker.Business
         private readonly AgriProductTrackerDbContext _db;
         private readonly IConfiguration _configuration;
         private readonly ICurrentUserService _currentUserService;
-      
 
-        public UserService(AgriProductTrackerDbContext _db , IConfiguration _configuration, ICurrentUserService _currentUserService)
+
+        public UserService(AgriProductTrackerDbContext _db, IConfiguration _configuration, ICurrentUserService _currentUserService)
         {
             this._db = _db;
             this._configuration = _configuration;
@@ -33,7 +33,7 @@ namespace AgriProductTracker.Business
         public async Task<ResponseViewModel> SaveUser(UserViewModel vm, string userName)
         {
             var response = new ResponseViewModel();
-            
+
             try
             {
                 var loggedInUser = _currentUserService.GetUserByUsername(userName);
@@ -45,7 +45,7 @@ namespace AgriProductTracker.Business
 
                 if (user == null)
                 {
-                    var exisistingUserName =_db.Users.FirstOrDefault(u => u.UserName.Trim().ToUpper() == vm.UserName.Trim().ToUpper());
+                    var exisistingUserName = _db.Users.FirstOrDefault(u => u.UserName.Trim().ToUpper() == vm.UserName.Trim().ToUpper());
 
                     if (exisistingUserName != null)
                     {
@@ -100,7 +100,7 @@ namespace AgriProductTracker.Business
 
                     _db.Users.Add(user);
 
-                   // EmailHelper.SendRegisterted(vm.Email, vm.UserName, vm.Password);
+                    // EmailHelper.SendRegisterted(vm.Email, vm.UserName, vm.Password);
                     response.IsSuccess = true;
                     response.Message = UserServiceConstants.NEW_USER_SAVE_SUCCESS_MESSAGE;
                 }
@@ -110,7 +110,7 @@ namespace AgriProductTracker.Business
                     user.FullName = vm.FullName;
                     user.Email = vm.Email;
                     user.MobileNumber = vm.MobileNumber;
-                   user.UpdatedById = loggedInUser.Id;
+                    user.UpdatedById = loggedInUser.Id;
                     user.UpdatedOn = DateTime.UtcNow;
 
                     var existingRoles = user.UserRoles.ToList();
@@ -157,58 +157,174 @@ namespace AgriProductTracker.Business
             return response;
         }
 
-        // Delete User service
+        /*Delete User service
         public async Task<ResponseViewModel> DeleteUser(int id)
         {
             var response = new ResponseViewModel();
             try
             {
-                var user = _db.Users.FirstOrDefault(x => x.Id == id);
+                var user = _db.Users.FirstOrDefault(x => x.Id == id && x.IsActive== true );
 
-                user.IsActive = false;
+                if (user != null)
+                {
+                    user.IsActive = false;
 
-                _db.Users.Update(user);
+                    _db.Users.Update(user);
+
+                    response.IsSuccess = true;
+                    response.Message = UserServiceConstants.EXISTING_USER_DELETE_SUCCESS_MESSAGE;
+
+                }
+                else
+                {
+                    response.IsSuccess = false;
+                    response.Message = "User Not Found";
+                    response.Message = UserServiceConstants.EXISTING_USER_DELETE_EXCEPTION_MESSAGE;
+                }
+                
                 await _db.SaveChangesAsync();
-
-                response.IsSuccess = true;
-                response.Message = UserServiceConstants.EXISTING_USER_DELETE_SUCCESS_MESSAGE;
+  
             }
             catch (Exception ex)
             {
                 response.IsSuccess = false;
-                response.Message = UserServiceConstants.EXISTING_USER_DELETE_EXCEPTION_MESSAGE;
+                response.Message = ex.Message;
             }
 
             return response;
         }
+        */
 
+        public async Task<ResponseViewModel> DeleteUser(long id)
+        {
+            var response = new ResponseViewModel();
+
+            try
+            {
+                var user = _db.Users.FirstOrDefault(x => x.Id == id && x.IsActive == true);
+
+                if (user != null)
+                {
+                    user.IsActive = false;
+
+                    _db.Users.Update(user);
+
+                    response.IsSuccess = true;
+                    response.Message = "Delete User   Successfull";
+                }
+                else
+                {
+                    response.IsSuccess = false;
+                    response.Message = "User Not Found";
+                }
+
+                await _db.SaveChangesAsync();
+
+            }
+            catch (Exception ex)
+            {
+                response.IsSuccess = false;
+                response.Message = ex.Message;
+
+            }
+
+
+            return response;
+        }
         //GetUserById
 
         public UserViewModel GetUserbyId(int id)
         {
             var response = new UserViewModel();
-
-            var user = _db.Users.FirstOrDefault(x => x.Id == id);
-
-
-            response.Id = (int)user.Id;
-            response.FullName = user.FullName;
-            response.UserName = user.UserName;
-            response.Address = user.Address;
-            response.Email = user.Email;
-            response.MobileNumber = user.MobileNumber;
            
-           
+            var query = _db.Users.FirstOrDefault(x => x.Id == id);
 
-            var assignedRoles = user.UserRoles.Where(x => x.IsActive == true);
+                response.Id = query.Id;
+                response.FullName = query.FullName;
+                response.UserName = query.UserName;
+                response.Address = query.Address;
+                response.Email = query.Email;
+                response.MobileNumber = query.MobileNumber;
+                response.IsActive = query.IsActive;
 
-            foreach (var item in assignedRoles)
+            var assignedRoles = query.UserRoles.Where(x => x.IsActive == true);
+
+                foreach (var item in assignedRoles)
+                {
+                    response.Roles.Add(item.RoleId);
+                }
+            return response;
+        }
+    
+
+        /*get user detail
+         * 
+         * public UserMasterViewModel GetUserDetail(string userName)
+        {
+            var user = new UserMasterViewModel();
+
+            var loggedInUser = currentUserService.GetUserByUsername(userName);
+
+            user.UserName = loggedInUser.Username;
+            user.FullName = loggedInUser.FullName;
+            user.Address = loggedInUser.Address;
+            user.Email = loggedInUser.Email;
+            user.MobileNumber = loggedInUser.MobileNo;
+            user.ProfileImage = loggedInUser.ProfileImage;
+
+      return user;
+        }
+
+
+        get all customers
+          public List<UserViewModel> GetAllUsersByRole()
+        {
+            var response = new List<UserViewModel>();
+
+            var query = schoolDb.Users.Where(u => u.IsActive == true && );
+
+            //if (vm.Id > 0)
+            //{
+            //    query = query.Where(x => x.UserRoles.Any(x => x.RoleId == vm.Id)).OrderBy(x => x.FullName);
+            //}
+
+            var userList = query.ToList();
+
+            foreach (var user in userList)
             {
-                response.Roles.Add((int)item.RoleId);
+                var uvm = new UserViewModel
+                {
+                    Id = user.Id,
+                    FullName = user.FullName,
+                    Username = user.Username,
+                    Address = user.Address,
+                    Email = user.Email,
+                    MobileNo = user.MobileNo,
+                    CreatedByName = user.CreatedById.HasValue ? user.CreatedBy.FullName : string.Empty,
+                    CreatedOn = user.CreatedOn,
+                    UpdatedByName = user.UpdatedById.HasValue ? user.UpdatedBy.FullName : string.Empty,
+                    UpdatedOn = user.UpdatedOn,
+
+                };
+
+                var assignedRoles = user.UserRoles.Where(x => x.IsActive == true);
+
+
+                response.Add(uvm);
             }
 
             return response;
         }
+        get All farmer/users
+
+        get all rolles dropdown 
+
+         public List<DropDownViewModel> GetAllRoles()
+        {
+            return schoolDb.Roles.Where(x => x.IsActive == true).Select(r => new DropDownViewModel() { Id = r.Id, Name = r.Name }).ToList();
+        }
+        */
+
 
         //Get All roles
 

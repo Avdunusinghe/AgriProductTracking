@@ -11,7 +11,7 @@ namespace AgriProductTracker.Business.Interfaces
     public interface IUserService
     {
         Task<ResponseViewModel> SaveUser(UserViewModel vm , string userName);
-        Task<ResponseViewModel> DeleteUser(int id);
+        Task<ResponseViewModel> DeleteUser(long id);
         UserViewModel GetUserbyId(int id);
         List<DropDownViewModel> GetAllRoles();
         Task<ResponseViewModel> UploadUserImage(FileContainerViewModel container);

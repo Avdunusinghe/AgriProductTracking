@@ -1,1 +1,127 @@
-<p>user-detail works!</p>
+<div class="p-1">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>{{ id ? "Edit" : "Add New" }} User</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form
+        [formGroup]="userForm"
+        (ngSubmit)="onSubmit()"
+        autocomplete="off"
+        fxLayout="row wrap"
+      >
+        <div fxFlex="20" class="px-2" *ngIf="id > 0">
+          <!-- 
+            <span class="uppercase fw-500">Product Image</span
+            ><span class="text-muted px-1">(max 1 images)</span>
+          </p>
+          <input-file
+            fileLimit="1"
+            (change)="onFileChange($event, 2)"
+            fileAccept="image/*"
+          ></input-file>
+          -->
+        </div>
+        <div fxFlex="60" class="px-2">
+          <div fxLayout="row wrap">
+            <div fxFlex="100" fxFlex.gt-sm="50" class="px-1">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>FullName</mat-label>
+                <input matInput formControlName="fullName" required />
+                <mat-error *ngIf="userForm.controls.fullName.errors?.required"
+                  >Name is required</mat-error
+                >
+              </mat-form-field>
+            </div>
+
+            <div fxFlex="60" class="px-2">
+              <div fxLayout="row wrap">
+                <div fxFlex="100" fxFlex.gt-sm="50" class="px-1">
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Email</mat-label>
+                    <input matInput formControlName="email" required />
+                    <mat-error *ngIf="userForm.controls.email.errors?.required"
+                      >Email is required</mat-error
+                    >
+                  </mat-form-field>
+                </div>
+
+                <div fxFlex="60" class="px-2">
+                  <div fxLayout="row wrap">
+                    <div fxFlex="100" fxFlex.gt-sm="50" class="px-1">
+                      <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Address</mat-label>
+                        <input matInput formControlName="address" required />
+                        <mat-error *ngIf="userForm.controls.address.errors?.required"
+                          >Address is required</mat-error
+                        >
+                      </mat-form-field>
+                    </div>
+
+                    <div fxFlex="60" class="px-2">
+                      <div fxLayout="row wrap">
+                        <div fxFlex="100" fxFlex.gt-sm="50" class="px-1">
+                          <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Mobile No</mat-label>
+                            <input matInput formControlName="mobileNo" required />
+                            <mat-error *ngIf="userForm.controls.mobileNo.errors?.required"
+                              >Mobile No is required</mat-error
+                            >
+                          </mat-form-field>
+                        </div>
+
+                        <div fxFlex="60" class="px-2">
+                          <div fxLayout="row wrap">
+                            <div fxFlex="100" fxFlex.gt-sm="50" class="px-1">
+                              <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>UserName</mat-label>
+                                <input matInput formControlName="username" required />
+                                <mat-error *ngIf="userForm.controls.username.errors?.required"
+                                  >UserName is required</mat-error
+                                >
+                              </mat-form-field>
+                            </div> 
+                            
+                            <div fxFlex="60" class="px-2">
+                              <div fxLayout="row wrap">
+                                <div fxFlex="100" fxFlex.gt-sm="50" class="px-1">
+                                  <mat-form-field appearance="outline" class="w-100">
+                                    <mat-label>Password</mat-label>
+                                    <input matInput formControlName="password" required />
+                                    <mat-error *ngIf="userForm.controls.password.errors?.required"
+                                      >Password is required</mat-error
+                                    >
+                                  </mat-form-field>
+                                </div>
+                        
+
+            <div fxFlex="100" fxFlex.gt-sm="50" class="px-1">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Role</mat-label>
+                <mat-select formControlName="roles" required>
+                  <mat-option
+                    *ngFor="let item of Roles"
+                    [value]="item.id"
+                  >
+                    <span>{{ item.name }}</span>
+                  </mat-option>
+                </mat-select>
+                <mat-error
+                  *ngIf="userForm.controls.roles.errors?.required"
+                  >Role is required</mat-error
+                >
+              </mat-form-field>
+            </div>
+
+
+            <div fxFlex="100" class="mt-2 text-center w-100">
+              <button mat-raised-button color="primary" type="submit">
+                Save User
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -77,14 +77,14 @@ namespace AgriProductTracker.Business
                 {
                     deliveryservice =  new DeliveryService()
                     {
-                            Name = vm.Name,
-                          Address = vm.Address,
-                       Email = vm.Email,
+                        Name = vm.Name,
+                        Address = vm.Address,
+                        Email = vm.Email,
                         TelePhoneNumber = vm.TelePhoneNumber,
                         DiliveryDetails = vm.DiliveryDetails,
-                       IsActive = true,
+                        IsActive = true,
                         UpdatedOn = DateTime.UtcNow,
-                       UpdatedById = loggedInUser.Id,
+                        UpdatedById = loggedInUser.Id,
                         CreatedOn = DateTime.UtcNow,
                         CreatedById = loggedInUser.Id
 
