@@ -1,16 +1,18 @@
 <div class="p-1">
   <mat-card>
     <mat-card-header>
-      <mat-card-title>{{ id ? "Edit" : "Add New" }} Product</mat-card-title>
+      <mat-card-title
+        >{{ productId ? "Edit" : "Add New" }} Product</mat-card-title
+      >
     </mat-card-header>
     <mat-card-content>
       <form
         [formGroup]="productForm"
-        (ngSubmit)="onSubmit()"
+        (ngSubmit)="saveProduct()"
         autocomplete="off"
         fxLayout="row wrap"
       >
-        <div fxFlex="20" class="px-2" *ngIf="id > 0">
+        <div fxFlex="20" class="px-2" *ngIf="productId > 0">
           <p class="mt-1">
             <span class="uppercase fw-500">Product Image</span
             ><span class="text-muted px-1">(max 1 images)</span>
