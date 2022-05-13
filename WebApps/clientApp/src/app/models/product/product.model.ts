@@ -10,5 +10,7 @@ export class ProductModel
     categoryId:number;
     price:number;
     quantity:number;
+    createdByName:string;
+    updatedByName:string;
     productImages:ProductImageViewModel[];
 }
