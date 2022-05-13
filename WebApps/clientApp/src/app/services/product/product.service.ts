@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ResponseModel } from 'src/app/models/common/response.model';
+import { upload, Upload } from 'src/app/models/common/upload';
 import { ProductModel } from 'src/app/models/product/product.model';
 import { ProductPaginatedItemModel } from 'src/app/models/product/product.paginated.item.model';
 import { environment } from 'src/environments/environment';
@@ -39,5 +40,9 @@ export class ProductService {
     (environment.apiUrl + "Product/getAllProducts" , filter);
   }
 
+  uploadProductImage(formData:FormData):Observable<Upload>{
+      return this.httpClient.post(environment.apiUrl + "Product/uploadProductImage", 
+      formData,{reportProgress: true,observe: 'events'}).pipe(upload());
+  }
   
 }

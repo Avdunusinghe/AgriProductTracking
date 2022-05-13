@@ -3,10 +3,12 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
+import { EMPTY, Observable } from 'rxjs';
 import { ProductModel } from 'src/app/models/product/product.model';
 import { CoreDataService } from 'src/app/services/core-data/core-data.service';
 import { ProductService } from 'src/app/services/product/product.service';
 import { DropDownModel } from './../../../models/common/drop.down.model';
+import { Upload } from 'src/app/models/common/upload';
 
 @Component({
   selector: 'app-product-detail',
@@ -48,7 +50,6 @@ export class ProductDetailComponent implements OnInit {
       {
         this.getproductById();
       }
-      
       this.productForm = this.createProductForm();   
 
    })  
@@ -80,9 +81,42 @@ export class ProductDetailComponent implements OnInit {
     quantity: [{value:this.product.quantity}, Validators.required]
    });
  }
-  
- onFileChange(event:any, type:number){
+ upload$: Observable<Upload> = EMPTY;
+ precentage:any;
+ onFileChange(event:any, type:number)
+ {
+   console.log("Dev");
+   
+   let file = event.srcElement;
+   const formData = new FormData();
 
+   formData.set("id",this.product.id.toString());
+   formData.set("type", type.toString());
+
+   if(file.files.length > 0)
+   {
+      this._spinner.show();
+
+      for (let index = 0; index < file.files.length; index++) 
+      {
+        formData.append('file',file.files[index], file.files[index].name);
+        
+      }
+
+      this._productService.uploadProductImage(formData).subscribe((response)=>{
+          this.precentage = response;
+          if(response.state === "DONE")
+          {
+            this._spinner.show();
+            this.getproductById();
+
+            this._toastr.success("Image has been uploaded successfully", 'Success');
+          }
+      },(error)=>{
+        this._spinner.hide();
+        this._toastr.error("Error has been occured image upload please try again","Eroor");
+      })
+   }
  }
 
  /*

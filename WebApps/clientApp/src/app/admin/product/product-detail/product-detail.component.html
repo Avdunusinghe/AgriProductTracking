@@ -6,23 +6,33 @@
       >
     </mat-card-header>
     <mat-card-content>
+      <div fxFlex="20" class="px-2" *ngIf="productId > 0">
+        <p class="mt-1">
+          <span class="uppercase fw-500">Product Image</span
+          ><span class="text-muted px-1">(max 1 images)</span>
+        </p>
+        <button
+          mat-raised-button
+          class="blue small small-mat-raised-button-small"
+          (click)="productFileInput.click()"
+        >
+          <mat-icon class="small-mat-icon">cloud_upload</mat-icon>
+          <input
+            #productFileInput
+            type="file"
+            class="form-control"
+            name="documents"
+            (change)="onFileChange($event, 2)"
+            style="display: none"
+          />
+        </button>
+      </div>
       <form
         [formGroup]="productForm"
         (ngSubmit)="saveProduct()"
         autocomplete="off"
         fxLayout="row wrap"
       >
-        <div fxFlex="20" class="px-2" *ngIf="productId > 0">
-          <p class="mt-1">
-            <span class="uppercase fw-500">Product Image</span
-            ><span class="text-muted px-1">(max 1 images)</span>
-          </p>
-          <input-file
-            fileLimit="1"
-            (change)="onFileChange($event, 2)"
-            fileAccept="image/*"
-          ></input-file>
-        </div>
         <div fxFlex="60" class="px-2">
           <div fxLayout="row wrap">
             <div fxFlex="100" fxFlex.gt-sm="50" class="px-1">
@@ -91,12 +101,63 @@
 
             <div fxFlex="100" class="mt-2 text-center w-100">
               <button mat-raised-button color="primary" type="submit">
-                Save Product
+                {{ productId ? "Edit" : "Save" }} Product
               </button>
             </div>
           </div>
         </div>
       </form>
     </mat-card-content>
+  </mat-card>
+
+  <mat-card
+    class="p-0"
+    *ngIf="product.productImages.length > 0 && productId > 0"
+  >
+    <div
+      fxLayout="row wrap"
+      fxLayoutAlign="space-between center"
+      class="w-100 p-2"
+    >
+      <h2>Product Images</h2>
+      <button
+        mat-raised-button
+        class="blue small small-mat-raised-button-small"
+        (click)="productFileInput.click()"
+      >
+        <mat-icon class="small-mat-icon">cloud_upload</mat-icon>
+        <input
+          #productFileInput
+          type="file"
+          class="form-control"
+          name="documents"
+          (change)="onFileChange($event, 2)"
+          style="display: none"
+        />
+      </button>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="mat-table admin-table">
+      <div class="mat-header-row">
+        <div class="mat-header-cell">Image</div>
+        <div class="mat-header-cell">Download</div>
+        <div class="mat-header-cell">Delete</div>
+      </div>
+      <div *ngFor="let item of product.productImages" class="mat-row">
+        <div class="mat-cell">
+          <img class="product-image" [src]="item.attachment" />
+        </div>
+        <div class="mat-cell">
+          <div class="p-1 actions">
+            <button mat-mini-fab color="primary" matTooltip="Edit">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-mini-fab color="warn" matTooltip="Delete" class="mx-1">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   </mat-card>
 </div>

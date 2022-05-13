@@ -25,14 +25,14 @@ export class ProductListComponent implements OnInit {
   public searchText: string;
   constructor
   (
-    public _formBuilder: FormBuilder, 
+    private _formBuilder: FormBuilder, 
     private _activatedRoute: ActivatedRoute, 
     private _coreDataService : CoreDataService,
     private _spinner: NgxSpinnerService,
     private _productService:ProductService,
     private _toastr: ToastrService,
     private _router:Router,
-    public _dialog: MatDialog
+    private _dialog: MatDialog
 
   ) 
   { 
@@ -92,7 +92,7 @@ export class ProductListComponent implements OnInit {
 
  updateProduct(id:number)
  {
-    this._router.navigate(["admin/product/product-detail",id]);
+    this._router.navigate(["admin/product/product-detail", id]);
  }
 
   /*
