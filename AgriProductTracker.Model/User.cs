@@ -38,6 +38,8 @@ namespace AgriProductTracker.Model
         public virtual ICollection<User> CreatedUsers { get; set; }
         public virtual ICollection<User> UpdatedUsers { get; set; }
 
+        
+
 
         #region Navigation Property Product
         public virtual ICollection<Product> CreatedProducts { get; set; }
