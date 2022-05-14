@@ -5,6 +5,7 @@ using AgriProductTracker.ViewModel.Product;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace AgriProductTracker.RestApi.Controllers
 {
@@ -79,5 +80,24 @@ namespace AgriProductTracker.RestApi.Controllers
             return Ok(response);
         }
 
+        [HttpGet]
+        [RequestSizeLimit(long.MaxValue)]
+        [Route("downloadProductImage/{id:int}")]
+        [ProducesResponseType(typeof(DownloadFileViewModel), (int)HttpStatusCode.OK)]
+        public FileStreamResult DownloadProductImange(int id)
+        {
+            var response = _productService.DownloadProductImage(id);
+
+            return File(new MemoryStream(response.FileData), "application/octet-stream", response.FileName);
+        }
+
+        [HttpDelete]
+        [Route("deleteProductImage/{id:int}")]
+        public async Task<ActionResult> DeleteExpenseReceiptImage(int id)
+        {
+            var response = await _productService.DeleteProductImage(id);
+
+            return Ok(response);
+        }
     }
 }
