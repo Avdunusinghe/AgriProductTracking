@@ -164,6 +164,26 @@ namespace AgriProductTracker.Business
             return deliveryservices;
         }
 
+
+        public DeliveryServiceViewModel GetDeliveryServicebyId(int id)
+        {
+            var response = new DeliveryServiceViewModel();
+
+            var query = _db.DeliveryServices.FirstOrDefault(x => x.Id == id);
+
+            response.Id = query.Id;
+            response.Name = query.Name;
+            response.Address = query.Address;   
+            response.Email= query.Email;
+            response.TelePhoneNumber = query.TelePhoneNumber;   
+            response.DiliveryDetails = query.DiliveryDetails;               
+
+           
+
+        
+            return response;
+        }
+
         public PaginatedItemsViewModel<BasicDeliveryServiceViewModel> GetDeliveryServiceList(string searchText, int currentPage, int pageSize, int deliveryserviceId)
         {
             int totalRecordCount = 0;

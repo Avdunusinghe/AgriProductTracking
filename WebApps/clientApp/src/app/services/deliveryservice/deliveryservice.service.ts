@@ -18,4 +18,30 @@ export class DeliveryserviceService {
       (environment.apiUrl + 'DeliveryService', model);
     
   }
+
+  deliveryServiceDelete(id:number):Observable<ResponseModel>
+  {
+    return this.httpClient.delete<ResponseModel>
+      (environment.apiUrl + "Deliveryservice" + "/" + id)
+  }
+
+  getDeliveryServicebyId(id:number):Observable<DeliveryServiceModel>
+  {
+    return this.httpClient.get<DeliveryServiceModel>
+     (environment.apiUrl + "Deliveryservice/getDeliveryServicebyId" + "/" + id);
+  }
+
+  getAllDeliveryServices():Observable<DeliveryServiceModel>
+  {
+    return this.httpClient.get<DeliveryServiceModel>
+     (environment.apiUrl + "Deliveryservice/getAllDeliveryServices" + "/");
+  }
+
+
+  /*
+  getDeliveryServiceList(filter:ProductFilterModel):Observable<ProductPaginatedItemModel>
+  {
+    return this.httpClient.post<ProductPaginatedItemModel>
+    (environment.apiUrl + "Product/getAllProducts" , filter);
+  }*/
 }

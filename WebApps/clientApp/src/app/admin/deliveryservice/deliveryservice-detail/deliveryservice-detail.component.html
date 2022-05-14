@@ -2,13 +2,14 @@
   <mat-card>
     <mat-card-header>
       <mat-card-title
-        >{{ id ? "Edit" : "Add New" }} Delivery Service</mat-card-title
+        >{{ deliveryserviceId ? "Edit" : "Add New" }} Delivery
+        Service</mat-card-title
       >
     </mat-card-header>
     <mat-card-header>
       <form
         [formGroup]="deliveryserviceForm"
-        (ngSubmit)="onSubmit()"
+        (ngSubmit)="SaveDeliveryService()"
         autocomplete="off"
         fxLayout="row wrap"
       >
@@ -64,9 +65,14 @@
               </mat-form-field>
             </div>
 
-            <div fxFlex="100" fxFlex.gt-sm="50" class="px-1">
+            <div fxFlex="100" class="px-1">
               <mat-form-field appearance="outline" class="w-100">
                 <mat-label>Delivery Details</mat-label>
+                <textarea
+                  matInput
+                  formControlName="deliveryDetails"
+                  rows="7"
+                ></textarea>
                 <input matInput formControlName="deliveryDetails" required />
                 <mat-error
                   *ngIf="

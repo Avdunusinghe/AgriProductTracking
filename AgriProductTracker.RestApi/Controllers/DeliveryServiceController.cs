@@ -71,7 +71,16 @@ namespace AgriProductTracker.RestApi.Controllers
 
             return response;
         }
-        
+
+        [HttpGet]
+        [Route("getDeliveryServicebyId/{id:int}")]
+        public IActionResult GetDeliveryServicebyId(int id)
+        {
+            var response = _deliveryService.GetDeliveryServicebyId(id);
+
+            return Ok(response);
+        }
+
 
     }
 }
