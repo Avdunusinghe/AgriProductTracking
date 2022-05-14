@@ -1,0 +1,92 @@
+<div>
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title
+        >{{ id ? "Edit" : "Add New" }} Delivery Service</mat-card-title
+      >
+    </mat-card-header>
+    <mat-card-header>
+      <form
+        [formGroup]="deliveryserviceForm"
+        (ngSubmit)="onSubmit()"
+        autocomplete="off"
+        fxLayout="row wrap"
+      >
+        <div fxFlex="60" class="px-2">
+          <div fxLayout="row wrap">
+            <div fxFlex="100" fxFlex.gt-sm="50" class="px-1">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Name</mat-label>
+                <input matInput formControlName="name" required />
+                <mat-error
+                  *ngIf="deliveryserviceForm.controls.name.errors?.required"
+                >
+                  Name is required
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <div fxFlex="100" fxFlex.gt-sm="50" class="px-1">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Address</mat-label>
+                <input matInput formControlName="address" required />
+                <mat-error
+                  *ngIf="deliveryserviceForm.controls.address.errors?.required"
+                >
+                  Address is required
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <div fxFlex="100" fxFlex.gt-sm="50" class="px-1">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Email</mat-label>
+                <input matInput formControlName="email" required />
+                <mat-error
+                  *ngIf="deliveryserviceForm.controls.email.errors?.required"
+                >
+                  Email is required
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <div fxFlex="100" fxFlex.gt-sm="50" class="px-1">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Mobile Number</mat-label>
+                <input matInput formControlName="telephoneNo" required />
+                <mat-error
+                  *ngIf="
+                    deliveryserviceForm.controls.telephoneNo.errors?.required
+                  "
+                >
+                  Mobile Number is required
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <div fxFlex="100" fxFlex.gt-sm="50" class="px-1">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Delivery Details</mat-label>
+                <input matInput formControlName="deliveryDetails" required />
+                <mat-error
+                  *ngIf="
+                    deliveryserviceForm.controls.deliveryDetails.errors
+                      ?.required
+                  "
+                >
+                  Delivery Details are required
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <div fxFlex="100" class="mt-2 text-center w-100">
+              <button mat-raised-button color="primary" type="submit">
+                Save Delivery details
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </mat-card-header>
+  </mat-card>
+</div>

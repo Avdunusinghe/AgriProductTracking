@@ -14,7 +14,7 @@ export class UserDetailComponent implements OnInit {
 
 
   public userForm: FormGroup;
-  Roles:DropDownModel[]=[];
+  userRoles:DropDownModel[]=[];
   userId:number;
 
   constructor
@@ -50,7 +50,8 @@ export class UserDetailComponent implements OnInit {
      address:[[null], Validators.required],
      mobileNo: [null, Validators.required],
      username: [null, Validators.required],
-     password: [null, Validators.required]
+     password: [null, Validators.required],
+     roleId: [[null], Validators.required]
    })
  }
   
@@ -60,18 +61,19 @@ export class UserDetailComponent implements OnInit {
 
 
  /*
- *Get DropDown MasterData
+ *Get DropDown user roles
  */
  getAllRoles()
  {
    this.spinner.show();
     this._userService.getAllRoles()
       .subscribe(response=>{
-      this.Roles = response;
+      this.userRoles = response;
     },(error)=>{
       this.spinner.hide();
     })   
  }
+
 
   public onSubmit(){
     console.log(this.userForm.value);
