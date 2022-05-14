@@ -11,9 +11,26 @@ import { InputFileModule } from 'ngx-input-file';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 export const routes = [ 
-  { path: '', redirectTo: 'product-list', pathMatch: 'full'},
-  { path: 'product-list', component: ProductListComponent, data: { breadcrumb: 'Product List' } },
-  { path: 'product-detail', component: ProductDetailComponent, data: { breadcrumb: 'Product Detail' } },
+  { 
+    path: '',
+    redirectTo: 'product-list', 
+    pathMatch: 'full'
+  },
+  { 
+    path: 'product-list', 
+    component: ProductListComponent, 
+    data: { breadcrumb: 'Product List' } 
+  },
+  {
+     path: 'product-detail', 
+     component: ProductDetailComponent, 
+     data: { breadcrumb: 'Product Detail' } 
+    },
+  { 
+    path: 'product-detail/:id', 
+    component: ProductDetailComponent, 
+    data: { breadcrumb: 'Product Detail' } 
+  },
 
 ];
 

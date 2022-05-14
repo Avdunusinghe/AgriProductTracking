@@ -40,10 +40,10 @@ namespace AgriProductTracker.RestApi.Controllers
         }
 
         [HttpGet]
-        [Route("getPrductById/{id:int}/{productCategoryId:int}")]
-        public IActionResult GetPrductById(int id, int productCategoryId)
+        [Route("getPrductById/{id:int}")]
+        public IActionResult GetPrductById(int id)
         {
-            var response = _productService.GetPrductById(id, productCategoryId);
+            var response = _productService.GetPrductById(id);
 
             return Ok(response);
         }

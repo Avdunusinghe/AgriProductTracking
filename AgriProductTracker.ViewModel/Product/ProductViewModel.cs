@@ -18,6 +18,8 @@ namespace AgriProductTracker.ViewModel.Product
         public int CategoryId { get; set; }
         public decimal Price { get; set; }
         public int Quantity { get; set; }
+        public string CreatedByName { get; set; }
+        public string UpdatedByName { get; set; }
         public List<ProductImageViewModel> ProductImages { get; set; }
 
     }

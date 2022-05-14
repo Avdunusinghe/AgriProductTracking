@@ -1,1 +1,99 @@
-<p>product-list works!</p>
+<div class="p-1">
+  <form [formGroup]="productFilterForm">
+    <mat-form-field appearance="outline" class="w-100">
+      <input
+        matInput
+        (keyup)="filterDataTable($event.target.value)"
+        placeholder="Search user by name..."
+        formControlName="searchText"
+        name="search"
+      />
+    </mat-form-field>
+    <div fxFlex="100" fxFlex.gt-sm="50" class="px-1">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Category</mat-label>
+        <mat-select
+          formControlName="categoryId"
+          (selectionChange)="onCategoryIdChanged($event)"
+          required
+        >
+          <mat-option *ngFor="let item of productCategories" [value]="item.id">
+            <span>{{ item.name }}</span>
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </form>
+  <mat-card class="p-0">
+    <div
+      fxLayout="row wrap"
+      fxLayoutAlign="space-between center"
+      class="w-100 p-2"
+    >
+      <h2>Product List</h2>
+      <button mat-raised-button color="primary" (click)="addNewProduct()">
+        Add Product
+      </button>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="mat-table admin-table">
+      <div class="mat-header-row">
+        <div class="mat-header-cell">Product Name</div>
+        <div class="mat-header-cell">Description</div>
+        <div class="mat-header-cell">Price</div>
+        <div class="mat-header-cell">Category</div>
+        <div class="mat-header-cell">CreatedBy</div>
+        <div class="mat-header-cell">UpdatedBy</div>
+        <div class="mat-header-cell"></div>
+      </div>
+      <div
+        *ngFor="
+          let data of rowData
+            | paginate: { itemsPerPage: pageSize, currentPage: currentPage }
+        "
+        class="mat-row"
+      >
+        <div class="mat-cell">{{ data.name }}</div>
+        <div class="mat-cell">{{ data.description }}</div>
+        <div class="mat-cell">${{ data.price.toFixed(2) }}</div>
+        <div class="mat-cell">{{ data.category }}</div>
+        <div class="mat-cell">{{ data.createdByName }}</div>
+        <div class="mat-cell">{{ data.updatedByName }}</div>
+        <div class="mat-cell">
+          <div class="p-1 actions">
+            <button
+              mat-mini-fab
+              color="primary"
+              matTooltip="Edit"
+              (click)="updateProduct(data.id)"
+            >
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button
+              mat-mini-fab
+              color="warn"
+              matTooltip="Delete"
+              class="mx-1"
+              (click)="deleteProduct(data.id)"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-card>
+
+  <div *ngIf="rowData.length > 0" fxLayout="row wrap">
+    <div fxFlex="100">
+      <mat-card class="p-0 text-center">
+        <pagination-controls
+          class="product-pagination"
+          autoHide="true"
+          maxSize="5"
+          (pageChange)="onPageChanged($event)"
+        ></pagination-controls>
+      </mat-card>
+    </div>
+  </div>
+</div>
