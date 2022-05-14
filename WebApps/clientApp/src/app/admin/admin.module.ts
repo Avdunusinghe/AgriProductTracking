@@ -12,6 +12,8 @@ import { AdminComponent } from './admin.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { FullScreenComponent } from './components/fullscreen/fullscreen.component'; 
 import { MessagesComponent } from './components/messages/messages.component';
+
+
 import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component'; 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
@@ -21,16 +23,9 @@ export const routes = [
     component: AdminComponent, children: [
       { path: '', loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule) }, 
       { path: 'product', loadChildren: () => import('./product/product.module').then(m => m.ProductModule) },
-      //{ path: 'sales', loadChildren: () => import('./sales/sales.module').then(m => m.SalesModule) },
-      //{ path: 'users', loadChildren: () => import('./users/users.module').then(m => m.UsersModule), data: { breadcrumb: 'Users' } },
-      //{ path: 'customers', loadChildren: () => import('./customers/customers.module').then(m => m.CustomersModule), data: { breadcrumb: 'Customers' } },
-      //{ path: 'coupons', loadChildren: () => import('./coupons/coupons.module').then(m => m.CouponsModule), data: { breadcrumb: 'Coupons' } },
-      //{ path: 'withdrawal', loadChildren: () => import('./withdrawal/withdrawal.module').then(m => m.WithdrawalModule), data: { breadcrumb: 'Withdrawal' } },
-      //{ path: 'analytics', loadChildren: () => import('./analytics/analytics.module').then(m => m.AnalyticsModule), data: { breadcrumb: 'Analytics' } },
-      //{ path: 'refund', loadChildren: () => import('./refund/refund.module').then(m => m.RefundModule), data: { breadcrumb: 'Refund' } },
-      //{ path: 'followers', loadChildren: () => import('./followers/followers.module').then(m => m.FollowersModule), data: { breadcrumb: 'Followers' } },
-      //{ path: 'support', loadChildren: () => import('./support/support.module').then(m => m.SupportModule), data: { breadcrumb: 'Support' } },
-      //{ path: 'reviews', loadChildren: () => import('./reviews/reviews.module').then(m => m.ReviewsModule), data: { breadcrumb: 'Reviews' } }  
+      { path: 'user', loadChildren: () => import('./user/user.module').then(m => m.UserModule) },
+      { path: 'deliveryservice', loadChildren: () => import('./deliveryservice/deliveryservice.module').then(m => m.DeliveryserviceModule) },
+     
     ]
   } 
 ];
@@ -42,12 +37,13 @@ export const routes = [
    
     FullScreenComponent,
     MessagesComponent,
-    BreadcrumbComponent
+    BreadcrumbComponent,
+   
   ],
   imports: [
    
     ToastrModule.forRoot(),
-  CommonModule,
+    CommonModule,
     RouterModule.forChild(routes),
     SharedModule,
     InputFileModule.forRoot(config),

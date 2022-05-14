@@ -9,5 +9,7 @@ namespace AgriProductTracking.util
     public class FolderNames
     {
         public const string PRODUCT = "PRODUCT";
+
+        public const string USER = "USER";
     }
 }

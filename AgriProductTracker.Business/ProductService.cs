@@ -180,12 +180,12 @@ namespace AgriProductTracker.Business
 
             return response;
         }
-        public ProductViewModel GetPrductById(long id, int productCategoryId)
+        public ProductViewModel GetPrductById(int id)
         {
             var response = new ProductViewModel();
             try
             {
-                var query = _db.Products.Where(x => x.Id == id && x.CategoryId == productCategoryId).FirstOrDefault();
+                var query = _db.Products.Where(x => x.Id == id).FirstOrDefault();
 
                 response.Id = query.Id;
                 response.Name = query.Name;
@@ -233,7 +233,12 @@ namespace AgriProductTracker.Business
 
             if(filter.CaregoryId > 0)
             {
-               query.Where(x=>x.CategoryId == filter.CaregoryId).OrderBy(x=>x.CreatedOn);
+               query = query.Where(x=>x.CategoryId == filter.CaregoryId).OrderBy(x=>x.CreatedOn);
+            }
+
+            if(!string.IsNullOrEmpty(filter.SearchText))
+            {
+                query = query.Where(x => x.Name.Contains(filter.SearchText)).OrderBy(n => n.Name);
             }
 
             totalRecordCount = query.Count();
@@ -250,6 +255,8 @@ namespace AgriProductTracker.Business
                 product.Name = item.Name;
                 product.Description = item.Description;
                 product.CategoryId = item.CategoryId;
+                product.CreatedByName = item.CreatedBy.FullName;
+                product.UpdatedByName = item.UpdatedBy.FullName;
 
                 var productImages = item.ProductImages.ToList();
 
