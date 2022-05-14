@@ -96,6 +96,7 @@
     >Contact</a
   >
   <a
+    *ngIf="!currentUser?.isLoginSuccess"
     mat-button
     routerLink="/authentication"
     routerLinkActive="horizontal-active-link"
@@ -103,6 +104,7 @@
     >Sign-In</a
   >
   <a
+    *ngIf="isManagementLeveluser"
     mat-button
     routerLink="/admin"
     routerLinkActive="horizontal-active-link"

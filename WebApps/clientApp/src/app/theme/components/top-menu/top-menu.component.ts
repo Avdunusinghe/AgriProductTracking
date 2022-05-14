@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth/auth.service';
 import { Data, AppService } from '../../../app.service';
 import { Settings, AppSettings } from '../../../app.settings';
 
@@ -19,7 +21,14 @@ export class TopMenuComponent implements OnInit {
   public flag:any;
 
   public settings: Settings;
-  constructor(public appSettings:AppSettings, public appService:AppService) { 
+  constructor
+  (
+    public appSettings:AppSettings, 
+    public appService:AppService,
+    private _authService:AuthService,
+    private _router:Router
+  ) 
+  { 
     this.settings = this.appSettings.settings; 
   } 
 
@@ -36,6 +45,13 @@ export class TopMenuComponent implements OnInit {
     this.flag = flag;
   }
 
+  logOut(){
+    this._authService.logout().subscribe((response)=>{
+      if(response){
+        this._router.navigate(["authentication/sign-in"]);
+      }
+    })
+  }
   
 
 }

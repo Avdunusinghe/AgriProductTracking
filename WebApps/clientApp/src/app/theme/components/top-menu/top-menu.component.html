@@ -122,7 +122,7 @@
         <span>Help</span>
       </a>
       <div class="divider"></div>
-      <a mat-menu-item routerLink="/authentication">
+      <a mat-menu-item (click)="logOut()">
         <mat-icon class="mat-icon-sm">power_settings_new</mat-icon>
         <span>Sign Out</span>
       </a>
