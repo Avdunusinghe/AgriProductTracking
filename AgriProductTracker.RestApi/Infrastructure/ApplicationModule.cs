@@ -38,6 +38,14 @@ namespace AgriProductTracker.RestApi.Infrastructure
             builder.RegisterType<CoreDataService>()
               .As<ICoreDataService>()
               .InstancePerLifetimeScope();
+
+            builder.RegisterType<UserService>()
+             .As<IUserService>()
+             .InstancePerLifetimeScope();
+
+            builder.RegisterType<DeliveryServiceService>()
+            .As<IDeliveryServiceService>()
+            .InstancePerLifetimeScope();
         }
     }
 }
