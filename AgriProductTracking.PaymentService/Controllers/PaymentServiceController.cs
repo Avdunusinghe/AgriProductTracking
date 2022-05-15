@@ -50,7 +50,7 @@ namespace AgriProductTracking.PaymentService.Controllers
 			var transactionRequest = new transactionRequestType
 			{
 				transactionType = transactionTypeEnum.authCaptureTransaction.ToString(),   // charge the card
-				amount = 133.45m,
+				amount = model.Amount,
 				payment = paymentType
 			};
 
