@@ -40,12 +40,12 @@ export class UserService {
      (environment.apiUrl + "User/getUserById" + "/" + id);
   }
 
-  /*getUserList(filter:UserFilterModel):Observable<UserPaginatedItemModel>
+  getUserList(filter:UserFilterModel):Observable<UserPaginatedItemModel>
   {
     return this.httpClient.post<UserPaginatedItemModel>
     (environment.apiUrl + "User/getUserList" , filter);
-  }*/
-
+  }
+/*
   getUserList(searchText: string, currentPage: number, pageSize: number, roleId:number,):Observable<UserPaginatedItemModel>{
     return this.httpClient.get<UserPaginatedItemModel>(environment.apiUrl + "User/getUserList",{
       params:new HttpParams()
@@ -54,6 +54,6 @@ export class UserService {
         .set('pageSize', pageSize.toString())
         .set('roleId', roleId.toString())
     });
-  }
+  }*/
 
 }

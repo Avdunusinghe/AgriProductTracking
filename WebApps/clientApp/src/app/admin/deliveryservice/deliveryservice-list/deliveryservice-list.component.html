@@ -1,1 +1,92 @@
-<p>deliveryservice-list works!</p>
+<div class="p-1">
+  <form [formGroup]="deliveryserviceFilterForm">
+    <mat-form-field appearance="outline" class="w-100">
+      <input
+        matInput
+        (keyup)="filterDataTable($event.target.value)"
+        placeholder="Search user by name..."
+        formControlName="searchText"
+        name="search"
+      />
+    </mat-form-field>
+  </form>
+
+  <mat-card class="p-0">
+    <div
+      fxLayout="row wrap"
+      fxLayoutAlign="space-between center"
+      class="w-100 p-2"
+    >
+      <h2>User List</h2>
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="addNewDeliveryService()"
+      >
+        Add New Delivery Service
+      </button>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="mat-table admin-table">
+      <div class="mat-header-row">
+        <div class="mat-header-cell">Name</div>
+        <div class="mat-header-cell">Email</div>
+        <div class="mat-header-cell">Address</div>
+        <div class="mat-header-cell">Mobile No</div>
+        <div class="mat-header-cell">Delivery Details</div>
+        <div class="mat-header-cell">CreatedBy</div>
+        <div class="mat-header-cell">UpdatedBy</div>
+        <div class="mat-header-cell"></div>
+      </div>
+      <div
+        *ngFor="
+          let data of rowData
+            | paginate: { itemsPerPage: pageSize, currentPage: currentPage }
+        "
+        class="mat-row"
+      >
+        <div class="mat-cell">{{ data.name }}</div>
+        <div class="mat-cell">{{ data.email }}</div>
+        <div class="mat-cell">{{ data.address }}</div>
+        <div class="mat-cell">{{ data.telephoneNo }}</div>
+        <div class="mat-cell">{{ data.deliverydetails }}</div>
+        <div class="mat-cell">{{ data.createdByName }}</div>
+        <div class="mat-cell">{{ data.updatedByName }}</div>
+        <div class="mat-cell">
+          <div class="p-1 actions">
+            <button
+              mat-mini-fab
+              color="primary"
+              matTooltip="Edit"
+              (click)="updateDeliveryService(data.id)"
+            >
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button
+              mat-mini-fab
+              color="warn"
+              matTooltip="Delete"
+              class="mx-1"
+              (click)="deleteDeliveryService(data.id)"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-card>
+
+  <div *ngIf="rowData.length > 0" fxLayout="row wrap">
+    <div fxFlex="100">
+      <mat-card class="p-0 text-center">
+        <pagination-controls
+          class="user-pagination"
+          autoHide="true"
+          maxSize="5"
+          (pageChange)="onPageChanged($event)"
+        ></pagination-controls>
+      </mat-card>
+    </div>
+  </div>
+</div>

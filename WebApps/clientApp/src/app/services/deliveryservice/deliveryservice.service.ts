@@ -2,7 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ResponseModel } from 'src/app/models/common/response.model';
+import { DeliveryServiceFilterModel } from 'src/app/models/deliveryservice/deliveryservice.filter.model';
 import { DeliveryServiceModel } from 'src/app/models/deliveryservice/deliveryservice.mode';
+import { DeliveryServicePaginatedItemModel } from 'src/app/models/deliveryservice/deliveryservice.paginated.item.model';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -38,10 +40,10 @@ export class DeliveryserviceService {
   }
 
 
-  /*
-  getDeliveryServiceList(filter:ProductFilterModel):Observable<ProductPaginatedItemModel>
+  
+  getDeliveryServiceList(filter:DeliveryServiceFilterModel):Observable<DeliveryServicePaginatedItemModel>
   {
-    return this.httpClient.post<ProductPaginatedItemModel>
-    (environment.apiUrl + "Product/getAllProducts" , filter);
-  }*/
+    return this.httpClient.post<DeliveryServicePaginatedItemModel>
+    (environment.apiUrl + "Deliveryservice/getDeliveryServiceList" , filter);
+  }
 }
