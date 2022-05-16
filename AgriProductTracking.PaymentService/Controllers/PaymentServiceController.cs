@@ -15,12 +15,13 @@ namespace AgriProductTracking.PaymentService.Controllers
     [ApiController]
     public class PaymentServiceController : ControllerBase
     {
-        private readonly IConfiguration _configuration;
+		private readonly IConfiguration _configuration;
 
         public PaymentServiceController(IConfiguration _configuration)
         {
-            this._configuration = _configuration;
+			this._configuration = _configuration;
         }
+       
 
         [HttpPost]
         public IActionResult Payment(PymentViewModel model)
