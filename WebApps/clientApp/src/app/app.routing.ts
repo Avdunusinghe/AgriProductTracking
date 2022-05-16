@@ -20,7 +20,12 @@ export const routes: Routes = [
                 path: 'contact', 
                 loadChildren: () => import('./pages/contact/contact.module').then(m => m.ContactModule), 
                 data: { breadcrumb: 'Contact' } 
-            },
+            }, 
+            { 
+                path: 'products', 
+                loadChildren: () => import('./pages/products/products.module').then(m => m.ProductsModule), 
+                data: { breadcrumb: 'All Products' } 
+            }
         ]
     },
     { path: 'landing', loadChildren: () => import('./landing/landing.module').then(m => m.LandingModule) },

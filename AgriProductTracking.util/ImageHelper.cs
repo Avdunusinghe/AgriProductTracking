@@ -14,7 +14,7 @@ namespace AgriProductTracking.util
         {
             using (Image image = Image.FromFile(imagePath))
             {
-                var myThumbnail = image.GetThumbnailImage(74, 54, () => false, IntPtr.Zero);
+                var myThumbnail = image.GetThumbnailImage(300, 250, () => false, IntPtr.Zero);
 
                 using (MemoryStream m = new MemoryStream())
                 {

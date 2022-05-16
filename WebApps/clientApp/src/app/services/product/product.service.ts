@@ -34,7 +34,7 @@ export class ProductService {
      (environment.apiUrl + "Product/getPrductById" + "/" + id);
   }
 
-  getAllProductDerails(filter:ProductFilterModel):Observable<ProductPaginatedItemModel>
+  getAllProductDetails(filter:ProductFilterModel):Observable<ProductPaginatedItemModel>
   {
     return this.httpClient.post<ProductPaginatedItemModel>
     (environment.apiUrl + "Product/getAllProducts" , filter);

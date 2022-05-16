@@ -9,7 +9,7 @@ using System.Net;
 
 namespace AgriProductTracker.RestApi.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ProductController : ControllerBase

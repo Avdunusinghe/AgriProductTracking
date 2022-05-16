@@ -40,7 +40,7 @@ export class ProductListComponent implements OnInit {
   }
 
     currentPage: number = 0;
-    pageSize: number = 5;
+    pageSize: number = 15;
     totalRecord: number = 0;
 
   ngOnInit(): void {
@@ -181,7 +181,7 @@ onPageChanged(pageInfo)
     filter.currentPage = this.currentPage + 1;
     filter.pageSize = this.pageSize;
 
-    this._productService.getAllProductDerails(filter).subscribe((response)=>{
+    this._productService.getAllProductDetails(filter).subscribe((response)=>{
       this.rowData = response.data;
       this.totalRecord = response.totalRecordCount;
     },(error)=>{
