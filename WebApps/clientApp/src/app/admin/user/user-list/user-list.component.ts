@@ -55,7 +55,7 @@ export class UserListComponent implements OnInit {
     this._userService.getAllRoles()
       .subscribe(response=>{
       this.userRoles = response;
-      this.getUserList()
+      this.getUserList();
     },(error)=>{
       this._spinner.hide();
     })   

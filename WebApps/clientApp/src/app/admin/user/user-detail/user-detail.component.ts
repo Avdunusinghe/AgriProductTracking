@@ -62,7 +62,7 @@ export class UserDetailComponent implements OnInit {
      fullName: [null, Validators.required],
      email:[null, Validators.required],
      address:[[null], Validators.required],
-     mobileNo: [null, Validators.required],
+     mobileNumber: [null, Validators.required],
      username: [null, Validators.required],
      password: [null, Validators.required],
      roleId: [[null], Validators.required]
@@ -76,7 +76,7 @@ export class UserDetailComponent implements OnInit {
      fullName: [{value:this.user.fullName},, Validators.required],
      email:[{value:this.user.email},, Validators.required],
      address:[{value:this.user.address},, Validators.required],
-     mobileNo: [{value:this.user.mobileNo},, Validators.required],
+     mobileNumber: [{value:this.user.mobileNumber},, Validators.required],
      username: [{value:this.user.username},, Validators.required],
      password: [{value:this.user.password},, Validators.required],
      roleId: [{value:this.user.roles},, Validators.required]
@@ -135,7 +135,7 @@ export class UserDetailComponent implements OnInit {
       this.userForm.get("fullName").setValue(response.fullName);
       this.userForm.get("email").setValue(response.email);
       this.userForm.get("address").setValue(response.address);
-      this.userForm.get("mobileNo").setValue(response.mobileNo);
+      this.userForm.get("mobileNumber").setValue(response.mobileNumber);
       this.userForm.get("username").setValue(response.username);
       this.userForm.get("password").setValue(response.password);
       this.userForm.get("roleId").setValue(response.roles);

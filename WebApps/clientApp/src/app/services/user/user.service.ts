@@ -45,15 +45,6 @@ export class UserService {
     return this.httpClient.post<UserPaginatedItemModel>
     (environment.apiUrl + "User/getUserList" , filter);
   }
-/*
-  getUserList(searchText: string, currentPage: number, pageSize: number, roleId:number,):Observable<UserPaginatedItemModel>{
-    return this.httpClient.get<UserPaginatedItemModel>(environment.apiUrl + "User/getUserList",{
-      params:new HttpParams()
-        .set('searchText',searchText)
-        .set('currentPage', currentPage.toString())
-        .set('pageSize', pageSize.toString())
-        .set('roleId', roleId.toString())
-    });
-  }*/
+
 
 }

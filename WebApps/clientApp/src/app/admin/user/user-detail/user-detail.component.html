@@ -45,8 +45,10 @@
             <div fxFlex="100" fxFlex.gt-sm="50" class="px-1">
               <mat-form-field appearance="outline" class="w-100">
                 <mat-label>Mobile Number</mat-label>
-                <input matInput formControlName="mobileNo" required />
-                <mat-error *ngIf="userForm.controls.mobileNo.errors?.required">
+                <input matInput formControlName="mobileNumber" required />
+                <mat-error
+                  *ngIf="userForm.controls.mobileNumber.errors?.required"
+                >
                   Mobile Number is required
                 </mat-error>
               </mat-form-field>
