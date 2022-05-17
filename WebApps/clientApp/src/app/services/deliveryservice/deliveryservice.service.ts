@@ -39,7 +39,6 @@ export class DeliveryserviceService {
      (environment.apiUrl + "Deliveryservice/getAllDeliveryServices" + "/");
   }
 
-
   
   getDeliveryServiceList(filter:DeliveryServiceFilterModel):Observable<DeliveryServicePaginatedItemModel>
   {

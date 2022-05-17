@@ -11,5 +11,9 @@ export const menuItems = [
     new Menu (28, 'Delivery-Service', null, null, 'supervisor_account', null, true, 0),
     new Menu (30, 'Delivery-Service List', '/admin/deliveryservice/deliveryservice-list', null, 'list', null, false, 28),   
     new Menu (32, 'Delivery-Service Detail', '/admin/deliveryservice/deliveryservice-detail', null, 'add_circle_outline', null, false, 28), 
+    new Menu (34, 'Order', null, null, 'list_alt', null, true, 0),
+    new Menu (36, 'Order List', '/admin/order/order-list', null, 'list', null, false, 34),   
+    new Menu (38, 'Order Detail', '/admin/order/order-detail', null, 'add_circle_outline', null, false, 34), 
+   
    
 ]

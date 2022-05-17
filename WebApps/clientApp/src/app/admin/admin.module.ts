@@ -25,6 +25,7 @@ export const routes = [
       { path: 'product', loadChildren: () => import('./product/product.module').then(m => m.ProductModule) },
       { path: 'user', loadChildren: () => import('./user/user.module').then(m => m.UserModule) },
       { path: 'deliveryservice', loadChildren: () => import('./deliveryservice/deliveryservice.module').then(m => m.DeliveryserviceModule) },
+      { path: 'order', loadChildren: () => import('./order/order.module').then(m => m.OrderModule) },
      
     ]
   } 
