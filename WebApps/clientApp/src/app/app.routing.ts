@@ -25,12 +25,31 @@ export const routes: Routes = [
                 path: 'products', 
                 loadChildren: () => import('./pages/products/products.module').then(m => m.ProductsModule), 
                 data: { breadcrumb: 'All Products' } 
-            }
+            },
+            { 
+                path: 'cart', 
+                loadChildren: () => import('./pages/cart/cart.module').then(m => m.CartModule), 
+                data: { breadcrumb: 'Cart' } 
+            },  
+            { 
+                path: 'checkout', 
+                loadChildren: () => import('./pages/checkout/checkout.module').then(m => m.CheckoutModule), 
+                data: { breadcrumb: 'Checkout' } 
+            },
         ]
     },
-    { path: 'landing', loadChildren: () => import('./landing/landing.module').then(m => m.LandingModule) },
-    { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) },
-    { path: '**', component: NotFoundComponent }
+    { 
+        path: 'landing', 
+        loadChildren: () => import('./landing/landing.module').then(m => m.LandingModule)
+    },
+    { 
+        path: 'admin', 
+        loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) 
+    },
+    { 
+        path: '**', 
+        component: NotFoundComponent 
+    }
 ];
 
 @NgModule({

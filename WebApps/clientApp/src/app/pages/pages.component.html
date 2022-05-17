@@ -170,31 +170,7 @@
                 >
                   You have no items in your shopping cart.
                 </div>
-                <mat-list>
-                  <mat-list-item
-                    *ngFor="let product of appService.Data.cartList"
-                  >
-                    <h3 matLine class="text-muted">{{ product.name }}</h3>
-                    <p matLine class="text-muted">
-                      <bdi
-                        >{{ product.cartCount }} x ${{
-                          product.newPrice | number: "1.2-2"
-                        }}</bdi
-                      >
-                    </p>
-                    <img [src]="product.images[0].small" alt="image" />
-                    <button
-                      mat-icon-button
-                      color="warn"
-                      class="remove"
-                      (click)="remove(product); stopClickPropagate($event)"
-                      matTooltip="Remove"
-                      matTooltipPosition="before"
-                    >
-                      <mat-icon class="mat-icon-sm">close</mat-icon>
-                    </button>
-                  </mat-list-item>
-                </mat-list>
+
                 <div
                   *ngIf="appService.Data.cartList.length > 0"
                   class="cart-dropdown-footer"

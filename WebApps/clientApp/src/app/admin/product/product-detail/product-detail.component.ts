@@ -133,10 +133,7 @@ export class ProductDetailComponent implements OnInit {
     this.isDownloading = true;
 
     this._productService.downloadProductImage(id).subscribe((response)=>{
-      console.log("===============================");
-      console.log(response);
-      
-      
+
       if (response.type === HttpEventType.DownloadProgress) {
         this.downloadPercentage = Math.round(100 * response.loaded / response.total);
       }

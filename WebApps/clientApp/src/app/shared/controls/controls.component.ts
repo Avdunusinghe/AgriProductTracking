@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Data, AppService } from '../../app.service';
 import { Product } from '../../app.models';
+import { ProductModel } from 'src/app/models/product/product.model';
 
 @Component({
   selector: 'app-controls',
@@ -9,7 +10,7 @@ import { Product } from '../../app.models';
   styleUrls: ['./controls.component.scss']
 })
 export class ControlsComponent implements OnInit {
-  @Input() product: Product;
+  @Input() product: ProductModel;
   @Input() type: string;
   @Output() onOpenProductDialog: EventEmitter<any> = new EventEmitter();
   @Output() onQuantityChange: EventEmitter<any> = new EventEmitter<any>();
@@ -41,12 +42,12 @@ export class ControlsComponent implements OnInit {
 
 
   public increment(count){
-    if(this.count < this.product.availibilityCount){
+    if(this.count < this.product.quantity){
       this.count++;
       let obj = {
         productId: this.product.id,
         soldQuantity: this.count,
-        total: this.count * this.product.newPrice
+        total: this.count * this.product.price
       }
       this.changeQuantity(obj);
     }
@@ -61,29 +62,29 @@ export class ControlsComponent implements OnInit {
       let obj = {
         productId: this.product.id,
         soldQuantity: this.count,
-        total: this.count * this.product.newPrice
+        total: this.count * this.product.price
       }
       this.changeQuantity(obj);
     }
   }
 
-  public addToCompare(product:Product){
+  public addToCompare(product:ProductModel){
     this.appService.addToCompare(product);
   }
 
-  public addToWishList(product:Product){
+  public addToWishList(product:ProductModel){
     this.appService.addToWishList(product);
   }
 
-  public addToCart(product:Product){
+  public addToCart(product:ProductModel){
     // console.log(product)
     let currentProduct = this.appService.Data.cartList.filter(item=>item.id == product.id)[0];
     if(currentProduct){
-      if((currentProduct.cartCount + this.count) <= this.product.availibilityCount){
+      if((currentProduct.cartCount + this.count) <= this.product.quantity){
         product.cartCount = currentProduct.cartCount + this.count;
       }
       else{
-        this.snackBar.open('You can not add more items than available. In stock ' + this.product.availibilityCount + ' items and you already added ' + currentProduct.cartCount + ' item to your cart', '×', { panelClass: 'error', verticalPosition: 'top', duration: 5000 });
+        this.snackBar.open('You can not add more items than available. In stock ' + this.product.quantity + ' items and you already added ' + currentProduct.cartCount + ' item to your cart', '×', { panelClass: 'error', verticalPosition: 'top', duration: 5000 });
         return false;
       }
     }

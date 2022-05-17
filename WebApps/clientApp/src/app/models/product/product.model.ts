@@ -13,4 +13,9 @@ export class ProductModel
     createdByName:string;
     updatedByName:string;
     productImages:ProductImageViewModel[];
+
+    cartCount: number;
+    ratingsCount: number;
+    ratingsValue: number;
+    availibilityCount: number;
 }
