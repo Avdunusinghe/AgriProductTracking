@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
 import { AppService } from 'src/app/app.service';
 import { OrderContainerModel } from 'src/app/models/order/order.container.model';
+import { OrderService } from 'src/app/services/order/order.service';
 
 @Component({
   selector: 'app-checkout',
@@ -21,7 +22,8 @@ export class CheckoutComponent implements OnInit {
   constructor
   (
     public _appService:AppService, 
-    public _formBuilder: FormBuilder
+    public _formBuilder: FormBuilder,
+    private _orderService: OrderService
     
   ) 
   {
@@ -56,7 +58,9 @@ export class CheckoutComponent implements OnInit {
     this.orderContainer.postalCode = item.postalCode;
     this.orderContainer.amount = this.grandTotal;
 
-    console.log(this.orderContainer);
+    this._orderService.checkOutOrder(this.orderContainer).subscribe((response)=>{
+        
+    })
     
     
     

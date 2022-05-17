@@ -9,7 +9,6 @@ using AuthorizeNet.Api.Contracts.V1;
 using Microsoft.AspNetCore.Mvc;
 using AuthorizeNet.Api.Controllers.Bases;
 using AgriProductTracker.ViewModel.Order;
-using AgriProductTracker.Business.Interfaces;
 using AgriProductTracker.Data.Data;
 using AgriProductTracker.Model;
 using AgriProductTracking.PaymentService.Infrastructure.Services;
@@ -41,6 +40,38 @@ namespace AgriProductTracking.PaymentService.Controllers
         [HttpPost]
 		public async Task<IActionResult> Payment(OrderContainerViewModel model)
         {
+			string userName = string.Empty;
+
+			userName = _identityService.GetUserName();
+
+			var logggedInUser = _curretUserService.GetUserByUsername(userName);
+
+			var order = new Order()
+			{
+				TotalPrice = model.Amount,
+				CustomerId = logggedInUser.Id,
+				DateTime = DateTime.UtcNow,
+				IsProceesed = false
+			};
+
+			order.OrderItems = new HashSet<OrderItem>();
+
+			foreach (var item in model.ProductItems)
+			{
+				var productItem = new OrderItem()
+				{
+					OrderId = order.Id,
+					ProductId = item.Id,
+					NumberOfItems = item.Quantity,
+
+				};
+
+				order.OrderItems.Add(productItem);
+			}
+
+			_db.Orders.Add(order);
+
+			await _db.SaveChangesAsync();
 			Console.WriteLine("Charge Credit Card Sample");
 
 			ApiOperationBase<ANetApiRequest, ANetApiResponse>.RunEnvironment = AuthorizeNet.Environment.SANDBOX;
@@ -86,35 +117,7 @@ namespace AgriProductTracking.PaymentService.Controllers
 
 					Console.WriteLine("Success, Auth Code : " + response.transactionResponse.authCode);
 
-					string userName = string.Empty;
-
-					userName = _identityService.GetUserName();
-
-					var logggedInUser = _curretUserService.GetUserByUsername(userName);
-
-					var order = new Order()
-					{
-						TotalPrice = model.Amount,
-						CustomerId = logggedInUser.Id,
-						DateTime = DateTime.UtcNow,
-						IsProceesed = false
-					};
-
-					foreach(var item in model.ProductItems)
-                    {
-						var productItem = new OrderItem()
-						{
-							ProductId = item.Id,
-							NumberOfItems = item.Quantity,
-
-						};
-
-						order.OrderItems.Add(productItem);
-                    }
-
-					_db.Orders.Add(order);
-
-					await _db.SaveChangesAsync();
+					
 					
 				}
 			}

@@ -17,8 +17,9 @@ builder.Services.AddControllers();
 builder.Services.AddCustomeDbContext(builder.Configuration);
 builder.Services.EnableCors(builder.Configuration);
 builder.Services.EnableMultiPartBody(builder.Configuration);
+builder.Services.AddSwagger();
 // Add services to the container.
-builder.Services.AddControllers();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -39,6 +40,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("CorsPolicy");
+
 
 app.UseAuthentication();
 app.UseAuthorization();
@@ -74,7 +78,7 @@ public static class CustomeExtenstionMethod
             {
                 Title = "Agri Management. - Web API",
                 Version = "v1",
-                Description = "The web service for SE3020 -Distributed Systems Assignment 2 Rest Api",
+                Description = "The web service for SE3020 -Distributed Systems Assignment 2 PaymentService Rest Api",
                 TermsOfService = new Uri("https://example.com/terms")
             });
             options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()

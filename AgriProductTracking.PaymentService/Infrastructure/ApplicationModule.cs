@@ -20,6 +20,10 @@ namespace AgriProductTracking.PaymentService.Infrastructure
                .As<IIdentityService>()
                .SingleInstance();
 
+            builder.RegisterType<CurrentUserService>()
+              .As<ICurrentUserService>()
+              .InstancePerLifetimeScope();
+
         }
     }
 }
