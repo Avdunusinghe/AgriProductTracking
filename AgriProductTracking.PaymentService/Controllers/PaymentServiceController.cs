@@ -24,11 +24,13 @@ namespace AgriProductTracking.PaymentService.Controllers
 		private readonly IIdentityService _identityService;
 		private readonly AgriProductTrackerDbContext _db;
 
-		public PaymentServiceController(
+		public PaymentServiceController
+		(
 			IConfiguration _configuration, 
 			ICurrentUserService _curretUserService,
 			IIdentityService _identityService,
-		    AgriProductTrackerDbContext _db)
+		    AgriProductTrackerDbContext _db
+		)
         {
 			this._configuration = _configuration;
 			this._curretUserService = _curretUserService;

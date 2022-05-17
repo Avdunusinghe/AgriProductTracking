@@ -14,6 +14,7 @@ namespace AgriProductTracker.ViewModel.Order
             ProductItems = new List<ProductViewModel>();
         }
         public List<ProductViewModel> ProductItems { get; set; }
+        public int Id { get; set; }
         public string CardNumber { get; set; }
         public string ExperationDate { get; set; }
         public string Cvv { get; set; }
