@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 
 export class DeliveryServiceFilterModel
 {
-    deliveryserviceId:number;
+    
     searchText:string;
     currentPage:number;
     pageSize:number;

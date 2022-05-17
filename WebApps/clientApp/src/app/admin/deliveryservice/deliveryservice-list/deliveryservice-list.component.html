@@ -17,7 +17,7 @@
       fxLayoutAlign="space-between center"
       class="w-100 p-2"
     >
-      <h2>User List</h2>
+      <h2>Delivery Service List</h2>
       <button
         mat-raised-button
         color="primary"
@@ -48,8 +48,8 @@
         <div class="mat-cell">{{ data.name }}</div>
         <div class="mat-cell">{{ data.email }}</div>
         <div class="mat-cell">{{ data.address }}</div>
-        <div class="mat-cell">{{ data.telephoneNo }}</div>
-        <div class="mat-cell">{{ data.deliverydetails }}</div>
+        <div class="mat-cell">{{ data.telePhoneNumber }}</div>
+        <div class="mat-cell">{{ data.diliveryDetails }}</div>
         <div class="mat-cell">{{ data.createdByName }}</div>
         <div class="mat-cell">{{ data.updatedByName }}</div>
         <div class="mat-cell">
@@ -81,7 +81,7 @@
     <div fxFlex="100">
       <mat-card class="p-0 text-center">
         <pagination-controls
-          class="user-pagination"
+          class="deliveryservice-pagination"
           autoHide="true"
           maxSize="5"
           (pageChange)="onPageChanged($event)"

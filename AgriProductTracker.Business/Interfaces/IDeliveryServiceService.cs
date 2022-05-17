@@ -15,6 +15,6 @@ namespace AgriProductTracker.Business.Interfaces
         DeliveryServiceViewModel GetDeliveryServicebyId(int id);
         List<DeliveryServiceViewModel> GetAllDeliveryServiceList();
         List<DropDownViewModel> GetAllDeliveryServices();
-        PaginatedItemsViewModel<BasicDeliveryServiceViewModel> GetDeliveryServiceList(string searchText, int currentPage, int pageSize, int deliveryserviceId);
+        PaginatedItemsViewModel<BasicDeliveryServiceViewModel> GetDeliveryServiceList(DeliveryServiceFilterViewModel filter);
     }
 }

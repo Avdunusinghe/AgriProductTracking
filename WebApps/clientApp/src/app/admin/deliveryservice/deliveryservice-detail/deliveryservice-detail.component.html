@@ -9,7 +9,7 @@
     <mat-card-header>
       <form
         [formGroup]="deliveryserviceForm"
-        (ngSubmit)="SaveDeliveryService()"
+        (ngSubmit)="saveDeliveryService()"
         autocomplete="off"
         fxLayout="row wrap"
       >
@@ -54,10 +54,11 @@
             <div fxFlex="100" fxFlex.gt-sm="50" class="px-1">
               <mat-form-field appearance="outline" class="w-100">
                 <mat-label>Mobile Number</mat-label>
-                <input matInput formControlName="telephoneNo" required />
+                <input matInput formControlName="telePhoneNumber" required />
                 <mat-error
                   *ngIf="
-                    deliveryserviceForm.controls.telephoneNo.errors?.required
+                    deliveryserviceForm.controls.telePhoneNumber.errors
+                      ?.required
                   "
                 >
                   Mobile Number is required
@@ -70,13 +71,12 @@
                 <mat-label>Delivery Details</mat-label>
                 <textarea
                   matInput
-                  formControlName="deliveryDetails"
+                  formControlName="diliveryDetails"
                   rows="7"
                 ></textarea>
-                <input matInput formControlName="deliveryDetails" required />
                 <mat-error
                   *ngIf="
-                    deliveryserviceForm.controls.deliveryDetails.errors
+                    deliveryserviceForm.controls.diliveryDetails.errors
                       ?.required
                   "
                 >

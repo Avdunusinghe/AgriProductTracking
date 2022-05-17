@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ResponseModel } from 'src/app/models/common/response.model';
 import { DeliveryServiceFilterModel } from 'src/app/models/deliveryservice/deliveryservice.filter.model';
-import { DeliveryServiceModel } from 'src/app/models/deliveryservice/deliveryservice.mode';
+import { DeliveryServiceModel } from 'src/app/models/deliveryservice/deliveryservice.model';
 import { DeliveryServicePaginatedItemModel } from 'src/app/models/deliveryservice/deliveryservice.paginated.item.model';
 import { environment } from 'src/environments/environment';
 
@@ -17,7 +17,7 @@ export class DeliveryserviceService {
   deliveryServiceSave(model:DeliveryServiceModel):Observable<ResponseModel>
   {
     return this.httpClient.post<ResponseModel>
-      (environment.apiUrl + 'DeliveryService', model);
+      (environment.apiUrl + 'Deliveryservice/deliveryServiceSave', model);
     
   }
 

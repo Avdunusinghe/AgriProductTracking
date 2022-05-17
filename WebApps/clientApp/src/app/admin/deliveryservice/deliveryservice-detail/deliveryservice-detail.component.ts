@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
-import { DeliveryServiceModel } from 'src/app/models/deliveryservice/deliveryservice.mode';
+import { DeliveryServiceModel } from 'src/app/models/deliveryservice/deliveryservice.model';
 import { DeliveryserviceService } from 'src/app/services/deliveryservice/deliveryservice.service';
 
 @Component({
@@ -36,7 +36,7 @@ export class DeliveryserviceDetailComponent implements OnInit {
       {
         this.getDeliveryServicebyId();
       }
-  this.deliveryserviceForm = this.createDeliveryServiceForm()
+  this.deliveryserviceForm = this.createDeliveryServiceForm();
   })
 
   
@@ -52,17 +52,30 @@ export class DeliveryserviceDetailComponent implements OnInit {
      name: [null, Validators.required],
      address:[[null], Validators.required],
      email:[null, Validators.required],
-     telephoneNo: [null, Validators.required],
-     deliveryDetails: [null, Validators.required],
+     telePhoneNumber: [null, Validators.required],
+     diliveryDetails: [null, Validators.required],
      
    })
+ }
+
+ createExsitingDEliveryServiceForm():FormGroup
+ {
+   return this._formBuilder.group({
+    id:[this.deliveryService.id],
+    name: [{value:this.deliveryService.name}, Validators.required],
+    address:[{value:this.deliveryService.address}, Validators.required],
+    email:[{value:this.deliveryService.email}, Validators.required],
+    telePhoneNumber: [{value:this.deliveryService.telePhoneNumber}, Validators.required],
+    diliveryDetails: [{value:this.deliveryService.diliveryDetails}, Validators.required],
+    
+   });
  }
   
  onFileChange(event:any, type:number){
 
  }
 
- SaveDeliveryService()
+ saveDeliveryService()
   {
     this._spinner.show();
     if(this.deliveryserviceForm.valid){
@@ -90,8 +103,8 @@ export class DeliveryserviceDetailComponent implements OnInit {
       this.deliveryserviceForm.get("name").setValue(response.name);
       this.deliveryserviceForm.get("email").setValue(response.email);
       this.deliveryserviceForm.get("address").setValue(response.address);
-      this.deliveryserviceForm.get("telephoneNo").setValue(response.telephoneNo);
-      this.deliveryserviceForm.get("deliveryDetails").setValue(response.deliveryDetails);
+      this.deliveryserviceForm.get("telePhoneNumber").setValue(response.telePhoneNumber);
+      this.deliveryserviceForm.get("diliveryDetails").setValue(response.diliveryDetails);
      
    },(error)=>{
      this._spinner.hide();

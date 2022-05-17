@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { DeliveryServiceFilterModel } from 'src/app/models/deliveryservice/deliveryservice.filter.model';
-import { DeliveryServiceModel } from 'src/app/models/deliveryservice/deliveryservice.mode';
+import { DeliveryServiceModel } from 'src/app/models/deliveryservice/deliveryservice.model';
 import { DeliveryserviceService } from 'src/app/services/deliveryservice/deliveryservice.service';
 import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
 
@@ -40,18 +40,19 @@ export class DeliveryserviceListComponent implements OnInit {
   ngOnInit(): void {
     
     this.deliveryserviceFilterForm= this.createdeliveryserviceFilterForm();
+    this.getDeliveryServiceList();
   }
 
   
  /*
- *Create user Filter Form
+ *Create delievry service Filter Form
  */
 
 
  createdeliveryserviceFilterForm():FormGroup{
   return this._formBuilder.group({
-    searchText: new FormControl(""),
-    deliveryserviceId:new FormControl(0),
+    searchText: new FormControl("")
+    
   })
 }
 
@@ -132,7 +133,7 @@ onPageChanged(pageInfo)
 }
 
 /*
- *Get All user Details
+ *Get All deliveryservice Details
  */
 
  getDeliveryServiceList()
@@ -141,29 +142,26 @@ onPageChanged(pageInfo)
 
     let filter = new DeliveryServiceFilterModel();
 
-    filter.deliveryserviceId = this.deliveryserviceFilterId;
+  
     filter.searchText = this.searchFilter;
     filter.currentPage = this.currentPage + 1;
     filter.pageSize = this.pageSize;
 
     this._deliveryService.getDeliveryServiceList(filter).subscribe((response)=>{
       this.rowData = response.data;
+      console.log(this.rowData);
       this.totalRecord = response.totalRecordCount;
+     
     },(error)=>{
       this._spinner.hide();
       this._toastr.error("Network error has been occured. Please try again.","error");
     });
-
+    
   }
 
 
-  /*
-  *Getters
-  */
-  get deliveryserviceFilterId()
-  {
-    return this.deliveryserviceFilterForm.get("deliveryserviceId").value;
-  }
+
+  
 
   get searchFilter()
   {
