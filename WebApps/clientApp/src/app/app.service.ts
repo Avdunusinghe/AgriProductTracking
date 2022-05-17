@@ -3,12 +3,13 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Category, Product } from './app.models';
+import { ProductModel } from 'src/app/models/product/product.model';
 
 export class Data {
     constructor(public categories: Category[],
-                public compareList: Product[],
-                public wishList: Product[],
-                public cartList: Product[],
+                public compareList: ProductModel[],
+                public wishList: ProductModel[],
+                public cartList: ProductModel[],
                 public totalPrice: number,
                 public totalCartCount: number) { }
 }
@@ -42,7 +43,7 @@ export class AppService {
         return this.http.get<any[]>(this.url + 'banners.json');
     }
 
-    public addToCompare(product:Product){
+    public addToCompare(product:ProductModel){
         let message, status;
         if(this.Data.compareList.filter(item=>item.id == product.id)[0]){
             message = 'The product ' + product.name + ' already added to comparison list.'; 
@@ -56,7 +57,7 @@ export class AppService {
         this.snackBar.open(message, '×', { panelClass: [status], verticalPosition: 'top', duration: 3000 });
     }
 
-    public addToWishList(product:Product){
+    public addToWishList(product:ProductModel){
         let message, status;
         if(this.Data.wishList.filter(item=>item.id == product.id)[0]){
             message = 'The product ' + product.name + ' already added to wish list.'; 
@@ -70,7 +71,7 @@ export class AppService {
         this.snackBar.open(message, '×', { panelClass: [status], verticalPosition: 'top', duration: 3000 });
     } 
 
-    public addToCart(product:Product){
+    public addToCart(product:ProductModel){
         let message, status;        
        
         this.Data.totalPrice = null;
@@ -84,7 +85,7 @@ export class AppService {
             this.Data.cartList.push(product);
         }        
         this.Data.cartList.forEach(product=>{
-            this.Data.totalPrice = this.Data.totalPrice + (product.cartCount * product.newPrice);
+            this.Data.totalPrice = this.Data.totalPrice + (product.cartCount * product.price);
             this.Data.totalCartCount = this.Data.totalCartCount + product.cartCount;
         });
 
@@ -93,7 +94,7 @@ export class AppService {
         this.snackBar.open(message, '×', { panelClass: [status], verticalPosition: 'top', duration: 3000 });
     }
 
-    public resetProductCartCount(product:Product){
+    public resetProductCartCount(product:ProductModel){
         product.cartCount = 0;
         let compareProduct = this.Data.compareList.filter(item=>item.id == product.id)[0];
         if(compareProduct){

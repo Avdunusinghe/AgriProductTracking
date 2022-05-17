@@ -255,6 +255,8 @@ namespace AgriProductTracker.Business
                 product.Name = item.Name;
                 product.Description = item.Description;
                 product.CategoryId = item.CategoryId;
+                product.Quantity = item.Quantity;
+                product.Price = item.Price;
                 product.CreatedByName = item.CreatedBy.FullName;
                 product.UpdatedByName = item.UpdatedBy.FullName;
 

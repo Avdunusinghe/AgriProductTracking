@@ -6,9 +6,7 @@
     [routerLinkActiveOptions]="{ exact: true }"
     >Home</a
   >
-  <a mat-button [matMenuTriggerFor]="menu" (click)="openMegaMenu()"
-    >Fashion<mat-icon class="caret">arrow_drop_down</mat-icon></a
-  >
+
   <mat-menu
     #menu="matMenu"
     [overlapTrigger]="false"
@@ -32,40 +30,10 @@
     [routerLinkActiveOptions]="{ exact: true }"
     >Products</a
   >
-  <a
-    mat-button
-    [routerLink]="['/products', 'electronics']"
-    routerLinkActive="horizontal-active-link"
-    [routerLinkActiveOptions]="{ exact: true }"
-    >Category 2</a
-  >
-  <a
-    mat-button
-    [routerLink]="['/products', 'sports']"
-    routerLinkActive="horizontal-active-link"
-    [routerLinkActiveOptions]="{ exact: true }"
-    >Category 2</a
-  >
+
   <!-- <a mat-button [routerLink]="['/products', 'motors']" routerLinkActive="horizontal-active-link" [routerLinkActiveOptions]="{exact:true}">Motors</a> -->
 
-  <a mat-button [matMenuTriggerFor]="animals"
-    >Pages<mat-icon class="caret">arrow_drop_down</mat-icon></a
-  >
   <mat-menu #animals="matMenu" [overlapTrigger]="false" class="app-dropdown">
-    <a
-      mat-menu-item
-      routerLink="/products"
-      routerLinkActive="horizontal-active-link"
-      [routerLinkActiveOptions]="{ exact: true }"
-      >All products</a
-    >
-    <a
-      mat-menu-item
-      [routerLink]="['/products', '2', 'PC All-in-One']"
-      routerLinkActive="horizontal-active-link"
-      [routerLinkActiveOptions]="{ exact: true }"
-      >Product detail</a
-    >
     <a
       mat-menu-item
       routerLink="/contact"

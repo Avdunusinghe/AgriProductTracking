@@ -8,6 +8,7 @@ using AuthorizeNet.Api.Controllers;
 using AuthorizeNet.Api.Contracts.V1;
 using Microsoft.AspNetCore.Mvc;
 using AuthorizeNet.Api.Controllers.Bases;
+using AgriProductTracker.ViewModel.Order;
 
 namespace AgriProductTracking.PaymentService.Controllers
 {
@@ -24,7 +25,7 @@ namespace AgriProductTracking.PaymentService.Controllers
        
 
         [HttpPost]
-        public IActionResult Payment(PymentViewModel model)
+        public IActionResult Payment(OrderContainerViewModel model)
         {
 			Console.WriteLine("Charge Credit Card Sample");
 
@@ -41,8 +42,8 @@ namespace AgriProductTracking.PaymentService.Controllers
 			var creditCard = new creditCardType
 			{
 				cardNumber = model.CardNumber,
-				expirationDate = model.ExpiratationDate,
-				cardCode = model.CardCode
+				expirationDate = model.ExperationDate,
+				cardCode = model.Cvv
 			};
 
 			//standard api call to retrieve response
