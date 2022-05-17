@@ -54,6 +54,7 @@ export class CheckoutComponent implements OnInit {
     this.orderContainer.shippingAddress = item.shippingAddress;
     this.orderContainer.city = item.city;
     this.orderContainer.postalCode = item.postalCode;
+    this.orderContainer.amount = this.grandTotal;
 
     console.log(this.orderContainer);
     

@@ -11,4 +11,5 @@ export class OrderContainerModel{
     shippingAddress:string;
     city: string;
     postalCode: string;
+    amount:number;
 }
