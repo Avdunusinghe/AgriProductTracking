@@ -9,6 +9,9 @@ using AuthorizeNet.Api.Contracts.V1;
 using Microsoft.AspNetCore.Mvc;
 using AuthorizeNet.Api.Controllers.Bases;
 using AgriProductTracker.ViewModel.Order;
+using AgriProductTracker.Business.Interfaces;
+using AgriProductTracker.Data.Data;
+using AgriProductTracker.Model;
 
 namespace AgriProductTracking.PaymentService.Controllers
 {
@@ -17,10 +20,18 @@ namespace AgriProductTracking.PaymentService.Controllers
     public class PaymentServiceController : ControllerBase
     {
 		private readonly IConfiguration _configuration;
+		private readonly ICurrentUserService _curretUserService;
+		//private readonly I
+		private readonly AgriProductTrackerDbContext _db;
 
-        public PaymentServiceController(IConfiguration _configuration)
+		public PaymentServiceController(
+			IConfiguration _configuration, 
+			ICurrentUserService _curretUserService, 
+			AgriProductTrackerDbContext _db)
         {
 			this._configuration = _configuration;
+			this._curretUserService = _curretUserService;
+			this._db = _db;
         }
        
 
@@ -67,9 +78,16 @@ namespace AgriProductTracking.PaymentService.Controllers
 
 			if (response.messages.resultCode == messageTypeEnum.Ok)
 			{
-				if (response.transactionResponse != null)
+				if(response.transactionResponse != null)
 				{
+
 					Console.WriteLine("Success, Auth Code : " + response.transactionResponse.authCode);
+
+					string userName = string.Empty;
+
+					
+
+					
 				}
 			}
 			else
