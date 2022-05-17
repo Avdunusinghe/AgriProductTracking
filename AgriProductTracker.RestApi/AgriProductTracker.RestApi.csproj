@@ -24,6 +24,7 @@
   <ItemGroup>
     <ProjectReference Include="..\AgriProductTracker.Business\AgriProductTracker.Business.csproj" />
     <ProjectReference Include="..\AgriProductTracker.Data\AgriProductTracker.Data.csproj" />
+    <ProjectReference Include="..\AgriProductTracking.Authentication\AgriProductTracking.Authentication.csproj" />
   </ItemGroup>
 
 </Project>

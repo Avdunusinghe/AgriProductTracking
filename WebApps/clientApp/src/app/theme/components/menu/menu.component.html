@@ -27,10 +27,10 @@
 
   <a
     mat-button
-    [routerLink]="['/products', 'jewellery']"
+    [routerLink]="['/products']"
     routerLinkActive="horizontal-active-link"
     [routerLinkActiveOptions]="{ exact: true }"
-    >Category 1</a
+    >Products</a
   >
   <a
     mat-button
@@ -96,6 +96,7 @@
     >Contact</a
   >
   <a
+    *ngIf="!currentUser?.isLoginSuccess"
     mat-button
     routerLink="/authentication"
     routerLinkActive="horizontal-active-link"
@@ -103,6 +104,7 @@
     >Sign-In</a
   >
   <a
+    *ngIf="isManagementLeveluser"
     mat-button
     routerLink="/admin"
     routerLinkActive="horizontal-active-link"

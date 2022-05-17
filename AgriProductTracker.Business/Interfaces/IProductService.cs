@@ -15,6 +15,8 @@ namespace AgriProductTracker.Business.Interfaces
         Task<ResponseViewModel> UploadProductImage(FileContainerViewModel container);
         ProductViewModel GetPrductById (int id);
         PaginatedItemsViewModel<ProductViewModel> GellAllProducts(ProductFilterViewModel filter);
+        DownloadFileViewModel DownloadProductImage(int id);
+        Task<ResponseViewModel> DeleteProductImage(int id);
 
     }
 }

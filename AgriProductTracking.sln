@@ -13,7 +13,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AgriProductTracker.Data", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AgriProductTracker.RestApi", "AgriProductTracker.RestApi\AgriProductTracker.RestApi.csproj", "{FDC6F383-56FE-4ACC-8B1F-73CC6A53B9C2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgriProductTracking.util", "AgriProductTracking.util\AgriProductTracking.util.csproj", "{53731229-5317-46A3-AE3F-3E4ABE2431E8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AgriProductTracking.util", "AgriProductTracking.util\AgriProductTracking.util.csproj", "{53731229-5317-46A3-AE3F-3E4ABE2431E8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgriProductTracking.Authentication", "AgriProductTracking.Authentication\AgriProductTracking.Authentication.csproj", "{9BB4FC2A-E405-4505-BEAB-FB26D09C8AB0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgriProductTracking.PaymentService", "AgriProductTracking.PaymentService\AgriProductTracking.PaymentService.csproj", "{9A56FA6E-FD97-4C0D-B927-7E0D83A70A51}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +49,14 @@ Global
 		{53731229-5317-46A3-AE3F-3E4ABE2431E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{53731229-5317-46A3-AE3F-3E4ABE2431E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{53731229-5317-46A3-AE3F-3E4ABE2431E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9BB4FC2A-E405-4505-BEAB-FB26D09C8AB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9BB4FC2A-E405-4505-BEAB-FB26D09C8AB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9BB4FC2A-E405-4505-BEAB-FB26D09C8AB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9BB4FC2A-E405-4505-BEAB-FB26D09C8AB0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A56FA6E-FD97-4C0D-B927-7E0D83A70A51}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A56FA6E-FD97-4C0D-B927-7E0D83A70A51}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A56FA6E-FD97-4C0D-B927-7E0D83A70A51}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A56FA6E-FD97-4C0D-B927-7E0D83A70A51}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

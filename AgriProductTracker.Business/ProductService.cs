@@ -286,6 +286,65 @@ namespace AgriProductTracker.Business
              return productDataSet;
           
         }
+        public DownloadFileViewModel DownloadProductImage(int id)
+        {
+            var response = new DownloadFileViewModel();
+
+            try
+            {
+                var productImage = _db.ProductImages.Where(x => x.Id == id).FirstOrDefault();
+
+                var imagePath = GetProductImagePath(productImage, _configuration, productImage.ProductId);
+
+                response.FileName = productImage.AttachementName;
+
+                byte[] fileContents = null;
+                MemoryStream memoryStream = new MemoryStream();
+
+                using (FileStream fileStream = File.OpenRead(imagePath))
+                {
+                    fileStream.CopyTo(memoryStream);
+                    fileContents = memoryStream.ToArray();
+                    memoryStream.Dispose();
+                    response.FileData = fileContents;
+
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            return response;
+        }
+        public async Task<ResponseViewModel> DeleteProductImage(int id)
+        {
+            var response = new ResponseViewModel();
+
+            try
+            {
+                var image = _db.ProductImages.Where(x => x.Id == id).FirstOrDefault();
+
+                if (File.Exists(image.Attachment))
+                {
+                    File.Delete(image.Attachment);
+                    _db.ProductImages.Remove(image);
+                    await _db.SaveChangesAsync();
+                }
+
+                response.IsSuccess = true;
+                response.Message = "Product image has been deleted";
+            }
+            catch (Exception ex)
+            {
+                response.IsSuccess = false;
+                response.Message = " Error has been orccured,Please try again";
+            }
+
+            return response;
+        }
+
+
         #endregion
 
         #region Private Methods
@@ -306,6 +365,8 @@ namespace AgriProductTracker.Business
         }
 
        
+
+
 
         #endregion
     }
