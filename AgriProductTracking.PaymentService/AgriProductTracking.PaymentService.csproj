@@ -9,7 +9,7 @@
   <ItemGroup>
     <PackageReference Include="AuthorizeNet" Version="2.0.3" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.2.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="6.0.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.5">
@@ -27,6 +27,7 @@
     <ProjectReference Include="..\AgriProductTracker.Data\AgriProductTracker.Data.csproj" />
     <ProjectReference Include="..\AgriProductTracker.Model\AgriProductTracker.Model.csproj" />
     <ProjectReference Include="..\AgriProductTracker.ViewModel\AgriProductTracker.ViewModel.csproj" />
+    <ProjectReference Include="..\AgriProductTracking.Authentication\AgriProductTracking.Authentication.csproj" />
   </ItemGroup>
 
 </Project>

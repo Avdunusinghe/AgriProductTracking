@@ -1,15 +1,33 @@
 using AgriProductTracker.Data.Data;
+using AgriProductTracking.PaymentService.Infrastructure;
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using System;
 
 var builder = WebApplication.CreateBuilder(args);
+ConfigurationManager configuration = builder.Configuration;
 
+// Add services to the container.
+
+builder.Services.AddCustomAuthentication(builder.Configuration);
+builder.Services.AddControllers();
+builder.Services.AddCustomeDbContext(builder.Configuration);
+builder.Services.EnableCors(builder.Configuration);
+builder.Services.EnableMultiPartBody(builder.Configuration);
 // Add services to the container.
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory())
+    .ConfigureContainer<ContainerBuilder>(builder =>
+    {
+        builder.RegisterModule(new ApplicationModule());
+    });
 
 var app = builder.Build();
 
@@ -22,6 +40,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

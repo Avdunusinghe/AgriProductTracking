@@ -12,6 +12,7 @@ using AgriProductTracker.ViewModel.Order;
 using AgriProductTracker.Business.Interfaces;
 using AgriProductTracker.Data.Data;
 using AgriProductTracker.Model;
+using AgriProductTracking.PaymentService.Infrastructure.Services;
 
 namespace AgriProductTracking.PaymentService.Controllers
 {
@@ -21,22 +22,24 @@ namespace AgriProductTracking.PaymentService.Controllers
     {
 		private readonly IConfiguration _configuration;
 		private readonly ICurrentUserService _curretUserService;
-		//private readonly I
+		private readonly IIdentityService _identityService;
 		private readonly AgriProductTrackerDbContext _db;
 
 		public PaymentServiceController(
 			IConfiguration _configuration, 
-			ICurrentUserService _curretUserService, 
-			AgriProductTrackerDbContext _db)
+			ICurrentUserService _curretUserService,
+			IIdentityService _identityService,
+		    AgriProductTrackerDbContext _db)
         {
 			this._configuration = _configuration;
 			this._curretUserService = _curretUserService;
+			this._identityService = _identityService;
 			this._db = _db;
         }
        
 
         [HttpPost]
-        public IActionResult Payment(OrderContainerViewModel model)
+		public async Task<IActionResult> Payment(OrderContainerViewModel model)
         {
 			Console.WriteLine("Charge Credit Card Sample");
 
@@ -85,8 +88,33 @@ namespace AgriProductTracking.PaymentService.Controllers
 
 					string userName = string.Empty;
 
-					
+					userName = _identityService.GetUserName();
 
+					var logggedInUser = _curretUserService.GetUserByUsername(userName);
+
+					var order = new Order()
+					{
+						TotalPrice = model.Amount,
+						CustomerId = logggedInUser.Id,
+						DateTime = DateTime.UtcNow,
+						IsProceesed = false
+					};
+
+					foreach(var item in model.ProductItems)
+                    {
+						var productItem = new OrderItem()
+						{
+							ProductId = item.Id,
+							NumberOfItems = item.Quantity,
+
+						};
+
+						order.OrderItems.Add(productItem);
+                    }
+
+					_db.Orders.Add(order);
+
+					await _db.SaveChangesAsync();
 					
 				}
 			}
