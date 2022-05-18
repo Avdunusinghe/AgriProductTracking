@@ -9,6 +9,6 @@ namespace AgriProductTracker.Business.Interfaces
 {
     public interface IOrderService
     {
-        List<OrderContainerViewModel> GetAllOrders();
+        List<OrderViewModel> GetAllOrders();
     }
 }

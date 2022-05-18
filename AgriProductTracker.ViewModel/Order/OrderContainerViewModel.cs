@@ -11,10 +11,12 @@ namespace AgriProductTracker.ViewModel.Order
     {
         public OrderContainerViewModel()
         {
-            ProductItems = new List<ProductViewModel>();
+            OrderItems = new List<ProductViewModel>();
         }
-        public List<ProductViewModel> ProductItems { get; set; }
+        public List<ProductViewModel> OrderItems { get; set; }
         public int Id { get; set; }
+        public int DeliveryServiceId { get; set; }
+        public string DeliveryServiceName { get; set; }
         public string CardNumber { get; set; }
         public string ExperationDate { get; set; }
         public string Cvv { get; set; }
