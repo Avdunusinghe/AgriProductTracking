@@ -106,45 +106,26 @@ namespace AgriProductTracker.Business
             return dataSet;
         }
 
-        public async Task<ResponseViewModel> ConfirmOrder(int orderId, int deliveryServiceId)
+        public async Task<OrderConfirmResponseViewModel> ConfirmOrder(int orderId, int deliveryServiceId)
         {
-            var response = new ResponseViewModel();
+            var response = new OrderConfirmResponseViewModel();
 
             try
             {
                 var order = _db.Orders.Where(x=>x.IsProceesed == false && x.Id == orderId).FirstOrDefault();
+                var deliveryService = _db.DeliveryServices.Where(x => x.Id == deliveryServiceId).FirstOrDefault();
 
-                if(order != null)
+
+                if (order != null)
                 {
                     order.IsProceesed = true;
 
                     _db.Orders.Update(order);
 
-                    var smsServiceApiUrl = string.Empty;
-                    
-                    HttpClient client = new HttpClient();
-                    HttpResponseMessage apiResponse = await client.GetAsync(smsServiceApiUrl);
-                    apiResponse.EnsureSuccessStatusCode();
-
-                    //HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create(smsServiceApiUrl);
-                    //httpWebRequest.Method = "POST";
-                    //httpWebRequest.ContentType = "application/json";
-                    //httpWebRequest.ContentLength = 0;
-                    //using (Stream webStream = httpWebRequest.GetRequestStream())
-                    //using (StreamWriter requestWriter = new StreamWriter(webStream, System.Text.Encoding.ASCII))
-                    //{
-                    //    requestWriter.Write(string.Empty);
-                    //}
-
-                    //WebResponse webResponse = httpWebRequest.GetResponse();
-                    //using (Stream webStream = webResponse.GetResponseStream() ?? Stream.Null)
-                    //using (StreamReader responseReader = new StreamReader(webStream))
-                    //{
-                    //    string apiResponse = responseReader.ReadToEnd();
-                    //    Console.Out.WriteLine(apiResponse);
-                    //}
-
                     response.IsSuccess = true;
+                    response.DeliveryServiceId = deliveryService.Id;
+                    response.DeliveryServicePhoneNumber = deliveryService.TelePhoneNumber;
+                    response.DeliveryServiceEmail = deliveryService.Email;
                     response.Message = "Order Confirm Successfull";
                 }
                 else

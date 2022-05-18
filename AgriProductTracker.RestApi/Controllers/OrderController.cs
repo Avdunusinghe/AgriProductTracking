@@ -18,7 +18,7 @@ namespace AgriProductTracker.RestApi.Controllers
             this._identityService = _identityService;
         }
 
-        [HttpPost]
+        [HttpGet]
         [Route("getAllOrders")]
         public ActionResult GellAllProducts()
         {
@@ -26,5 +26,14 @@ namespace AgriProductTracker.RestApi.Controllers
 
             return Ok(response);
         }
+
+        [HttpPost]
+        [Route("downloadProductImage/{orderId:int}/{deliveryServiceId:int}")]
+        public async Task<ActionResult> ConfirmOrder(int orderId, int deliveryServiceId)
+        {
+            var response = await _orderService.ConfirmOrder(orderId, deliveryServiceId);
+            return Ok(response);
+        }
+           
     }
 }
