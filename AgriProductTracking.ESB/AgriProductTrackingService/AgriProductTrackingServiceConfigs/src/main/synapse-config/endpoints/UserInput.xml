@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<endpoint name="UserDetails" xmlns="http://ws.apache.org/ns/synapse">
+<endpoint name="UserInput" xmlns="http://ws.apache.org/ns/synapse">
     <http method="post" uri-template="https://localhost:44352/swagger/index.html">
         <suspendOnFailure>
             <initialDuration>-1</initialDuration>

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<api context="/agriProduct" name="AgriProductTrackingAPI" xmlns="http://ws.apache.org/ns/synapse">
+<api context="/agriProductTracking" name="AgriProductTrackingAPI" xmlns="http://ws.apache.org/ns/synapse">
     <resource methods="DELETE POST PUT PATCH GET">
         <inSequence>
             <log description="Welcome to Agri Product Tracking System!"/>
             <send>
-                <endpoint key="UserDetails"/>
+                <endpoint key="UserInput"/>
             </send>
         </inSequence>
         <outSequence>

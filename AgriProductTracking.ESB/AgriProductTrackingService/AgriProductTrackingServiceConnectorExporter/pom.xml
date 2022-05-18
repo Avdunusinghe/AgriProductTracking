@@ -2,20 +2,15 @@
 <project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>com.example</groupId>
-    <artifactId>AgriProductTrackingService</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
-  </parent>
   <groupId>com.example</groupId>
   <artifactId>AgriProductTrackingServiceConnectorExporter</artifactId>
-  <version>1.0.0-SNAPSHOT</version>
+  <version>1.0.0</version>
   <packaging>pom</packaging>
   <name>AgriProductTrackingServiceConnectorExporter</name>
   <description>AgriProductTrackingServiceConnectorExporter</description>
   <properties>
-    <maven.test.skip>false</maven.test.skip>
     <CApp.type>synapse/lib</CApp.type>
+    <maven.test.skip>false</maven.test.skip>
   </properties>
   <repositories>
     <repository>
@@ -25,7 +20,7 @@
         <checksumPolicy>ignore</checksumPolicy>
       </releases>
       <id>wso2-nexus</id>
-      <url>https://maven.wso2.org/nexus/content/groups/wso2-public/</url>
+      <url>http://maven.wso2.org/nexus/content/groups/wso2-public/</url>
     </repository>
   </repositories>
   <pluginRepositories>
@@ -36,7 +31,7 @@
         <checksumPolicy>ignore</checksumPolicy>
       </releases>
       <id>wso2-nexus</id>
-      <url>https://maven.wso2.org/nexus/content/groups/wso2-public/</url>
+      <url>http://maven.wso2.org/nexus/content/groups/wso2-public/</url>
     </pluginRepository>
   </pluginRepositories>
   <build>
@@ -60,13 +55,6 @@
             </configuration>
           </execution>
         </executions>
-        <dependencies>
-          <dependency>
-            <groupId>com.sun.activation</groupId>
-            <artifactId>javax.activation</artifactId>
-            <version>1.2.0</version>
-          </dependency>
-        </dependencies>
         <configuration />
       </plugin>
       <plugin>
