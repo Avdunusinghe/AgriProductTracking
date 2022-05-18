@@ -3,10 +3,15 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
+import { EMPTY, Observable } from 'rxjs';
 import { ProductModel } from 'src/app/models/product/product.model';
 import { CoreDataService } from 'src/app/services/core-data/core-data.service';
 import { ProductService } from 'src/app/services/product/product.service';
 import { DropDownModel } from './../../../models/common/drop.down.model';
+import { Upload } from 'src/app/models/common/upload';
+import { HttpEventType } from '@angular/common/http';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-product-detail',
@@ -33,6 +38,7 @@ export class ProductDetailComponent implements OnInit {
     private _productService:ProductService,
     private _toastr: ToastrService,
     private _router:Router,
+    private _dialog: MatDialog
   ) 
   {
     this.getAllProductCategories();
@@ -48,7 +54,9 @@ export class ProductDetailComponent implements OnInit {
       {
         this.getproductById();
       }
-      
+      else{
+        this.product = new ProductModel();
+      }
       this.productForm = this.createProductForm();   
 
    })  
@@ -80,9 +88,116 @@ export class ProductDetailComponent implements OnInit {
     quantity: [{value:this.product.quantity}, Validators.required]
    });
  }
-  
- onFileChange(event:any, type:number){
 
+ upload$: Observable<Upload> = EMPTY;
+ precentage:any;
+ onFileChange(event:any, type:number)
+ {   
+   let file = event.srcElement;
+   const formData = new FormData();
+
+   formData.set("id",this.product.id.toString());
+   formData.set("type", type.toString());
+
+   if(file.files.length > 0)
+   {
+      this._spinner.show();
+
+      for (let index = 0; index < file.files.length; index++) 
+      {
+        formData.append('file',file.files[index], file.files[index].name);
+        
+      }
+
+      this._productService.uploadProductImage(formData).subscribe((response)=>{
+          this.precentage = response;
+          if(response.state === "DONE")
+          {
+            this._spinner.show();
+            this.getproductById();
+
+            this._toastr.success("Image has been uploaded successfully", 'Success');
+          }
+      },(error)=>{
+        this._spinner.hide();
+        this._toastr.error("Error has been occured image upload please try again","Eroor");
+      })
+   }
+ }
+
+ downloadPercentage:number = 0;
+ isDownloading:boolean;
+ downloadProductImage(id:number, attachmentName:string)
+ {
+    //this._spinner.show();
+    this.isDownloading = true;
+
+    this._productService.downloadProductImage(id).subscribe((response)=>{
+
+      if (response.type === HttpEventType.DownloadProgress) {
+        this.downloadPercentage = Math.round(100 * response.loaded / response.total);
+      }
+      
+      if (response.type === HttpEventType.Response) {
+        if(response.status == 204)
+        {
+          this.isDownloading=false;
+          this.downloadPercentage=0;
+          this._spinner.hide();
+        }
+        else
+        {
+          const objectUrl: string = URL.createObjectURL(response.body);
+          const a: HTMLAnchorElement = document.createElement('a') as HTMLAnchorElement;
+  
+          a.href = objectUrl;
+          a.download = attachmentName;
+          document.body.appendChild(a);
+          a.click();
+  
+          document.body.removeChild(a);
+          URL.revokeObjectURL(objectUrl);
+          this.isDownloading=false;
+          this.downloadPercentage=0;
+          this._spinner.hide();
+        }
+
+      }
+    },(error)=>{
+
+      this._spinner.hide();
+      this.isDownloading=false;
+      this.downloadPercentage=0;
+
+    });
+
+ }
+
+ deleteProductImage(id:number)
+ {
+  const dialogRef = this._dialog.open(ConfirmDialogComponent,{
+    maxWidth: "400px",
+    data: {
+      title: "Confirm Delete Product Image",
+      message: "Are you sure you want remove this product image?"
+    }
+  });
+  dialogRef.afterClosed().subscribe(dialogResult => { 
+    if(dialogResult){
+     this._productService.deleteProductImage(id).subscribe((response)=>{
+        if(response.isSuccess)
+        {
+           this._toastr.success(response.message,"success");
+           this.getproductById();
+        }else
+        {
+          this._toastr.error(response.message,"error")
+        }
+     })
+    } 
+  },(error)=>{
+    this._toastr.error("Network error has been occured. Please try again.","error")
+  }); 
  }
 
  /*
@@ -146,9 +261,4 @@ export class ProductDetailComponent implements OnInit {
   {
     return this.productForm.get('id').value;
   }*/
-
- 
-
-
-
 }

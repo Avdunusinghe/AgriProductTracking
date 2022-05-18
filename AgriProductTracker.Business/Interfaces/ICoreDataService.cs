@@ -10,5 +10,6 @@ namespace AgriProductTracker.Business.Interfaces
     public interface ICoreDataService
     {
         List<DropDownViewModel> GetProductCategories();
+        List<DropDownViewModel> GetDeliveryServices();
     }
 }

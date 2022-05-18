@@ -17,7 +17,7 @@ namespace AgriProductTracker.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.4")
+                .HasAnnotation("ProductVersion", "6.0.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -77,6 +77,9 @@ namespace AgriProductTracker.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<string>("City")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("CustomerId")
                         .HasColumnType("int");
 
@@ -88,6 +91,15 @@ namespace AgriProductTracker.Data.Migrations
 
                     b.Property<bool>("IsProceesed")
                         .HasColumnType("bit");
+
+                    b.Property<string>("PostalCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Province")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ShippingAddress")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("TotalPrice")
                         .HasPrecision(14, 2)
@@ -405,7 +417,7 @@ namespace AgriProductTracker.Data.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedOn = new DateTime(2022, 5, 11, 12, 28, 55, 781, DateTimeKind.Utc).AddTicks(6993),
+                            CreatedOn = new DateTime(2022, 5, 18, 6, 19, 3, 11, DateTimeKind.Utc).AddTicks(7673),
                             Email = "farmer@gmail.com",
                             FullName = "farmer",
                             IsActive = true,
@@ -413,13 +425,13 @@ namespace AgriProductTracker.Data.Migrations
                             LoginsessionId = 0,
                             MobileNumber = "0112487086",
                             Password = "pass@123!",
-                            UpdatedOn = new DateTime(2022, 5, 11, 12, 28, 55, 781, DateTimeKind.Utc).AddTicks(6994),
+                            UpdatedOn = new DateTime(2022, 5, 18, 6, 19, 3, 11, DateTimeKind.Utc).AddTicks(7673),
                             UserName = "admin@gmail.com"
                         },
                         new
                         {
                             Id = 1,
-                            CreatedOn = new DateTime(2022, 5, 11, 12, 28, 55, 781, DateTimeKind.Utc).AddTicks(6990),
+                            CreatedOn = new DateTime(2022, 5, 18, 6, 19, 3, 11, DateTimeKind.Utc).AddTicks(7669),
                             Email = "superAdmin@gmail.com",
                             FullName = "SuperAdmin",
                             IsActive = true,
@@ -427,13 +439,13 @@ namespace AgriProductTracker.Data.Migrations
                             LoginsessionId = 0,
                             MobileNumber = "0703375581",
                             Password = "pass@123!",
-                            UpdatedOn = new DateTime(2022, 5, 11, 12, 28, 55, 781, DateTimeKind.Utc).AddTicks(6991),
+                            UpdatedOn = new DateTime(2022, 5, 18, 6, 19, 3, 11, DateTimeKind.Utc).AddTicks(7672),
                             UserName = "superAdmin@gmail.com"
                         },
                         new
                         {
                             Id = 3,
-                            CreatedOn = new DateTime(2022, 5, 11, 12, 28, 55, 781, DateTimeKind.Utc).AddTicks(6995),
+                            CreatedOn = new DateTime(2022, 5, 18, 6, 19, 3, 11, DateTimeKind.Utc).AddTicks(7674),
                             Email = "customer@gmail.com",
                             FullName = "Customer",
                             IsActive = true,
@@ -441,7 +453,7 @@ namespace AgriProductTracker.Data.Migrations
                             LoginsessionId = 0,
                             MobileNumber = "0112487086",
                             Password = "pass@123!",
-                            UpdatedOn = new DateTime(2022, 5, 11, 12, 28, 55, 781, DateTimeKind.Utc).AddTicks(6995),
+                            UpdatedOn = new DateTime(2022, 5, 18, 6, 19, 3, 11, DateTimeKind.Utc).AddTicks(7674),
                             UserName = "customer@gmail.com"
                         });
                 });
@@ -487,30 +499,30 @@ namespace AgriProductTracker.Data.Migrations
                             UserId = 1,
                             RoleId = 1,
                             CreatedById = 1,
-                            CreatedOn = new DateTime(2022, 5, 11, 12, 28, 55, 788, DateTimeKind.Utc).AddTicks(4476),
+                            CreatedOn = new DateTime(2022, 5, 18, 6, 19, 3, 14, DateTimeKind.Utc).AddTicks(8817),
                             IsActive = true,
                             UpdatedById = 1,
-                            UpdatedOn = new DateTime(2022, 5, 11, 12, 28, 55, 788, DateTimeKind.Utc).AddTicks(4478)
+                            UpdatedOn = new DateTime(2022, 5, 18, 6, 19, 3, 14, DateTimeKind.Utc).AddTicks(8822)
                         },
                         new
                         {
                             UserId = 2,
                             RoleId = 2,
                             CreatedById = 1,
-                            CreatedOn = new DateTime(2022, 5, 11, 12, 28, 55, 788, DateTimeKind.Utc).AddTicks(4482),
+                            CreatedOn = new DateTime(2022, 5, 18, 6, 19, 3, 14, DateTimeKind.Utc).AddTicks(8824),
                             IsActive = true,
                             UpdatedById = 1,
-                            UpdatedOn = new DateTime(2022, 5, 11, 12, 28, 55, 788, DateTimeKind.Utc).AddTicks(4483)
+                            UpdatedOn = new DateTime(2022, 5, 18, 6, 19, 3, 14, DateTimeKind.Utc).AddTicks(8824)
                         },
                         new
                         {
                             UserId = 3,
                             RoleId = 3,
                             CreatedById = 1,
-                            CreatedOn = new DateTime(2022, 5, 11, 12, 28, 55, 788, DateTimeKind.Utc).AddTicks(4530),
+                            CreatedOn = new DateTime(2022, 5, 18, 6, 19, 3, 14, DateTimeKind.Utc).AddTicks(8825),
                             IsActive = true,
                             UpdatedById = 1,
-                            UpdatedOn = new DateTime(2022, 5, 11, 12, 28, 55, 788, DateTimeKind.Utc).AddTicks(4531)
+                            UpdatedOn = new DateTime(2022, 5, 18, 6, 19, 3, 14, DateTimeKind.Utc).AddTicks(8825)
                         });
                 });
 

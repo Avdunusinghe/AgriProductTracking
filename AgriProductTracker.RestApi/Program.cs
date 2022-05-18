@@ -16,27 +16,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 ConfigurationManager configuration = builder.Configuration;
 
-
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
-{
-    options.TokenValidationParameters = new TokenValidationParameters
-    {
-        ValidateIssuer = true,
-        ValidateAudience = true,
-        ValidateLifetime = true,
-        ValidateIssuerSigningKey = true,
-        ValidIssuer = configuration["Tokens:Issuer"],
-        ValidAudiences = new List<string>
-        {
-            "webapp"
-        },
-        //ValidAudience = "https://localhost:5001",
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey@345"))
-    };
-});
 // Add services to the container.
 
-
+builder.Services.AddCustomAuthentication(builder.Configuration);
 builder.Services.AddControllers();
 builder.Services.AddCustomeDbContext(builder.Configuration);
 builder.Services.EnableCors(builder.Configuration);
