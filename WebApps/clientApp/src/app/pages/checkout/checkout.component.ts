@@ -8,6 +8,7 @@ import { OrderContainerModel } from 'src/app/models/order/order.container.model'
 import { CoreDataService } from 'src/app/services/core-data/core-data.service';
 import { OrderService } from 'src/app/services/order/order.service';
 import { DropDownModel } from 'src/app/models/common/drop.down.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-checkout',
@@ -34,6 +35,7 @@ export class CheckoutComponent implements OnInit {
     private _orderService: OrderService,
     private _spinner: NgxSpinnerService,
     private _toastr: ToastrService,
+    private _router:Router
     
   ) 
   {
@@ -78,7 +80,21 @@ export class CheckoutComponent implements OnInit {
     this._orderService.checkOutOrder(this.orderContainer).subscribe((response)=>{
         console.log(response);
         
-    })
+      if(response.isSuccess === true)
+      {
+        this._orderService.SendPaymentSuccessMesseage(response).subscribe((apiResponse)=>{
+          if(apiResponse.isSuccess)
+          {
+            this._toastr.success(apiResponse.message,"Success");
+            this._router.navigate(['products']);
+            
+          }
+        })
+      }
+        
+    }) 
+
+   
     
   }
 

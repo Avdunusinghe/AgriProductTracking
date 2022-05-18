@@ -83,71 +83,75 @@ namespace AgriProductTracking.PaymentService.Controllers
 
 				await _db.SaveChangesAsync();
 
-				if (model.PaymentType == PaymentType.CreditCard)
-				{
+				customeOrderResponse.IsSuccess = true;
+				customeOrderResponse.CustomerEmail = logggedInUser.Email;
+				customeOrderResponse.CustomerMobileNumber = logggedInUser.MobileNumber;
 
-					ApiOperationBase<ANetApiRequest, ANetApiResponse>.RunEnvironment = AuthorizeNet.Environment.SANDBOX;
+				//if (model.PaymentType == PaymentType.CreditCard)
+				//{
 
-					// define the merchant information (authentication / transaction id)
-					ApiOperationBase<ANetApiRequest, ANetApiResponse>.MerchantAuthentication = new merchantAuthenticationType()
-					{
-						name = _configuration["LoginId"],
-						ItemElementName = ItemChoiceType.transactionKey,
-						Item = _configuration["Transactionkey"]
-					};
+				//	ApiOperationBase<ANetApiRequest, ANetApiResponse>.RunEnvironment = AuthorizeNet.Environment.SANDBOX;
 
-					var creditCard = new creditCardType
-					{
-						cardNumber = model.CardNumber,
-						expirationDate = model.ExperationDate,
-						cardCode = model.Cvv
-					};
+				//	// define the merchant information (authentication / transaction id)
+				//	ApiOperationBase<ANetApiRequest, ANetApiResponse>.MerchantAuthentication = new merchantAuthenticationType()
+				//	{
+				//		name = _configuration["LoginId"],
+				//		ItemElementName = ItemChoiceType.transactionKey,
+				//		Item = _configuration["Transactionkey"]
+				//	};
 
-					//standard api call to retrieve response
-					var paymentType = new paymentType { Item = creditCard };
+				//	var creditCard = new creditCardType
+				//	{
+				//		cardNumber = model.CardNumber,
+				//		expirationDate = model.ExperationDate,
+				//		cardCode = model.Cvv
+				//	};
 
-					var transactionRequest = new transactionRequestType
-					{
-						transactionType = transactionTypeEnum.authCaptureTransaction.ToString(),
-						amount = model.Amount,
-						payment = paymentType
-					};
+				//	//standard api call to retrieve response
+				//	var paymentType = new paymentType { Item = creditCard };
 
-					var request = new createTransactionRequest { transactionRequest = transactionRequest };
+				//	var transactionRequest = new transactionRequestType
+				//	{
+				//		transactionType = transactionTypeEnum.authCaptureTransaction.ToString(),
+				//		amount = model.Amount,
+				//		payment = paymentType
+				//	};
 
-					// instantiate the contoller that will call the service
-					var controller = new createTransactionController(request);
-					controller.Execute();
+				//	var request = new createTransactionRequest { transactionRequest = transactionRequest };
 
-					// get the response from the service (errors contained if any)
-					var response = controller.GetApiResponse();
+				//	// instantiate the contoller that will call the service
+				//	var controller = new createTransactionController(request);
+				//	controller.Execute();
 
-					if (response.messages.resultCode == messageTypeEnum.Ok)
-					{
-						if (response.transactionResponse != null)
-						{
-							customeOrderResponse.IsSuccess = true;
-							customeOrderResponse.CustomerEmail = logggedInUser.Email;
-							customeOrderResponse.CustomerMobileNumber = logggedInUser.MobileNumber;
+				//	// get the response from the service (errors contained if any)
+				//	var response = controller.GetApiResponse();
 
-						}
-					}
-					else
-					{
-						if (response.transactionResponse != null)
-						{
-							customeOrderResponse.IsSuccess = false;
-							customeOrderResponse.Message = "Payment Details Error Please try Again";
-						}
-					}
+				//	if (response.messages.resultCode == messageTypeEnum.Ok)
+				//	{
+				//		if (response.transactionResponse != null)
+				//		{
+				//			customeOrderResponse.IsSuccess = true;
+				//			customeOrderResponse.CustomerEmail = logggedInUser.Email;
+				//			customeOrderResponse.CustomerMobileNumber = logggedInUser.MobileNumber;
 
-				}
-				else
-				{
-					customeOrderResponse.IsSuccess = false;
-					customeOrderResponse.CustomerEmail = logggedInUser.Email;
-					customeOrderResponse.CustomerMobileNumber = logggedInUser.MobileNumber;
-				}
+				//		}
+				//	}
+				//	else
+				//	{
+				//		if (response.transactionResponse != null)
+				//		{
+				//			customeOrderResponse.IsSuccess = false;
+				//			customeOrderResponse.Message = "Payment Details Error Please try Again";
+				//		}
+				//	}
+
+				//}
+				//else
+				//{
+				//	customeOrderResponse.IsSuccess = false;
+				//	customeOrderResponse.CustomerEmail = logggedInUser.Email;
+				//	customeOrderResponse.CustomerMobileNumber = logggedInUser.MobileNumber;
+				//}
 
 			}
 			catch (Exception ex)

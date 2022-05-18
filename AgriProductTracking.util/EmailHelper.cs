@@ -18,8 +18,7 @@ namespace AgriProductTracking.util
 
         public static bool SendPaymentSuccessEmail(CompanyEmailSettingModel _emailSetting, CustomerOrderResponseViewModel model)
         {
-            try
-            {
+            
                 MailMessage email = new MailMessage(_emailSetting.SMTPFrom, model.CustomerEmail);
                 email.Body = "Order Comfirmed,Thank You!";
                 email.Subject = "DS-Order-Comfired";
@@ -27,16 +26,17 @@ namespace AgriProductTracking.util
                 email.BodyEncoding = System.Text.Encoding.UTF8;
                 SmtpClient client = new SmtpClient(_emailSetting.SMTPServer, _emailSetting.SMTPPort);
 
-                System.Net.NetworkCredential auth = new
+                System.Net.NetworkCredential networkCredential = new
 
-                System.Net.NetworkCredential(_emailSetting.SMTPUsername, _emailSetting.SMTPPassword);
+                System.Net.NetworkCredential(_emailSetting.SMTPFrom, _emailSetting.SMTPPassword);
 
-                client.EnableSsl = true;
+                client.EnableSsl = _emailSetting.IsSMTPUseSSL;
 
                 client.UseDefaultCredentials = false;
 
-                client.Credentials = auth;
-
+                client.Credentials = networkCredential;
+            try
+            {
                 client.Send(email);
 
             }

@@ -31,7 +31,7 @@ namespace AgriProductTracking.SMS.Service.Controllers
                     SMTPUsername = _configuration["SMTPUsername"],
                     SMTPFrom = _configuration["SMTPFrom"],
                     SMTPPassword = _configuration["SMTPPassword"],
-                    SMTPPort = 507,
+                    SMTPPort = 587,
                     IsSMTPUseSSL = true,
                     IsEnableHTML = true,
 
