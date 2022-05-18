@@ -1,4 +1,5 @@
-﻿using AgriProductTracker.ViewModel.Product;
+﻿using AgriProductTracker.Model.Common.Enums;
+using AgriProductTracker.ViewModel.Product;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,7 @@ namespace AgriProductTracker.ViewModel.Order
         public int Id { get; set; }
         public string CardNumber { get; set; }
         public string ExperationDate { get; set; }
+        public PaymentType PaymentType { get; set; }
         public string Cvv { get; set; }
         public string ShippingAddress { get; set; }
         public string City { get; set; }

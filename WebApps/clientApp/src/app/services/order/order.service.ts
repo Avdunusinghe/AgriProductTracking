@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { OrderContainerModel } from 'src/app/models/order/order.container.model';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { CustomerOrderResponseModel } from 'src/app/models/order/customer.order.response.model';
 
 @Injectable({
   providedIn: 'root'
@@ -16,8 +17,8 @@ export class OrderService {
   { 
 
   }
-  checkOutOrder(orderContainer:OrderContainerModel):Observable<any>{
-      return this.httpClient.post<any>
+  checkOutOrder(orderContainer:OrderContainerModel):Observable<CustomerOrderResponseModel>{
+      return this.httpClient.post<CustomerOrderResponseModel>
       (environment.paymentApiUrl + 'PaymentService',orderContainer);
   }
 }

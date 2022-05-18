@@ -6,6 +6,7 @@ export class OrderContainerModel{
     orderItems:ProductModel[] = [];
     cardNumber:string;
     experationDate:string;
+    paymentType:number;
     cvv:string;
     shippingAddress:string;
     city: string;

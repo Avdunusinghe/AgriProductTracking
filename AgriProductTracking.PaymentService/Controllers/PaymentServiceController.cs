@@ -12,6 +12,7 @@ using AgriProductTracker.ViewModel.Order;
 using AgriProductTracker.Data.Data;
 using AgriProductTracker.Model;
 using AgriProductTracking.PaymentService.Infrastructure.Services;
+using AgriProductTracker.Model.Common.Enums;
 
 namespace AgriProductTracking.PaymentService.Controllers
 {
@@ -42,96 +43,121 @@ namespace AgriProductTracking.PaymentService.Controllers
         [HttpPost]
 		public async Task<IActionResult> Payment(OrderContainerViewModel model)
         {
-			string userName = string.Empty;
+			var customeOrderResponse = new CustomerOrderResponseViewModel();
 
-			userName = _identityService.GetUserName();
+            try
+            {
+				string userName = string.Empty;
 
-			var logggedInUser = _curretUserService.GetUserByUsername(userName);
+				userName = _identityService.GetUserName();
 
-			var order = new Order()
-			{
-				TotalPrice = model.Amount,
-				CustomerId = logggedInUser.Id,
-				DateTime = DateTime.UtcNow,
-				IsProceesed = false
-			};
+				var logggedInUser = _curretUserService.GetUserByUsername(userName);
 
-			order.OrderItems = new HashSet<OrderItem>();
-
-			foreach (var item in model.OrderItems)
-			{
-				var productItem = new OrderItem()
+				var order = new Order()
 				{
-					OrderId = order.Id,
-					ProductId = item.Id,
-					NumberOfItems = item.Quantity,
+					TotalPrice = model.Amount,
+					CustomerId = logggedInUser.Id,
+					DateTime = DateTime.UtcNow,
+					IsProceesed = false,
+					ShippingAddress = model.ShippingAddress,
+					PostalCode = model.PostalCode,
+					City = model.City,
 
 				};
 
-				order.OrderItems.Add(productItem);
-			}
+				order.OrderItems = new HashSet<OrderItem>();
 
-			_db.Orders.Add(order);
+				foreach (var item in model.OrderItems)
+				{
+					var productItem = new OrderItem()
+					{
+						OrderId = order.Id,
+						ProductId = item.Id,
+						NumberOfItems = item.Quantity,
+					};
 
-			await _db.SaveChangesAsync();
-			Console.WriteLine("Charge Credit Card Sample");
+					order.OrderItems.Add(productItem);
+				}
 
-			ApiOperationBase<ANetApiRequest, ANetApiResponse>.RunEnvironment = AuthorizeNet.Environment.SANDBOX;
+				_db.Orders.Add(order);
 
-			// define the merchant information (authentication / transaction id)
-			ApiOperationBase<ANetApiRequest, ANetApiResponse>.MerchantAuthentication = new merchantAuthenticationType()
-			{
-				name = _configuration["LoginId"],
-				ItemElementName = ItemChoiceType.transactionKey,
-				Item = _configuration["Transactionkey"]
-			};
+				await _db.SaveChangesAsync();
 
-			var creditCard = new creditCardType
-			{
-				cardNumber = model.CardNumber,
-				expirationDate = model.ExperationDate,
-				cardCode = model.Cvv
-			};
-
-			//standard api call to retrieve response
-			var paymentType = new paymentType { Item = creditCard };
-
-			var transactionRequest = new transactionRequestType
-			{
-				transactionType = transactionTypeEnum.authCaptureTransaction.ToString(),   // charge the card
-				amount = model.Amount,
-				payment = paymentType
-			};
-
-			var request = new createTransactionRequest { transactionRequest = transactionRequest };
-
-			// instantiate the contoller that will call the service
-			var controller = new createTransactionController(request);
-			controller.Execute();
-
-			// get the response from the service (errors contained if any)
-			var response = controller.GetApiResponse();
-
-			if (response.messages.resultCode == messageTypeEnum.Ok)
-			{
-				if(response.transactionResponse != null)
+				if (model.PaymentType == PaymentType.CreditCard)
 				{
 
-					Console.WriteLine("Success, Auth Code : " + response.transactionResponse.authCode);
+					ApiOperationBase<ANetApiRequest, ANetApiResponse>.RunEnvironment = AuthorizeNet.Environment.SANDBOX;
 
-					
-					
+					// define the merchant information (authentication / transaction id)
+					ApiOperationBase<ANetApiRequest, ANetApiResponse>.MerchantAuthentication = new merchantAuthenticationType()
+					{
+						name = _configuration["LoginId"],
+						ItemElementName = ItemChoiceType.transactionKey,
+						Item = _configuration["Transactionkey"]
+					};
+
+					var creditCard = new creditCardType
+					{
+						cardNumber = model.CardNumber,
+						expirationDate = model.ExperationDate,
+						cardCode = model.Cvv
+					};
+
+					//standard api call to retrieve response
+					var paymentType = new paymentType { Item = creditCard };
+
+					var transactionRequest = new transactionRequestType
+					{
+						transactionType = transactionTypeEnum.authCaptureTransaction.ToString(),
+						amount = model.Amount,
+						payment = paymentType
+					};
+
+					var request = new createTransactionRequest { transactionRequest = transactionRequest };
+
+					// instantiate the contoller that will call the service
+					var controller = new createTransactionController(request);
+					controller.Execute();
+
+					// get the response from the service (errors contained if any)
+					var response = controller.GetApiResponse();
+
+					if (response.messages.resultCode == messageTypeEnum.Ok)
+					{
+						if (response.transactionResponse != null)
+						{
+							customeOrderResponse.IsSuccess = true;
+							customeOrderResponse.CustomerEmail = logggedInUser.Email;
+							customeOrderResponse.CustomerMobileNumber = logggedInUser.MobileNumber;
+
+						}
+					}
+					else
+					{
+						if (response.transactionResponse != null)
+						{
+							customeOrderResponse.IsSuccess = false;
+							customeOrderResponse.Message = "Payment Details Error Please try Again";
+						}
+					}
+
 				}
-			}
-			else
-			{
-				Console.WriteLine("Error: " + response.messages.message[0].code + "  " + response.messages.message[0].text);
-				if (response.transactionResponse != null)
+				else
 				{
-					Console.WriteLine("Transaction Error : " + response.transactionResponse.errors[0].errorCode + " " + response.transactionResponse.errors[0].errorText);
+					customeOrderResponse.IsSuccess = false;
+					customeOrderResponse.CustomerEmail = logggedInUser.Email;
+					customeOrderResponse.CustomerMobileNumber = logggedInUser.MobileNumber;
 				}
+
 			}
-			return Ok(response);
+			catch (Exception ex)
+            {
+
+            }
+			
+			return Ok(customeOrderResponse);
 		}
+
+
     }
 }
