@@ -28,5 +28,14 @@ namespace AgriProductTracker.RestApi.Controllers
 
             return Ok(response);
         }
+
+        [HttpGet]
+        [Route("getAllDeliveryServices")]
+        public IActionResult GetAllDeliveryServices()
+        {
+            var response = _coreDataService.GetDeliveryServices();
+
+            return Ok(response);
+        }
     }
 }

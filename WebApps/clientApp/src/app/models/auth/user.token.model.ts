@@ -7,5 +7,5 @@ export class UserTokenModel
     loginMessage:string;
     token:string;
     displayName:string;
-    role:[];
+    roles:[];
 }

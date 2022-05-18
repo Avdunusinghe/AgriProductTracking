@@ -1,0 +1,58 @@
+﻿BEGIN TRANSACTION;
+GO
+
+ALTER TABLE [Order] ADD [City] nvarchar(max) NULL;
+GO
+
+ALTER TABLE [Order] ADD [PostalCode] nvarchar(max) NULL;
+GO
+
+ALTER TABLE [Order] ADD [Province] int NOT NULL DEFAULT 0;
+GO
+
+ALTER TABLE [Order] ADD [ShippingAddress] nvarchar(max) NULL;
+GO
+
+UPDATE [User] SET [CreatedOn] = '2022-05-18T06:19:03.0117669Z', [UpdatedOn] = '2022-05-18T06:19:03.0117672Z'
+WHERE [Id] = 1;
+SELECT @@ROWCOUNT;
+
+GO
+
+UPDATE [User] SET [CreatedOn] = '2022-05-18T06:19:03.0117673Z', [UpdatedOn] = '2022-05-18T06:19:03.0117673Z'
+WHERE [Id] = 2;
+SELECT @@ROWCOUNT;
+
+GO
+
+UPDATE [User] SET [CreatedOn] = '2022-05-18T06:19:03.0117674Z', [UpdatedOn] = '2022-05-18T06:19:03.0117674Z'
+WHERE [Id] = 3;
+SELECT @@ROWCOUNT;
+
+GO
+
+UPDATE [UserRole] SET [CreatedOn] = '2022-05-18T06:19:03.0148817Z', [UpdatedOn] = '2022-05-18T06:19:03.0148822Z'
+WHERE [RoleId] = 1 AND [UserId] = 1;
+SELECT @@ROWCOUNT;
+
+GO
+
+UPDATE [UserRole] SET [CreatedOn] = '2022-05-18T06:19:03.0148824Z', [UpdatedOn] = '2022-05-18T06:19:03.0148824Z'
+WHERE [RoleId] = 2 AND [UserId] = 2;
+SELECT @@ROWCOUNT;
+
+GO
+
+UPDATE [UserRole] SET [CreatedOn] = '2022-05-18T06:19:03.0148825Z', [UpdatedOn] = '2022-05-18T06:19:03.0148825Z'
+WHERE [RoleId] = 3 AND [UserId] = 3;
+SELECT @@ROWCOUNT;
+
+GO
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20220518061903_AgriProductTracker00002', N'6.0.5');
+GO
+
+COMMIT;
+GO
+

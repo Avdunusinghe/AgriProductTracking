@@ -18,6 +18,18 @@ namespace AgriProductTracker.Business
             this._db = _db;
         }
 
+        public List<DropDownViewModel> GetDeliveryServices()
+        {
+            var deliverySservices = _db.DeliveryServices.Where(x => x.IsActive == true)
+               .Select(x => new DropDownViewModel()
+               {
+                   Id = x.Id,
+                   Name = x.Name
+               }).ToList();
+
+            return deliverySservices;
+        }
+
         public List<DropDownViewModel> GetProductCategories()
         {
             var productCategories = _db.ProductCategories.Where(x => x.IsActive == true)

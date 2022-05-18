@@ -25,14 +25,14 @@ export class ProductListComponent implements OnInit {
   public searchText: string;
   constructor
   (
-    public _formBuilder: FormBuilder, 
+    private _formBuilder: FormBuilder, 
     private _activatedRoute: ActivatedRoute, 
     private _coreDataService : CoreDataService,
     private _spinner: NgxSpinnerService,
     private _productService:ProductService,
     private _toastr: ToastrService,
     private _router:Router,
-    public _dialog: MatDialog
+    private _dialog: MatDialog
 
   ) 
   { 
@@ -40,7 +40,7 @@ export class ProductListComponent implements OnInit {
   }
 
     currentPage: number = 0;
-    pageSize: number = 5;
+    pageSize: number = 15;
     totalRecord: number = 0;
 
   ngOnInit(): void {
@@ -92,7 +92,7 @@ export class ProductListComponent implements OnInit {
 
  updateProduct(id:number)
  {
-    this._router.navigate(["admin/product/product-detail",id]);
+    this._router.navigate(["admin/product/product-detail", id]);
  }
 
   /*
@@ -181,7 +181,7 @@ onPageChanged(pageInfo)
     filter.currentPage = this.currentPage + 1;
     filter.pageSize = this.pageSize;
 
-    this._productService.getAllProductDerails(filter).subscribe((response)=>{
+    this._productService.getAllProductDetails(filter).subscribe((response)=>{
       this.rowData = response.data;
       this.totalRecord = response.totalRecordCount;
     },(error)=>{
