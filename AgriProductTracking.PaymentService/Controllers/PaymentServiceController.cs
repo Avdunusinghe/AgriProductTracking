@@ -58,7 +58,7 @@ namespace AgriProductTracking.PaymentService.Controllers
 
 			order.OrderItems = new HashSet<OrderItem>();
 
-			foreach (var item in model.ProductItems)
+			foreach (var item in model.OrderItems)
 			{
 				var productItem = new OrderItem()
 				{

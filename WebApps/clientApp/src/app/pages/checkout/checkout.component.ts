@@ -32,7 +32,7 @@ export class CheckoutComponent implements OnInit {
 
   ngOnInit(): void {
     this._appService.Data.cartList.forEach(product=>{
-      this.orderContainer.productItems.push(product);
+      this.orderContainer.orderItems.push(product);
       this.grandTotal += product.cartCount*product.price;
     });
     this.billingForm = this._formBuilder.group({

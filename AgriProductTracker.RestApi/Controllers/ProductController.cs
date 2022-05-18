@@ -73,7 +73,7 @@ namespace AgriProductTracker.RestApi.Controllers
 
         [HttpPost]
         [Route("getAllProducts")]
-        public ActionResult GellAllExpeses(ProductFilterViewModel filter)
+        public ActionResult GellAllProducts(ProductFilterViewModel filter)
         {
             var response = _productService.GellAllProducts(filter);
 

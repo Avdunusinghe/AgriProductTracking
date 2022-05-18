@@ -1,4 +1,5 @@
-﻿using AgriProductTracker.ViewModel.Order;
+﻿using AgriProductTracker.ViewModel;
+using AgriProductTracker.ViewModel.Order;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,8 @@ namespace AgriProductTracker.Business.Interfaces
 {
     public interface IOrderService
     {
-        List<OrderContainerViewModel> GetAllOrders();
+        List<OrderViewModel> GetAllOrders();
+        Task<OrderConfirmResponseViewModel> ConfirmOrder(int orderId, int deliveryServiceId);
+        OrderViewModel GetOrderById(int id);
     }
 }
