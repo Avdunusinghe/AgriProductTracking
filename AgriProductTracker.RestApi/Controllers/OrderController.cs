@@ -19,6 +19,15 @@ namespace AgriProductTracker.RestApi.Controllers
         }
 
         [HttpGet]
+        [Route("{id}")]
+        public ActionResult GellAllProducts(int id)
+        {
+            var response = _orderService.GetOrderById(id);
+
+            return Ok(response);
+        }
+
+        [HttpGet]
         [Route("getAllOrders")]
         public ActionResult GellAllProducts()
         {

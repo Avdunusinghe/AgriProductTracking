@@ -48,49 +48,8 @@ namespace AgriProductTracker.Business
                     orderDetails.Id = item.Id;
                     orderDetails.Amount = item.TotalPrice;
                     orderDetails.DeliveryServiceId = item.DeleveryServiceId;
+                    orderDetails.DateTime = item.DateTime;
                     orderDetails.CutomerName = item.Customer.FullName;
-
-                    var orderItems = item.OrderItems.ToList();
-
-                    foreach (var orderItem in orderItems)
-                    {
-                        var product = _db.Products.Where(x => x.Id == orderItem.ProductId).FirstOrDefault();
-
-                        var itemDetails = new OrderItemViewModel();
-
-                        itemDetails.Id = orderItem.Id;
-                        itemDetails.ProductId = orderItem.ProductId;
-                        itemDetails.NumberOfItems = orderItem.NumberOfItems;
-
-                        var productImages = product.ProductImages.ToList();
-
-                        foreach (var image in productImages)
-                        {
-                            if (!string.IsNullOrEmpty(image.AttachementName))
-                            {
-                                var productImage = string.Format
-                                (
-                                    @"{0}{1}\{2}\{3}",
-                                    _configuration.GetSection("FileUploadPath").Value,
-                                    FolderNames.PRODUCT,
-                                    product.Id,
-                                    image.AttachementName
-                                );
-
-                                if (File.Exists(productImage))
-                                {
-                                    itemDetails.ProductImage.Id = image.Id;
-                                    itemDetails.ProductImage.AttachmentName = image.AttachementName;
-                                    itemDetails.ProductImage.Attachment = "data:image/jpg;base64," + ImageHelper.getThumnialImage(productImage);
-                                }
-
-                            }
-                            break;
-                        }
-
-                        orderDetails.OrderItems.Add(itemDetails);
-                    }
-
 
                     dataSet.Add(orderDetails);
 
@@ -141,6 +100,72 @@ namespace AgriProductTracker.Business
             {
 
             }
+
+            return response;
+        }
+
+        public OrderViewModel GetOrderById(int id)
+        {
+            var response = new OrderViewModel();
+
+            try
+            {
+                var query = _db.Orders.Where(x=>x.Id == id).FirstOrDefault();
+
+                response.Id = query.Id;
+                response.Amount = query.TotalPrice;
+                response.DeliveryServiceId = query.DeleveryServiceId;
+                response.CutomerName = query.Customer.FullName;
+
+                var orderItems = query.OrderItems.ToList();
+
+                foreach (var orderItem in orderItems)
+                {
+                    var product = _db.Products.Where(x => x.Id == orderItem.ProductId).FirstOrDefault();
+
+                    var itemDetails = new OrderItemViewModel();
+
+                    itemDetails.Id = orderItem.Id;
+                    itemDetails.ProductId = orderItem.ProductId;
+                    itemDetails.NumberOfItems = orderItem.NumberOfItems;
+
+                    var productImages = product.ProductImages.ToList();
+
+                    foreach (var image in productImages)
+                    {
+                        if (!string.IsNullOrEmpty(image.AttachementName))
+                        {
+                            var productImage = string.Format
+                            (
+                                @"{0}{1}\{2}\{3}",
+                                _configuration.GetSection("FileUploadPath").Value,
+                                FolderNames.PRODUCT,
+                                product.Id,
+                                image.AttachementName
+                            );
+
+                            if (File.Exists(productImage))
+                            {
+                                itemDetails.ProductImage.Id = image.Id;
+                                itemDetails.ProductImage.AttachmentName = image.AttachementName;
+                                itemDetails.ProductImage.Attachment = "data:image/jpg;base64," + ImageHelper.getThumnialImage(productImage);
+                            }
+
+                        }
+                        break;
+                    }
+
+                    response.OrderItems.Add(itemDetails);
+                }
+
+
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+
 
             return response;
         }
