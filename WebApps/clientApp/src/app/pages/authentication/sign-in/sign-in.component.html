@@ -2,7 +2,7 @@
   <div fxLayout="row wrap">
     <div fxFlex="100" fxFlex.gt-sm="50" class="p-2">
       <h2 class="text-muted text-center">Sign In</h2>
-      <form [formGroup]="authForm" (ngSubmit)="login(loginForm)">
+      <form [formGroup]="authForm" (ngSubmit)="login()">
         <mat-form-field appearance="outline" class="w-100 mt-2">
           <mat-label>Email</mat-label>
           <input
@@ -38,7 +38,7 @@
             mat-fab
             color="primary"
             class="mat-elevation-z6"
-            (click)="login(loginForm)"
+            (click)="login()"
           >
             <mat-icon>exit_to_app</mat-icon>
           </button>
@@ -61,10 +61,7 @@
       <h2 class="text-muted text-center">
         Don't have an account? Sign up now!
       </h2>
-      <form
-        [formGroup]="clientRegisterForm"
-        (ngSubmit)="registerCustomer(registerForm.value)"
-      >
+      <form [formGroup]="clientRegisterForm" (ngSubmit)="registerCustomer()">
         <mat-form-field appearance="outline" class="w-100 mt-2">
           <mat-label>Full Name</mat-label>
           <input
@@ -144,7 +141,7 @@
             mat-fab
             color="primary"
             class="mat-elevation-z6"
-            (click)="registerCustomer(registerForm.value)"
+            (click)="registerCustomer()"
           >
             <mat-icon>person_add</mat-icon>
           </button>

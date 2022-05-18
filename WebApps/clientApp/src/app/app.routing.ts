@@ -8,6 +8,9 @@ export const routes: Routes = [
     { 
         path: '', 
         component: PagesComponent, children: [
+            { path: '',
+             loadChildren: () => import('./pages/home/home.module').then(m => m.HomeModule) 
+            },
             { 
                 path: 'authentication', 
                 loadChildren: () => import('./pages/authentication/authentication.module').then(m => m.AuthenticationModule), 
@@ -17,12 +20,36 @@ export const routes: Routes = [
                 path: 'contact', 
                 loadChildren: () => import('./pages/contact/contact.module').then(m => m.ContactModule), 
                 data: { breadcrumb: 'Contact' } 
+            }, 
+            { 
+                path: 'products', 
+                loadChildren: () => import('./pages/products/products.module').then(m => m.ProductsModule), 
+                data: { breadcrumb: 'All Products' } 
+            },
+            { 
+                path: 'cart', 
+                loadChildren: () => import('./pages/cart/cart.module').then(m => m.CartModule), 
+                data: { breadcrumb: 'Cart' } 
+            },  
+            { 
+                path: 'checkout', 
+                loadChildren: () => import('./pages/checkout/checkout.module').then(m => m.CheckoutModule), 
+                data: { breadcrumb: 'Checkout' } 
             },
         ]
     },
-    { path: 'landing', loadChildren: () => import('./landing/landing.module').then(m => m.LandingModule) },
-    { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) },
-    { path: '**', component: NotFoundComponent }
+    { 
+        path: 'landing', 
+        loadChildren: () => import('./landing/landing.module').then(m => m.LandingModule)
+    },
+    { 
+        path: 'admin', 
+        loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) 
+    },
+    { 
+        path: '**', 
+        component: NotFoundComponent 
+    }
 ];
 
 @NgModule({
