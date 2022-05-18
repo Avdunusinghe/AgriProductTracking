@@ -14,6 +14,6 @@ namespace AgriProductTracker.ViewModel.Order
         public int OrderId { get; set; }
         public int NumberOfItems { get; set; }
 
-        public ProductImageViewModel productImage { get; set; }
+        public ProductImageViewModel ProductImage { get; set; }
     }
 }
