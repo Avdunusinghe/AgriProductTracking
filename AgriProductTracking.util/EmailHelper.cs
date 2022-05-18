@@ -1,4 +1,6 @@
-﻿using System;
+﻿using AgriProductTracker.ViewModel.Common;
+using AgriProductTracker.ViewModel.Order;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mail;
@@ -12,6 +14,43 @@ namespace AgriProductTracking.util
         public EmailHelper()
         {
 
+        }
+
+        public static bool SendPaymentSuccessEmail(CompanyEmailSettingModel _emailSetting, CustomerOrderResponseViewModel model)
+        {
+            try
+            {
+                MailMessage email = new MailMessage(_emailSetting.SMTPFrom, model.CustomerEmail);
+                email.Body = "Order Comfirmed,Thank You!";
+                email.Subject = "DS-Order-Comfired";
+                email.IsBodyHtml = _emailSetting.IsEnableHTML;
+                email.BodyEncoding = System.Text.Encoding.UTF8;
+                SmtpClient client = new SmtpClient(_emailSetting.SMTPServer, _emailSetting.SMTPPort);
+
+                System.Net.NetworkCredential auth = new
+
+                System.Net.NetworkCredential(_emailSetting.SMTPUsername, _emailSetting.SMTPPassword);
+
+                client.EnableSsl = true;
+
+                client.UseDefaultCredentials = false;
+
+                client.Credentials = auth;
+
+                client.Send(email);
+
+            }
+            catch(Exception ex)
+            {
+                return false;
+            }
+
+            return true;
+
+
+
+
+            
         }
         public static void SendRegisterted(string registeredCustomerEmail, string userName, string password)
         {
