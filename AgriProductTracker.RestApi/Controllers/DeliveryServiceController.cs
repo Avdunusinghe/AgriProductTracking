@@ -63,15 +63,24 @@ namespace AgriProductTracker.RestApi.Controllers
         }
 
 
-       [HttpGet]
+       [HttpPost]
         [Route("getDeliveryServiceList")]
-        public PaginatedItemsViewModel<BasicDeliveryServiceViewModel> GetDeliveryServiceList(string searchText, int currentPage, int pageSize, int deliveryserviceId)
+        public ActionResult GetDeliveryServiceList(DeliveryServiceFilterViewModel filter)
         {
-            var response = _deliveryService.GetDeliveryServiceList(searchText, currentPage, pageSize, deliveryserviceId);
+            var response = _deliveryService.GetDeliveryServiceList(filter);
 
-            return response;
+            return Ok(response);
         }
-        
+
+        [HttpGet]
+        [Route("getDeliveryServicebyId/{id:int}")]
+        public IActionResult GetDeliveryServicebyId(int id)
+        {
+            var response = _deliveryService.GetDeliveryServicebyId(id);
+
+            return Ok(response);
+        }
+
 
     }
 }

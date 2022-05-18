@@ -63,15 +63,17 @@ namespace AgriProductTracker.RestApi.Controllers
 
 
         
-        [HttpGet]
-        [Route("getUserList")]
-        public PaginatedItemsViewModel<BasicUserViewModel> GetUserList(string searchText, int currentPage, int pageSize, int roleId)
-        {
-            var response = _userService.GetUserList(searchText, currentPage, pageSize, roleId );
 
-            return response;
+        [HttpPost]
+        [Route("getUserList")]
+        public ActionResult GetUserList(UserFilterViewModel filter)
+        {
+            var response = _userService.GetUserList(filter);
+
+            return Ok(response);
         }
         
+
         [HttpPost]
         [RequestSizeLimit(long.MaxValue)]
         [Route("uploadUserImage")]

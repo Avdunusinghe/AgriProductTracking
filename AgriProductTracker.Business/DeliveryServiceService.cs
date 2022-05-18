@@ -164,7 +164,27 @@ namespace AgriProductTracker.Business
             return deliveryservices;
         }
 
-        public PaginatedItemsViewModel<BasicDeliveryServiceViewModel> GetDeliveryServiceList(string searchText, int currentPage, int pageSize, int deliveryserviceId)
+
+        public DeliveryServiceViewModel GetDeliveryServicebyId(int id)
+        {
+            var response = new DeliveryServiceViewModel();
+
+            var query = _db.DeliveryServices.FirstOrDefault(x => x.Id == id);
+
+            response.Id = query.Id;
+            response.Name = query.Name;
+            response.Address = query.Address;   
+            response.Email= query.Email;
+            response.TelePhoneNumber = query.TelePhoneNumber;   
+            response.DiliveryDetails = query.DiliveryDetails;               
+
+           
+
+        
+            return response;
+        }
+
+        public PaginatedItemsViewModel<BasicDeliveryServiceViewModel> GetDeliveryServiceList(DeliveryServiceFilterViewModel filter)
         {
             int totalRecordCount = 0;
             double totalPages = 0;
@@ -174,19 +194,19 @@ namespace AgriProductTracker.Business
 
             var deliveryservices = _db.DeliveryServices.Where(x => x.IsActive == true).OrderBy(u => u.Name);
 
-            if (!string.IsNullOrEmpty(searchText))
+            if (!string.IsNullOrEmpty(filter.SearchText))
             {
-                deliveryservices = deliveryservices.Where(x => x.Name.Contains(searchText)).OrderBy(u => u.Name);
+                deliveryservices = deliveryservices.Where(x => x.Name.Contains(filter.SearchText)).OrderBy(u => u.Name);
             }
 
 
             totalRecordCount = deliveryservices.Count();
-            totalPages = (double)totalRecordCount / pageSize;
-            totalPageCount = (int)Math.Ceiling(totalPages);
+            
+            totalPageCount = (int)Math.Ceiling((Convert.ToDecimal(totalPages) / filter.PageSize));
 
-            var deliveryServiceList = deliveryservices.Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
+            var deliveryServiceList = deliveryservices.Skip((filter.CurrentPage - 1) * filter.PageSize).Take(filter.PageSize).ToList();
 
-            deliveryServiceList.ForEach(deliveryservice =>
+            foreach (var deliveryservice in deliveryServiceList)
             {
                 var vm = new BasicDeliveryServiceViewModel()
                 {
@@ -204,9 +224,9 @@ namespace AgriProductTracker.Business
                     
                 };
                 vmu.Add(vm);
-            });
+            };
 
-            var container = new PaginatedItemsViewModel<BasicDeliveryServiceViewModel>(currentPage, pageSize, totalPageCount, totalRecordCount, vmu);
+            var container = new PaginatedItemsViewModel<BasicDeliveryServiceViewModel>(filter.CurrentPage, filter.PageSize, totalPageCount, totalRecordCount, vmu);
 
             return container;
         }

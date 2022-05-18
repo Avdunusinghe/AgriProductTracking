@@ -157,43 +157,9 @@ namespace AgriProductTracker.Business
             return response;
         }
 
-        /*Delete User service
-        public async Task<ResponseViewModel> DeleteUser(int id)
-        {
-            var response = new ResponseViewModel();
-            try
-            {
-                var user = _db.Users.FirstOrDefault(x => x.Id == id && x.IsActive== true );
+        
 
-                if (user != null)
-                {
-                    user.IsActive = false;
-
-                    _db.Users.Update(user);
-
-                    response.IsSuccess = true;
-                    response.Message = UserServiceConstants.EXISTING_USER_DELETE_SUCCESS_MESSAGE;
-
-                }
-                else
-                {
-                    response.IsSuccess = false;
-                    response.Message = "User Not Found";
-                    response.Message = UserServiceConstants.EXISTING_USER_DELETE_EXCEPTION_MESSAGE;
-                }
-                
-                await _db.SaveChangesAsync();
-  
-            }
-            catch (Exception ex)
-            {
-                response.IsSuccess = false;
-                response.Message = ex.Message;
-            }
-
-            return response;
-        }
-        */
+       
 
         public async Task<ResponseViewModel> DeleteUser(long id)
         {
@@ -257,73 +223,6 @@ namespace AgriProductTracker.Business
         }
     
 
-        /*get user detail
-         * 
-         * public UserMasterViewModel GetUserDetail(string userName)
-        {
-            var user = new UserMasterViewModel();
-
-            var loggedInUser = currentUserService.GetUserByUsername(userName);
-
-            user.UserName = loggedInUser.Username;
-            user.FullName = loggedInUser.FullName;
-            user.Address = loggedInUser.Address;
-            user.Email = loggedInUser.Email;
-            user.MobileNumber = loggedInUser.MobileNo;
-            user.ProfileImage = loggedInUser.ProfileImage;
-
-      return user;
-        }
-
-
-        get all customers
-          public List<UserViewModel> GetAllUsersByRole()
-        {
-            var response = new List<UserViewModel>();
-
-            var query = schoolDb.Users.Where(u => u.IsActive == true && );
-
-            //if (vm.Id > 0)
-            //{
-            //    query = query.Where(x => x.UserRoles.Any(x => x.RoleId == vm.Id)).OrderBy(x => x.FullName);
-            //}
-
-            var userList = query.ToList();
-
-            foreach (var user in userList)
-            {
-                var uvm = new UserViewModel
-                {
-                    Id = user.Id,
-                    FullName = user.FullName,
-                    Username = user.Username,
-                    Address = user.Address,
-                    Email = user.Email,
-                    MobileNo = user.MobileNo,
-                    CreatedByName = user.CreatedById.HasValue ? user.CreatedBy.FullName : string.Empty,
-                    CreatedOn = user.CreatedOn,
-                    UpdatedByName = user.UpdatedById.HasValue ? user.UpdatedBy.FullName : string.Empty,
-                    UpdatedOn = user.UpdatedOn,
-
-                };
-
-                var assignedRoles = user.UserRoles.Where(x => x.IsActive == true);
-
-
-                response.Add(uvm);
-            }
-
-            return response;
-        }
-        get All farmer/users
-
-        get all rolles dropdown 
-
-         public List<DropDownViewModel> GetAllRoles()
-        {
-            return schoolDb.Roles.Where(x => x.IsActive == true).Select(r => new DropDownViewModel() { Id = r.Id, Name = r.Name }).ToList();
-        }
-        */
 
 
         //Get All roles
@@ -396,7 +295,7 @@ namespace AgriProductTracker.Business
 
         //paginated 
 
-        public PaginatedItemsViewModel<BasicUserViewModel> GetUserList(string searchText, int currentPage, int pageSize, int roleId)
+        public PaginatedItemsViewModel<BasicUserViewModel> GetUserList(UserFilterViewModel filter)
         {
             int totalRecordCount = 0;
             double totalPages = 0;
@@ -406,24 +305,24 @@ namespace AgriProductTracker.Business
 
             var users = _db.Users.Where(x => x.IsActive == true).OrderBy(u => u.FullName);
 
-            if (!string.IsNullOrEmpty(searchText))
+            if (!string.IsNullOrEmpty(filter.SearchText))
             {
-                users = users.Where(x => x.FullName.Contains(searchText)).OrderBy(u => u.FullName);
+                users = users.Where(x => x.FullName.Contains(filter.SearchText)).OrderBy(u => u.FullName);
             }
 
-            if (roleId > 0)
+            if (filter.RoleId > 0)
             {
-                users = users.Where(x => x.UserRoles.Any(x => x.RoleId == roleId)).OrderBy(x => x.FullName);
+                users = users.Where(x => x.UserRoles.Any(x => x.RoleId == filter.RoleId)).OrderBy(x => x.FullName);
             }
 
 
             totalRecordCount = users.Count();
-            totalPages = (double)totalRecordCount / pageSize;
-            totalPageCount = (int)Math.Ceiling(totalPages);
+            
+            totalPageCount = (int)Math.Ceiling((Convert.ToDecimal(totalPageCount) /  filter.PageSize));
 
-            var userList = users.Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
+            var userList = users.Skip((filter.CurrentPage - 1) * filter.PageSize).Take(filter.PageSize).ToList();
 
-            userList.ForEach(user =>
+            foreach (var user in userList)
             {
                 var vm = new BasicUserViewModel()
                 {
@@ -439,9 +338,9 @@ namespace AgriProductTracker.Business
                     UpdatedOn = user.UpdatedOn,
                 };
                 vmu.Add(vm);
-            });
+            }
 
-            var container = new PaginatedItemsViewModel<BasicUserViewModel>(currentPage, pageSize, totalPageCount, totalRecordCount, vmu);
+            var container = new PaginatedItemsViewModel<BasicUserViewModel>(filter.CurrentPage, filter.PageSize, totalPageCount, totalRecordCount, vmu);
 
             return container;
 
