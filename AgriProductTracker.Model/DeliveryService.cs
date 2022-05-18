@@ -22,5 +22,7 @@ namespace AgriProductTracker.Model
 
         public virtual User CreatedBy { get; set; }
         public virtual User UpdatedBy { get; set; }
+
+        public virtual ICollection<Order> Orders { get; set; }
     }
 }

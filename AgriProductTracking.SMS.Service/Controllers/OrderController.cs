@@ -25,9 +25,11 @@ namespace AgriProductTracking.SMS.Service.Controllers
             //string accountSid = Environment.GetEnvironmentVariable("AC88385d7dc77d75393542bc1f8861dd93");
             //string authToken = Environment.GetEnvironmentVariable("62c7c9e367d5db38d36f2c25b2e98fda");
 
-            var accountSid = "AC88385d7dc77d75393542bc1f8861dd93";
-            var authToken = "62c7c9e367d5db38d36f2c25b2e98fda";
-            
+            //var accountSid = "ACfe4a4889e27e59f87567d295ed2d82b1";
+            //var authToken = "771dc083ef04a228eb62fa426ef1d081";
+            var accountSid = "ACa69db92760f256c934c2f911afa855c8";
+            var authToken = "25000e2d717949fe4f3538a0c925de67";
+
 
 
             TwilioClient.Init(accountSid, authToken);
@@ -42,6 +44,8 @@ namespace AgriProductTracking.SMS.Service.Controllers
        ); 
 
             Console.WriteLine(message.Sid);
+
+
             var response = "Success";
             return Ok(response);
             

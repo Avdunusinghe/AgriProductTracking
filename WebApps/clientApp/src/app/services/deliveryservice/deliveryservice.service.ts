@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { DropDownModel } from 'src/app/models/common/drop.down.model';
 import { ResponseModel } from 'src/app/models/common/response.model';
 import { DeliveryServiceFilterModel } from 'src/app/models/deliveryservice/deliveryservice.filter.model';
 import { DeliveryServiceModel } from 'src/app/models/deliveryservice/deliveryservice.model';
@@ -33,9 +34,9 @@ export class DeliveryserviceService {
      (environment.apiUrl + "Deliveryservice/getDeliveryServicebyId" + "/" + id);
   }
 
-  getAllDeliveryServices():Observable<DeliveryServiceModel>
+  getAllDeliveryServices():Observable<DropDownModel[]>
   {
-    return this.httpClient.get<DeliveryServiceModel>
+    return this.httpClient.get<DropDownModel[]>
      (environment.apiUrl + "Deliveryservice/getAllDeliveryServices" + "/");
   }
 
@@ -45,4 +46,6 @@ export class DeliveryserviceService {
     return this.httpClient.post<DeliveryServicePaginatedItemModel>
     (environment.apiUrl + "Deliveryservice/getDeliveryServiceList" , filter);
   }
+
+
 }

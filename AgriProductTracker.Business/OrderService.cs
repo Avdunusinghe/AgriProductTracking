@@ -47,9 +47,11 @@ namespace AgriProductTracker.Business
 
                     orderDetails.Id = item.Id;
                     orderDetails.Amount = item.TotalPrice;
-                    orderDetails.DeliveryServiceId = item.DeleveryServiceId;
+                   //orderDetails.DeliveryServiceId = item.DeleveryServiceId;
                     orderDetails.DateTime = item.DateTime;
                     orderDetails.CutomerName = item.Customer.FullName;
+                    orderDetails.ShippingAdderess = item.ShippingAddress;
+                    orderDetails.IsProcessed = item.IsProceesed;
 
                     dataSet.Add(orderDetails);
 
@@ -114,7 +116,7 @@ namespace AgriProductTracker.Business
 
                 response.Id = query.Id;
                 response.Amount = query.TotalPrice;
-                response.DeliveryServiceId = query.DeleveryServiceId;
+                //response.DeliveryServiceId = query.DeleveryServiceId;
                 response.CutomerName = query.Customer.FullName;
 
                 var orderItems = query.OrderItems.ToList();

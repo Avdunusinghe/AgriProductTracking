@@ -11,10 +11,14 @@ namespace AgriProductTracker.ViewModel.Order
         public OrderViewModel()
         {
             OrderItems = new List<OrderItemViewModel>();
+            DeliveryServiceId = new List<OrderItemViewModel>();
+
         }
+
+       
+
         public int Id { get; set; }
         public decimal Amount { get; set; }
-        public int DeliveryServiceId { get; set; }
         public int CutomerId { get; set; }
         public string CutomerName { get; set; }
         public DateTime DateTime { get; set; }
@@ -22,6 +26,8 @@ namespace AgriProductTracker.ViewModel.Order
         public string ShippingAdderess { get; set; }
         public string City { get; set; }
         public string PostalCode { get; set; }
+        
+        public List<OrderItemViewModel> DeliveryServiceId { get; set; }
 
         public List<OrderItemViewModel> OrderItems { get; set; }
 
