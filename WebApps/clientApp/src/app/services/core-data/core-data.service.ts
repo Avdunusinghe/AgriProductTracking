@@ -30,6 +30,12 @@ export class CoreDataService {
         
     ]
 }
+
+  getAllDeliveryServices():Observable<DropDownModel[]>
+  {
+    return this.httpClient.get<DropDownModel[]>
+    (environment.apiUrl + 'CoreData/getAllDeliveryServices');
+  }
   
 
 }
