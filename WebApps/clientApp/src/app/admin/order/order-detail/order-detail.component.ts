@@ -23,7 +23,7 @@ export class OrderDetailComponent implements OnInit {
   orderId:number;
   order:OrderModel;
 
-   /*
+/*
 * Constructor Dependency Injection
 */
   constructor(
