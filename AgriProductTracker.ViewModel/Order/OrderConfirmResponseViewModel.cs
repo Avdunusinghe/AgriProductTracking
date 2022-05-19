@@ -10,7 +10,7 @@ namespace AgriProductTracker.ViewModel.Order
     {
         public bool IsSuccess { get; set; }
         public string Message { get; set; }
-        public int DeliveryServiceId { get; set; }
+        public int DeliveryPartnerId { get; set; }
         public string DeliveryServiceEmail { get; set; }
         public string DeliveryServicePhoneNumber { get; set; }
     }

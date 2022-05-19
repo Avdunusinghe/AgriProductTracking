@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ProductImageViewModel } from './product.image.model';
+import { ProductImageModel } from './product.image.model';
 
 @Injectable()
 export class ProductModel
@@ -12,7 +12,7 @@ export class ProductModel
     quantity:number;
     createdByName:string;
     updatedByName:string;
-    productImages:ProductImageViewModel[];
+    productImages:ProductImageModel[];
 
     cartCount: number;
     ratingsCount: number;

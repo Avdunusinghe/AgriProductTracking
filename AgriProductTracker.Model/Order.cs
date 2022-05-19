@@ -11,7 +11,7 @@ namespace AgriProductTracker.Model
     {
         public int Id { get; set; }
         public decimal TotalPrice { get; set; }
-        public int DeleveryServiceId { get; set; }
+        public int DeliveyPartnerId { get; set; }
         public int CustomerId { get; set; }
         public Province Province { get; set; }
         public string ShippingAddress { get; set; }

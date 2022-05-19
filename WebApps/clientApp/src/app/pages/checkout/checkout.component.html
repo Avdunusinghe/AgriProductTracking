@@ -50,10 +50,40 @@
               >Postal Code is required</mat-error
             >
           </mat-form-field>
+          <div fxFlex="100" fxFlex.gt-sm="50" class="px-1">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Payment Type</mat-label>
+              <mat-select formControlName="paymentType" required>
+                <mat-option *ngFor="let item of paymentTypes" [value]="item.id">
+                  <span>{{ item.name }}</span>
+                </mat-option>
+              </mat-select>
+              <mat-error
+                *ngIf="billingForm.controls.paymentType.errors?.required"
+                >Payment Type is required</mat-error
+              >
+            </mat-form-field>
+          </div>
         </div>
         <mat-divider></mat-divider>
+        <div fxFlex="100" fxFlex.gt-sm="50" class="px-1">
+          <mat-radio-group
+            fxLayout="column"
+            fxLayoutAlign="center"
+            required
+            name="methods"
+          >
+            <mat-radio-button
+              *ngFor="let method of deliveryMethods"
+              color="primary"
+              [value]="method"
+              class="mt-1"
+              ><b>{{ method.name }}</b> {{ method.desc }}</mat-radio-button
+            >
+          </mat-radio-group>
+        </div>
         <mat-divider></mat-divider>
-        <div fxLayout="row wrap">
+        <div fxLayout="row wrap" *ngIf="paymentType === 1">
           <div
             fxFlex="100"
             fxLayout="column"
@@ -107,11 +137,11 @@
               </mat-form-field>
             </div>
           </div>
-          <div fxFlex="100" class="mt-2 text-center w-100">
-            <button mat-raised-button color="primary" type="submit">
-              CheckOut
-            </button>
-          </div>
+        </div>
+        <div fxFlex="100" class="mt-2 text-center w-100">
+          <button mat-raised-button color="primary" type="submit">
+            CheckOut
+          </button>
         </div>
       </div>
     </form>

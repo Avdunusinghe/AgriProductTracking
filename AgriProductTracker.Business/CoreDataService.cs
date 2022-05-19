@@ -1,6 +1,8 @@
 ﻿using AgriProductTracker.Business.Interfaces;
 using AgriProductTracker.Data.Data;
+using AgriProductTracker.Model.Common.Enums;
 using AgriProductTracker.ViewModel;
+using AgriProductTracking.util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,6 +42,21 @@ namespace AgriProductTracker.Business
                 }).ToList();
 
             return productCategories;
+        }
+        public List<DropDownViewModel> GetPaymentType()
+        {
+            var response = new List<DropDownViewModel>();
+
+            foreach (PaymentType expenses in (PaymentType[])Enum.GetValues(typeof(PaymentType)))
+            {
+                response.Add(new DropDownViewModel() 
+                { 
+                    Id = (int)expenses, 
+                    Name = EnumHelper.GetEnumDescription(expenses) 
+                });
+            }
+
+            return response;
         }
     }
 }

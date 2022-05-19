@@ -24,12 +24,8 @@ namespace AgriProductTracker.Data.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-           // optionsBuilder.UseSqlServer("Server=DESKTOP-PSI7D8C\\SQLEXPRESS;Database=APT;User Id=sa;Password=1qaz2wsx@;");
-           // optionsBuilder.UseSqlServer(@"Server=DESKTOP-L5IG0M5\SQLEXPRESS;Database=APT;User Id=sa;Password=1qaz2wsx@;");
-            optionsBuilder.UseSqlServer(@"Server=DESKTOP-9KTAG16\SQLEXPRESS;Database=APT;User Id=sa;Password=1qaz2wsx@;");
-
-            //optionsBuilder.UseSqlServer("Server=DESKTOP-PSI7D8C\\SQLEXPRESS;Database=APT;User Id=sa;Password=1qaz2wsx@;");
-           // optionsBuilder.UseSqlServer(@"Server=DESKTOP-L5IG0M5\SQLEXPRESS;Database=APT;User Id=sa;Password=1qaz2wsx@;"); 326341c29a5a93e7ddb9dfa59505347efe47f0cd
+            optionsBuilder.UseSqlServer("Server=DESKTOP-PSI7D8C\\SQLEXPRESS;Database=APT;User Id=sa;Password=1qaz2wsx@;");
+           //optionsBuilder.UseSqlServer(@"Server=DESKTOP-L5IG0M5\SQLEXPRESS;Database=APT;User Id=sa;Password=1qaz2wsx@;");
             optionsBuilder.UseLazyLoadingProxies();
         }
 
