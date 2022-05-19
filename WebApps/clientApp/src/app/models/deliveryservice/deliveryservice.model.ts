@@ -9,8 +9,8 @@ export class DeliveryServiceModel
   name :string ;
   address :  string;
   email : string ;
-  telephoneNo :  string;
-  deliveryDetails :string ;
+  telePhoneNumber :  string;
+  diliveryDetails :string ;
   createdOn : Date;
   createdById :number
   createdByName :string;

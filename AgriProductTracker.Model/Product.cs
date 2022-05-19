@@ -22,12 +22,11 @@ namespace AgriProductTracker.Model
         public DateTime UpdatedOn { get; set; }
         public int UpdatedById { get; set; }
 
-        public virtual ProductCategory ProductCategory { get; set; }
-        public virtual OrderItem OrderItem { get; set; }
+        public virtual ProductCategory ProductCategory { get; set; }      
         public virtual User CreatedBy { get; set; }
         public virtual User UpdatedBy { get; set; }
 
-
+        public virtual ICollection<OrderItem> OrderItems { get; set; }
         public virtual ICollection<ProductImage> ProductImages { get; set; }
 
 

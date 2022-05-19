@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 @Injectable()
-export class ProductImageViewModel
+export class ProductImageModel
 {
     id:number;
     attachment:number;

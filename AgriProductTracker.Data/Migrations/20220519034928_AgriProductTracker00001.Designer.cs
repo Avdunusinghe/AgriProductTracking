@@ -12,14 +12,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AgriProductTracker.Data.Migrations
 {
     [DbContext(typeof(AgriProductTrackerDbContext))]
-    [Migration("20220511122856_AgriProductTracker00001")]
+    [Migration("20220519034928_AgriProductTracker00001")]
     partial class AgriProductTracker00001
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.4")
+                .HasAnnotation("ProductVersion", "6.0.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -41,7 +41,7 @@ namespace AgriProductTracker.Data.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("DiliveryDetails")
+                    b.Property<string>("DeliveryDetails")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
@@ -79,17 +79,29 @@ namespace AgriProductTracker.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<string>("City")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("CustomerId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("DateTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("DeleveryServiceId")
+                    b.Property<int>("DeliveyPartnerId")
                         .HasColumnType("int");
 
                     b.Property<bool>("IsProceesed")
                         .HasColumnType("bit");
+
+                    b.Property<string>("PostalCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Province")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ShippingAddress")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("TotalPrice")
                         .HasPrecision(14, 2)
@@ -123,8 +135,7 @@ namespace AgriProductTracker.Data.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.HasIndex("ProductId")
-                        .IsUnique();
+                    b.HasIndex("ProductId");
 
                     b.ToTable("OrderItem", (string)null);
                 });
@@ -407,7 +418,7 @@ namespace AgriProductTracker.Data.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedOn = new DateTime(2022, 5, 11, 12, 28, 55, 781, DateTimeKind.Utc).AddTicks(6993),
+                            CreatedOn = new DateTime(2022, 5, 19, 3, 49, 28, 277, DateTimeKind.Utc).AddTicks(5318),
                             Email = "farmer@gmail.com",
                             FullName = "farmer",
                             IsActive = true,
@@ -415,13 +426,13 @@ namespace AgriProductTracker.Data.Migrations
                             LoginsessionId = 0,
                             MobileNumber = "0112487086",
                             Password = "pass@123!",
-                            UpdatedOn = new DateTime(2022, 5, 11, 12, 28, 55, 781, DateTimeKind.Utc).AddTicks(6994),
+                            UpdatedOn = new DateTime(2022, 5, 19, 3, 49, 28, 277, DateTimeKind.Utc).AddTicks(5319),
                             UserName = "admin@gmail.com"
                         },
                         new
                         {
                             Id = 1,
-                            CreatedOn = new DateTime(2022, 5, 11, 12, 28, 55, 781, DateTimeKind.Utc).AddTicks(6990),
+                            CreatedOn = new DateTime(2022, 5, 19, 3, 49, 28, 277, DateTimeKind.Utc).AddTicks(5314),
                             Email = "superAdmin@gmail.com",
                             FullName = "SuperAdmin",
                             IsActive = true,
@@ -429,13 +440,13 @@ namespace AgriProductTracker.Data.Migrations
                             LoginsessionId = 0,
                             MobileNumber = "0703375581",
                             Password = "pass@123!",
-                            UpdatedOn = new DateTime(2022, 5, 11, 12, 28, 55, 781, DateTimeKind.Utc).AddTicks(6991),
+                            UpdatedOn = new DateTime(2022, 5, 19, 3, 49, 28, 277, DateTimeKind.Utc).AddTicks(5316),
                             UserName = "superAdmin@gmail.com"
                         },
                         new
                         {
                             Id = 3,
-                            CreatedOn = new DateTime(2022, 5, 11, 12, 28, 55, 781, DateTimeKind.Utc).AddTicks(6995),
+                            CreatedOn = new DateTime(2022, 5, 19, 3, 49, 28, 277, DateTimeKind.Utc).AddTicks(5320),
                             Email = "customer@gmail.com",
                             FullName = "Customer",
                             IsActive = true,
@@ -443,7 +454,7 @@ namespace AgriProductTracker.Data.Migrations
                             LoginsessionId = 0,
                             MobileNumber = "0112487086",
                             Password = "pass@123!",
-                            UpdatedOn = new DateTime(2022, 5, 11, 12, 28, 55, 781, DateTimeKind.Utc).AddTicks(6995),
+                            UpdatedOn = new DateTime(2022, 5, 19, 3, 49, 28, 277, DateTimeKind.Utc).AddTicks(5320),
                             UserName = "customer@gmail.com"
                         });
                 });
@@ -489,30 +500,30 @@ namespace AgriProductTracker.Data.Migrations
                             UserId = 1,
                             RoleId = 1,
                             CreatedById = 1,
-                            CreatedOn = new DateTime(2022, 5, 11, 12, 28, 55, 788, DateTimeKind.Utc).AddTicks(4476),
+                            CreatedOn = new DateTime(2022, 5, 19, 3, 49, 28, 282, DateTimeKind.Utc).AddTicks(551),
                             IsActive = true,
                             UpdatedById = 1,
-                            UpdatedOn = new DateTime(2022, 5, 11, 12, 28, 55, 788, DateTimeKind.Utc).AddTicks(4478)
+                            UpdatedOn = new DateTime(2022, 5, 19, 3, 49, 28, 282, DateTimeKind.Utc).AddTicks(553)
                         },
                         new
                         {
                             UserId = 2,
                             RoleId = 2,
                             CreatedById = 1,
-                            CreatedOn = new DateTime(2022, 5, 11, 12, 28, 55, 788, DateTimeKind.Utc).AddTicks(4482),
+                            CreatedOn = new DateTime(2022, 5, 19, 3, 49, 28, 282, DateTimeKind.Utc).AddTicks(555),
                             IsActive = true,
                             UpdatedById = 1,
-                            UpdatedOn = new DateTime(2022, 5, 11, 12, 28, 55, 788, DateTimeKind.Utc).AddTicks(4483)
+                            UpdatedOn = new DateTime(2022, 5, 19, 3, 49, 28, 282, DateTimeKind.Utc).AddTicks(556)
                         },
                         new
                         {
                             UserId = 3,
                             RoleId = 3,
                             CreatedById = 1,
-                            CreatedOn = new DateTime(2022, 5, 11, 12, 28, 55, 788, DateTimeKind.Utc).AddTicks(4530),
+                            CreatedOn = new DateTime(2022, 5, 19, 3, 49, 28, 282, DateTimeKind.Utc).AddTicks(557),
                             IsActive = true,
                             UpdatedById = 1,
-                            UpdatedOn = new DateTime(2022, 5, 11, 12, 28, 55, 788, DateTimeKind.Utc).AddTicks(4531)
+                            UpdatedOn = new DateTime(2022, 5, 19, 3, 49, 28, 282, DateTimeKind.Utc).AddTicks(565)
                         });
                 });
 
@@ -555,8 +566,8 @@ namespace AgriProductTracker.Data.Migrations
                         .IsRequired();
 
                     b.HasOne("AgriProductTracker.Model.Product", "Product")
-                        .WithOne("OrderItem")
-                        .HasForeignKey("AgriProductTracker.Model.OrderItem", "ProductId")
+                        .WithMany("OrderItems")
+                        .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Order");
@@ -678,7 +689,7 @@ namespace AgriProductTracker.Data.Migrations
 
             modelBuilder.Entity("AgriProductTracker.Model.Product", b =>
                 {
-                    b.Navigation("OrderItem");
+                    b.Navigation("OrderItems");
 
                     b.Navigation("ProductImages");
                 });

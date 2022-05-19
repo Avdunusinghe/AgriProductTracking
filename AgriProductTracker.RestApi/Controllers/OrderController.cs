@@ -18,13 +18,45 @@ namespace AgriProductTracker.RestApi.Controllers
             this._identityService = _identityService;
         }
 
-        [HttpPost]
+       /* [HttpGet]
+        [Route("{id}")]
+        public ActionResult GetOrderById(int id)
+        {
+            var response = _orderService.GetOrderById(id);
+
+            return Ok(response);
+        }*/
+
+        [HttpGet]
         [Route("getAllOrders")]
-        public ActionResult GellAllProducts()
+        public ActionResult GetAllOrders()
         {
             var response = _orderService.GetAllOrders();
 
             return Ok(response);
         }
+
+        [HttpGet]
+        [Route("confirmOrder/{orderId:int}/{deliveryPartnerId:int}")]
+        public async Task<ActionResult> ConfirmOrder(int orderId, int deliveryPartnerId)
+        {
+            var response = await _orderService.ConfirmOrder(orderId, deliveryPartnerId);
+            return Ok(response);
+        }
+
+
+        [HttpGet]
+        [Route("getOrderById/{id}")]
+        public IActionResult GetOrderById(int id)
+        {
+            var response = _orderService.GetOrderById(id);
+
+            return Ok(response);
+        }
+
+
+
+
+
     }
 }

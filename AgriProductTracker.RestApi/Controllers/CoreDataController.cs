@@ -37,5 +37,14 @@ namespace AgriProductTracker.RestApi.Controllers
 
             return Ok(response);
         }
+
+        [HttpGet]
+        [Route("getPaymentType")]
+        public IActionResult GetPaymentType()
+        {
+            var response = _coreDataService.GetPaymentType();
+
+            return Ok(response);
+        }
     }
 }

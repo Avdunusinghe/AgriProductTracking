@@ -15,7 +15,7 @@ namespace AgriProductTracker.Business.Interfaces
         UserViewModel GetUserbyId(int id);
         List<DropDownViewModel> GetAllRoles();
         Task<ResponseViewModel> UploadUserImage(FileContainerViewModel container);
-        PaginatedItemsViewModel<BasicUserViewModel> GetUserList(string searchText, int currentPage, int pageSize, int roleId);
+        PaginatedItemsViewModel<BasicUserViewModel> GetUserList(UserFilterViewModel filter);
 
 
     }

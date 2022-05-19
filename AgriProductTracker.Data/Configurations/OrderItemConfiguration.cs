@@ -16,7 +16,13 @@ namespace AgriProductTracker.Data.Configurations
             builder.ToTable("OrderItem");
 
             builder.HasKey(x => x.Id);
-            
+
+            builder.HasOne<Product>(u => u.Product)
+               .WithMany(c => c.OrderItems)
+               .HasForeignKey(fk => fk.ProductId)
+               .OnDelete(DeleteBehavior.Restrict)
+               .IsRequired(false);
+
         }
     }
 }
