@@ -47,9 +47,12 @@ namespace AgriProductTracker.Business
 
                     orderDetails.Id = item.Id;
                     orderDetails.Amount = item.TotalPrice;
-                   //orderDetails.DeliveryServiceId = item.DeleveryServiceId;
+                    orderDetails.DeliveryServiceId = item.DeliveyPartnerId;
                     orderDetails.DateTime = item.DateTime;
                     orderDetails.CutomerName = item.Customer.FullName;
+                    orderDetails.Amount = item.TotalPrice;
+                    orderDetails.City = item.City;
+                    orderDetails.PostalCode = item.PostalCode;
                     orderDetails.ShippingAdderess = item.ShippingAddress;
                     orderDetails.IsProcessed = item.IsProceesed;
 
