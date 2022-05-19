@@ -2,6 +2,7 @@
 using AgriProductTracker.Data.Data;
 using AgriProductTracker.ViewModel;
 using AgriProductTracker.ViewModel.Order;
+using AgriProductTracker.ViewModel.Product;
 using AgriProductTracking.util;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -47,9 +48,12 @@ namespace AgriProductTracker.Business
 
                     orderDetails.Id = item.Id;
                     orderDetails.Amount = item.TotalPrice;
-                    orderDetails.DeliveryServiceId = item.DeleveryServiceId;
+                    orderDetails.DeliveryPartnerId = item.DeliveyPartnerId;
                     orderDetails.DateTime = item.DateTime;
                     orderDetails.CutomerName = item.Customer.FullName;
+                    orderDetails.Amount = item.TotalPrice;
+                    orderDetails.City = item.City;
+                    orderDetails.PostalCode = item.PostalCode;
                     orderDetails.ShippingAdderess = item.ShippingAddress;
                     orderDetails.IsProcessed = item.IsProceesed;
 
@@ -116,8 +120,12 @@ namespace AgriProductTracker.Business
 
                 response.Id = query.Id;
                 response.Amount = query.TotalPrice;
-                response.DeliveryServiceId = query.DeleveryServiceId;
+                //response.DeliveryServiceId = query.DeleveryServiceId;
                 response.CutomerName = query.Customer.FullName;
+                response.ShippingAdderess = query.ShippingAddress;
+                response.City = query.City;
+                response.DateTime = query.DateTime;
+                response.PostalCode = query.PostalCode;
 
                 var orderItems = query.OrderItems.ToList();
 
@@ -148,9 +156,11 @@ namespace AgriProductTracker.Business
 
                             if (File.Exists(productImage))
                             {
-                                itemDetails.ProductImage.Id = image.Id;
-                                itemDetails.ProductImage.AttachmentName = image.AttachementName;
-                                itemDetails.ProductImage.Attachment = "data:image/jpg;base64," + ImageHelper.getThumnialImage(productImage);
+                                var imageModel = new ProductImageViewModel();
+                                imageModel.Id = image.Id;
+                                imageModel.AttachmentName = image.AttachementName;
+                                imageModel.Attachment = "data:image/jpg;base64," + ImageHelper.getThumnialImage(productImage);
+                                itemDetails.ProductImage = imageModel;
                             }
 
                         }

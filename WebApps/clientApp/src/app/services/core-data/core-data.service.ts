@@ -17,12 +17,19 @@ export class CoreDataService {
       (environment.apiUrl + 'CoreData/getAllProductCatagories');
   }
 
-  getAllDeliveryServices():Observable<DropDownModel[]>
+  getPaymentType():Observable<DropDownModel[]>
   {
     return this.httpClient.get<DropDownModel[]>
-    (environment.apiUrl + 'CoreData/getAllDeliveryServices');
+      (environment.apiUrl + 'CoreData/getPaymentType');
   }
 
+  getDeliveryMethods(){
+    return [
+        { value: 'free', name: 'Free Delivery', desc: '$0.00 / Delivery in 7 to 14 business Days' },
+        { value: 'standard', name: 'Standard Delivery', desc: '$5.00 / Delivery in 5 to 7 business Days' },
+        
+    ]
+}
   
 
 }

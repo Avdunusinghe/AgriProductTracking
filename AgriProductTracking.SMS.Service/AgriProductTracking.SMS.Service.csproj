@@ -13,7 +13,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AgriProductTracker.ViewModel\AgriProductTracker.ViewModel.csproj" />
     <ProjectReference Include="..\AgriProductTracking.Authentication\AgriProductTracking.Authentication.csproj" />
+    <ProjectReference Include="..\AgriProductTracking.util\AgriProductTracking.util.csproj" />
   </ItemGroup>
 
 </Project>

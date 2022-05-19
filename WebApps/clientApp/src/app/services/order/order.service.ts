@@ -3,8 +3,9 @@ import { Injectable } from '@angular/core';
 import { OrderContainerModel } from 'src/app/models/order/order.container.model';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { OrderModel } from 'src/app/models/order/order.model';
+import { CustomerOrderResponseModel } from 'src/app/models/order/customer.order.response.model';
 import { ResponseModel } from 'src/app/models/common/response.model';
+import { OrderModel } from 'src/app/models/order/order.model';
 
 @Injectable({
   providedIn: 'root'
@@ -18,9 +19,19 @@ export class OrderService {
   { 
 
   }
-  checkOutOrder(orderContainer:OrderContainerModel):Observable<any>{
-      return this.httpClient.post<any>
+  checkOutOrder(orderContainer:OrderContainerModel):Observable<CustomerOrderResponseModel>{
+      return this.httpClient.post<CustomerOrderResponseModel>
       (environment.paymentApiUrl + 'PaymentService',orderContainer);
+  }
+
+  SendPaymentSuccessMesseage(model:CustomerOrderResponseModel):Observable<ResponseModel>{
+    return this.httpClient.post<ResponseModel>
+    (environment.smsApiUrl + "CreaditCardClientResponse",model);
+  }
+
+  SendMobilePaymentSuccessMessage(model:CustomerOrderResponseModel):Observable<ResponseModel>{
+    return this.httpClient.post<ResponseModel>
+    (environment.smsApiUrl + "CreaditCardClientResponse/sendMobilePaymentSuccessMessage", model);
   }
 
   gellAllProducts(id:number):Observable<OrderModel>

@@ -10,8 +10,8 @@ namespace AgriProductTracker.Model.Common.Enums
     public enum PaymentType
     {
         [Description("Credit Card")]
-        InStock = 1,
+        CreditCard = 1,
         [Description("Mobile Number")]
-        OutOfStock = 2,
+        MobileCharge = 2,
     }
 }

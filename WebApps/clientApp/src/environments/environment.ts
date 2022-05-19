@@ -5,7 +5,8 @@
 export const environment = {
   production: false,
   apiUrl: 'https://localhost:44352/api/',
-  paymentApiUrl:'https://localhost:7144/api/'
+  paymentApiUrl:'https://localhost:7144/api/',
+  smsApiUrl:'https://localhost:7039/api/'
 };
 
 /*
