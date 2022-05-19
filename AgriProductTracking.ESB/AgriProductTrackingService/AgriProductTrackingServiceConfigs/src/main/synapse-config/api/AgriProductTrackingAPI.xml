@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<api context="/agriProductTracking" name="AgriProductTrackingAPI" xmlns="http://ws.apache.org/ns/synapse">
+    <resource methods="DELETE POST PUT PATCH GET">
+        <inSequence>
+            <log description="Welcome to Agri Product Tracking System!"/>
+            <send>
+                <endpoint key="UserInput"/>
+            </send>
+        </inSequence>
+        <outSequence>
+            <send/>
+        </outSequence>
+        <faultSequence/>
+    </resource>
+    <resource methods="DELETE POST PUT PATCH GET" uri-template="/users/{user}/register">
+        <inSequence>
+            <property description="Get Users" name="Get Users" scope="default" type="STRING" value=""/>
+            <switch source="get-property('Users')">
+                <case regex=" admin">
+                    <log description="Admin Log" level="custom">
+                        <property expression="fn:concat('Routing to ', get-property('User'))" name="message"/>
+                    </log>
+                    <send>
+                        <endpoint key="Admin EndPoint"/>
+                    </send>
+                </case>
+                <case regex=" farmer">
+                    <log description="Farmer Log" level="custom"/>
+                    <send>
+                        <endpoint key="Farmer EndPoint"/>
+                    </send>
+                </case>
+                <case regex=" buyer">
+                    <log description="Buyer Log" level="custom"/>
+                    <send>
+                        <endpoint key="Buyer EndPoint"/>
+                    </send>
+                </case>
+                <default>
+                    <log description="Fault Log" level="custom">
+                        <property name="Invalid message" value="fn:concat('Invalid User - ', get-property('User'))"/>
+                    </log>
+                    <respond/>
+                </default>
+            </switch>
+        </inSequence>
+        <outSequence/>
+        <faultSequence/>
+    </resource>
+</api>
