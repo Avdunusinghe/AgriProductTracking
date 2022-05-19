@@ -5,7 +5,7 @@ export class OrderModel
 {
     id:number;
     amount:number;
-    deliverySeviceId:number[];
+    deleverySeviceId:number;
     cutomerId:number;
     cutomerName:string;
     dateTime:Date;

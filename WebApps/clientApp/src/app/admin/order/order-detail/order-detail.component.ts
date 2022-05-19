@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { DropDownModel } from 'src/app/models/common/drop.down.model';
 import { OrderContainerModel } from 'src/app/models/order/order.container.model';
 import { OrderModel } from 'src/app/models/order/order.model';
+import { CoreDataService } from 'src/app/services/core-data/core-data.service';
 import { DeliveryserviceService } from 'src/app/services/deliveryservice/deliveryservice.service';
 import { OrderService } from 'src/app/services/order/order.service';
 
@@ -28,7 +29,7 @@ export class OrderDetailComponent implements OnInit {
 
     public _formBuilder: FormBuilder, 
     private _activatedRoute: ActivatedRoute, 
-    private _deliveryserviceService : DeliveryserviceService,
+    private _coreDataService : CoreDataService,
     private _orderService : OrderService,
     private _spinner: NgxSpinnerService,
     private _toastr: ToastrService,
@@ -57,15 +58,15 @@ createExistingOrderForm():FormGroup
 {
   return this._formBuilder.group({
     id:[this.order.id],
-    amount: [{value:this.order.amount},, Validators.nullValidator],
-    cutomerId:[{value:this.order.cutomerId},, Validators.nullValidator],
-    cutomerName:[{value:this.order.cutomerName},, Validators.nullValidator],
-    dateTime: [{value:this.order.dateTime},, Validators.nullValidator],
-    isProcessed: [{value:this.order.isProcessed},, Validators.nullValidator],
-    shippingAdderess: [{value:this.order.shippingAdderess},, Validators.nullValidator],
-    city: [{value:this.order.city},, Validators.nullValidator],
-    postalCode: [{value:this.order.postalCode},, Validators.nullValidator],
-    deliveryServiceId: [[null], Validators.required] 
+    amount: [{value:this.order.amount}],
+    cutomerId:[{value:this.order.cutomerId}],
+    cutomerName:[{value:this.order.cutomerName}],
+    dateTime: [{value:this.order.dateTime}],
+    isProcessed: [{value:this.order.isProcessed}],
+    shippingAdderess: [{value:this.order.shippingAdderess}],
+    city: [{value:this.order.city}],
+    postalCode: [{value:this.order.postalCode}],
+    deleverySeviceId: [[null], Validators.required] 
   })
 }
 
@@ -80,7 +81,7 @@ onFileChange(event:any, type:number){
 getAllDeliveryServices()
 {
    this._spinner.show();
-   this._deliveryserviceService.getAllDeliveryServices()
+   this._coreDataService.getAllDeliveryServices()
      .subscribe(response=>{
      this.deliveryServices= response;
    },(error)=>{
@@ -121,7 +122,7 @@ confirmOrder()
        this.orderForm.get("shippingAdderess").setValue(response.shippingAdderess);
        this.orderForm.get("city").setValue(response.city);
        this.orderForm.get("postalCode").setValue(response.postalCode);
-       this.orderForm.get(" deliveryServiceId").setValue(response.deliverySeviceId);
+       this.orderForm.get(" deleveryServiceId").setValue(response.deleverySeviceId);
 
       
        

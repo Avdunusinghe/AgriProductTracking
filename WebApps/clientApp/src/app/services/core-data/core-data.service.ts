@@ -17,6 +17,12 @@ export class CoreDataService {
       (environment.apiUrl + 'CoreData/getAllProductCatagories');
   }
 
+  getAllDeliveryServices():Observable<DropDownModel[]>
+  {
+    return this.httpClient.get<DropDownModel[]>
+    (environment.apiUrl + 'CoreData/getAllDeliveryServices');
+  }
+
   
 
 }
