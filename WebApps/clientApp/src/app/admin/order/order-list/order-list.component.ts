@@ -16,9 +16,8 @@ import { OrderService } from 'src/app/services/order/order.service';
 export class OrderListComponent implements OnInit {
 
   orderFilterForm:FormGroup;
-  rowData = new Array<OrderModel>();
-  newdata : ResponseModel;
-  order = OrderModel;
+  rowData:OrderModel;
+  
 
   constructor(
 
@@ -75,13 +74,12 @@ onPageChanged(pageInfo)
  */
 
 
-    getAllOrders()
+getAllOrders()
 {
    this._spinner.show();
    this._orderService.getAllOrders()
      .subscribe(response=>{
-       //this.[] = response;
-      // rowData[] = 
+      this.rowData = response;
       console.log(response);
      
    },(error)=>{
