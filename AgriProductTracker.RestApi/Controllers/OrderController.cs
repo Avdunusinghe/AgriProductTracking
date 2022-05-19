@@ -18,18 +18,18 @@ namespace AgriProductTracker.RestApi.Controllers
             this._identityService = _identityService;
         }
 
-        [HttpGet]
+       /* [HttpGet]
         [Route("{id}")]
-        public ActionResult GellAllProducts(int id)
+        public ActionResult GetOrderById(int id)
         {
             var response = _orderService.GetOrderById(id);
 
             return Ok(response);
-        }
+        }*/
 
         [HttpGet]
         [Route("getAllOrders")]
-        public ActionResult GellAllProducts()
+        public ActionResult GetAllOrders()
         {
             var response = _orderService.GetAllOrders();
 
@@ -37,12 +37,26 @@ namespace AgriProductTracker.RestApi.Controllers
         }
 
         [HttpPost]
-        [Route("downloadProductImage/{orderId:int}/{deliveryServiceId:int}")]
+        [Route("confirmOrder/{orderId:int}/{deliveryServiceId:int}")]
         public async Task<ActionResult> ConfirmOrder(int orderId, int deliveryServiceId)
         {
             var response = await _orderService.ConfirmOrder(orderId, deliveryServiceId);
             return Ok(response);
         }
-           
+
+
+        [HttpGet]
+        [Route("getOrderById/{id}")]
+        public IActionResult GetOrderById(int id)
+        {
+            var response = _orderService.GetOrderById(id);
+
+            return Ok(response);
+        }
+
+
+
+
+
     }
 }

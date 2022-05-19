@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { UserListComponent } from './user-list/user-list.component';
-import { UserDetailComponent } from './user-detail/user-detail.component';
+import { OrderDetailComponent } from './order-detail/order-detail.component';
+import { OrderListComponent } from './order-list/order-list.component';
 import { ToastrModule } from 'ngx-toastr';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -11,20 +11,18 @@ import { SwiperModule } from 'ngx-swiper-wrapper';
 import { InputFileModule } from 'ngx-input-file';
 
 export const routes = [ 
-  { path: '', redirectTo: 'user-list', pathMatch: 'full'},
-  { path: 'user-list', component: UserListComponent, data: { breadcrumb: 'User List' } },
-  { path: 'user-detail', component: UserDetailComponent, data: { breadcrumb: 'User Detail' } },
-  { path: 'user-detail/:id', component: UserDetailComponent, data: { breadcrumb: 'User Detail' } },
+  { path: '', redirectTo: 'order-list', pathMatch: 'full'},
+  { path: 'order-list', component: OrderListComponent, data: { breadcrumb: 'Order List' } },
+  { path: 'order-detail', component: OrderDetailComponent, data: { breadcrumb: 'Order Detail' } },
+  { path: 'order-detail/:id', component: OrderDetailComponent, data: { breadcrumb: 'Order Detail' } },
 
 
 ];
 
-
-
 @NgModule({
   declarations: [
-    UserListComponent,
-    UserDetailComponent
+    OrderDetailComponent,
+    OrderListComponent
   ],
   imports: [
     CommonModule,
@@ -37,4 +35,4 @@ export const routes = [
     InputFileModule
   ]
 })
-export class UserModule { }
+export class OrderModule { }

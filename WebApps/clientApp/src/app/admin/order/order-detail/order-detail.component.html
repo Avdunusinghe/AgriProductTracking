@@ -1,0 +1,90 @@
+<div>
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>
+        {{ OrderId ? "Edit" : "Confirm" }} Order
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-header>
+      <form
+        [formGroup]="orderForm"
+        (ngSubmit)="confirmOrder()"
+        autocomplete="off"
+        fxLayout="row wrap"
+      >
+        <div fxFlex="60" class="px-2">
+          <div fxLayout="row wrap">
+            <div fxFlex="100" fxFlex.gt-sm="50" class="px-1">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Amount</mat-label>
+                <input matInput formControlName="amount" disabled />
+              </mat-form-field>
+            </div>
+
+            <div fxFlex="100" fxFlex.gt-sm="50" class="px-1">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Customer ID</mat-label>
+                <input matInput formControlName="cutomerId" disabled />
+              </mat-form-field>
+            </div>
+
+            <div fxFlex="100" fxFlex.gt-sm="50" class="px-1">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Customer Name</mat-label>
+                <input matInput formControlName="cutomerName" disabled />
+              </mat-form-field>
+            </div>
+
+            <div fxFlex="100" fxFlex.gt-sm="50" class="px-1">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Date</mat-label>
+                <input matInput formControlName="dateTime" disabled />
+              </mat-form-field>
+            </div>
+
+            <div fxFlex="100" fxFlex.gt-sm="50" class="px-1">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Shipping Address</mat-label>
+                <input matInput formControlName="shippingAdderess" disabled />
+              </mat-form-field>
+            </div>
+
+            <div fxFlex="100" fxFlex.gt-sm="50" class="px-1">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>City</mat-label>
+                <input matInput formControlName="city" disabled />
+              </mat-form-field>
+            </div>
+
+            <div fxFlex="100" fxFlex.gt-sm="50" class="px-1">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Postal Code</mat-label>
+                <input matInput formControlName="postalCode" disabled />
+              </mat-form-field>
+            </div>
+
+            <div fxFlex="100" fxFlex.gt-sm="50" class="px-1">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Delivery Service</mat-label>
+                <mat-select formControlName="deliverySeviceId" required>
+                  <mat-option
+                    *ngFor="let item of deliveryServices"
+                    [value]="item.id"
+                  >
+                    <span>{{ item.name }}</span>
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <div fxFlex="100" class="mt-2 text-center w-100">
+              <button mat-raised-button color="primary" type="submit">
+                Confirm the Order
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </mat-card-header>
+  </mat-card>
+</div>
