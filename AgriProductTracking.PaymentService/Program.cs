@@ -76,7 +76,7 @@ public static class CustomeExtenstionMethod
 
             options.SwaggerDoc("v1", new OpenApiInfo
             {
-                Title = "Agri Management. - Web API",
+                Title = "AgriProductTracking PaymentService. - Web API",
                 Version = "v1",
                 Description = "The web service for SE3020 -Distributed Systems Assignment 2 PaymentService Rest Api",
                 TermsOfService = new Uri("https://example.com/terms")

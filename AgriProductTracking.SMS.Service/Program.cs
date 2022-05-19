@@ -41,9 +41,9 @@ public static class CustomeExtenstionMethod
 
             options.SwaggerDoc("v1", new OpenApiInfo
             {
-                Title = "Agri Management. - Web API",
+                Title = "AgriProductTracking SMS Email Service. - Web API",
                 Version = "v1",
-                Description = "The web service for SE3020 -Distributed Systems Assignment 2 PaymentService Rest Api",
+                Description = "The web service for SE3020 -Distributed Systems Assignment 2 SMSEmailService Rest Api",
                 TermsOfService = new Uri("https://example.com/terms")
             });
             options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
@@ -52,8 +52,7 @@ public static class CustomeExtenstionMethod
                 Name = "Authorization",
                 In = ParameterLocation.Header,
                 Type = SecuritySchemeType.ApiKey,
-                //BearerFormat = "JWT",
-                //Scheme = "Bearer"
+                
             });
             options.AddSecurityRequirement(new OpenApiSecurityRequirement
           {
