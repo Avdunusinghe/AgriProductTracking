@@ -14,6 +14,8 @@ export const routes = [
   { path: '', redirectTo: 'user-list', pathMatch: 'full'},
   { path: 'user-list', component: UserListComponent, data: { breadcrumb: 'User List' } },
   { path: 'user-detail', component: UserDetailComponent, data: { breadcrumb: 'User Detail' } },
+  { path: 'user-detail/:id', component: UserDetailComponent, data: { breadcrumb: 'User Detail' } },
+
 
 ];
 

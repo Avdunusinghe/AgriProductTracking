@@ -16,6 +16,7 @@ export const routes = [
   { path: '', redirectTo: 'deliveryservice-list', pathMatch: 'full'},
   { path: 'deliveryservice-list', component: DeliveryserviceListComponent, data: { breadcrumb: 'Delivery-Service List' } },
   { path: 'deliveryservice-detail', component: DeliveryserviceDetailComponent, data: { breadcrumb: 'Delivery-Service Detail' } },
+  { path: 'deliveryservice-detail/:id', component: DeliveryserviceDetailComponent, data: { breadcrumb: 'Delivery-Service Detail' } },
 
 ];
 

@@ -81,7 +81,7 @@ namespace AgriProductTracker.Business
                         Address = vm.Address,
                         Email = vm.Email,
                         TelePhoneNumber = vm.TelePhoneNumber,
-                        DiliveryDetails = vm.DiliveryDetails,
+                        DeliveryDetails = vm.DiliveryDetails,
                         IsActive = true,
                         UpdatedOn = DateTime.UtcNow,
                         UpdatedById = loggedInUser.Id,
@@ -102,7 +102,7 @@ namespace AgriProductTracker.Business
                     deliveryservice.Address = vm.Address;
                     deliveryservice.Email = vm.Email;
                     deliveryservice.TelePhoneNumber = vm.TelePhoneNumber;
-                    deliveryservice.DiliveryDetails = vm.DiliveryDetails;
+                    deliveryservice.DeliveryDetails = vm.DiliveryDetails;
                     deliveryservice.IsActive = true;
                     deliveryservice.UpdatedOn = DateTime.UtcNow;
                     deliveryservice.UpdatedById = loggedInUser.Id;
@@ -143,7 +143,7 @@ namespace AgriProductTracker.Business
                     Address = item.Address,
                     Email = item.Email,
                     TelePhoneNumber = item.TelePhoneNumber,
-                    DiliveryDetails = item.DiliveryDetails,
+                    DiliveryDetails = item.DeliveryDetails,
                     UpdatedOn = DateTime.UtcNow,
                     CreatedOn = DateTime.UtcNow
             };
@@ -164,7 +164,27 @@ namespace AgriProductTracker.Business
             return deliveryservices;
         }
 
-        public PaginatedItemsViewModel<BasicDeliveryServiceViewModel> GetDeliveryServiceList(string searchText, int currentPage, int pageSize, int deliveryserviceId)
+
+        public DeliveryServiceViewModel GetDeliveryServicebyId(int id)
+        {
+            var response = new DeliveryServiceViewModel();
+
+            var query = _db.DeliveryServices.FirstOrDefault(x => x.Id == id);
+
+            response.Id = query.Id;
+            response.Name = query.Name;
+            response.Address = query.Address;   
+            response.Email= query.Email;
+            response.TelePhoneNumber = query.TelePhoneNumber;   
+            response.DiliveryDetails = query.DeliveryDetails;               
+
+           
+
+        
+            return response;
+        }
+
+        public PaginatedItemsViewModel<BasicDeliveryServiceViewModel> GetDeliveryServiceList(DeliveryServiceFilterViewModel filter)
         {
             int totalRecordCount = 0;
             double totalPages = 0;
@@ -174,19 +194,19 @@ namespace AgriProductTracker.Business
 
             var deliveryservices = _db.DeliveryServices.Where(x => x.IsActive == true).OrderBy(u => u.Name);
 
-            if (!string.IsNullOrEmpty(searchText))
+            if (!string.IsNullOrEmpty(filter.SearchText))
             {
-                deliveryservices = deliveryservices.Where(x => x.Name.Contains(searchText)).OrderBy(u => u.Name);
+                deliveryservices = deliveryservices.Where(x => x.Name.Contains(filter.SearchText)).OrderBy(u => u.Name);
             }
 
 
             totalRecordCount = deliveryservices.Count();
-            totalPages = (double)totalRecordCount / pageSize;
-            totalPageCount = (int)Math.Ceiling(totalPages);
+            
+            totalPageCount = (int)Math.Ceiling((Convert.ToDecimal(totalPages) / filter.PageSize));
 
-            var deliveryServiceList = deliveryservices.Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
+            var deliveryServiceList = deliveryservices.Skip((filter.CurrentPage - 1) * filter.PageSize).Take(filter.PageSize).ToList();
 
-            deliveryServiceList.ForEach(deliveryservice =>
+            foreach (var deliveryservice in deliveryServiceList)
             {
                 var vm = new BasicDeliveryServiceViewModel()
                 {
@@ -195,7 +215,7 @@ namespace AgriProductTracker.Business
                     Address = deliveryservice.Address,
                     Email = deliveryservice.Email,
                     TelePhoneNumber = deliveryservice.TelePhoneNumber,
-                    DiliveryDetails = deliveryservice.DiliveryDetails,
+                    DiliveryDetails = deliveryservice.DeliveryDetails,
                     CreatedByName = deliveryservice.CreatedBy.FullName,
                     CreatedOn = DateTime.UtcNow,
                     UpdatedByName = deliveryservice.UpdatedBy.FullName,
@@ -204,9 +224,9 @@ namespace AgriProductTracker.Business
                     
                 };
                 vmu.Add(vm);
-            });
+            };
 
-            var container = new PaginatedItemsViewModel<BasicDeliveryServiceViewModel>(currentPage, pageSize, totalPageCount, totalRecordCount, vmu);
+            var container = new PaginatedItemsViewModel<BasicDeliveryServiceViewModel>(filter.CurrentPage, filter.PageSize, totalPageCount, totalRecordCount, vmu);
 
             return container;
         }

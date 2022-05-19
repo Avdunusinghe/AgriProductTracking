@@ -8,7 +8,7 @@ export class UserModel
     email:string;
     address:string;
     username:string;
-    mobileNo:string;
+    mobileNumber:string;
     password:string;
     profileImage:string
     isActive:boolean;

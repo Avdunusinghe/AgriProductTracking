@@ -14,6 +14,11 @@ export const routes =[
     component: ProductsComponent, 
     pathMatch: 'full' 
   },
+  { 
+    path: 'products-list', 
+    component: ProductsComponent, 
+    pathMatch: 'full' 
+  },
 ]
 
 @NgModule({

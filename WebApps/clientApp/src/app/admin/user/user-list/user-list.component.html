@@ -1,1 +1,101 @@
-<p>user-list works!</p>
+<div class="p-1">
+  <form [formGroup]="userFilterForm">
+    <mat-form-field appearance="outline" class="w-100">
+      <input
+        matInput
+        (keyup)="filterDataTable($event.target.value)"
+        placeholder="Search user by name..."
+        formControlName="searchText"
+        name="search"
+      />
+    </mat-form-field>
+
+    <div fxFlex="100" fxFlex.gt-sm="50" class="px-1">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Role</mat-label>
+        <mat-select
+          formControlName="roleId"
+          (selectionChange)="onRoleIdChanged($event)"
+          required
+        >
+          <mat-option *ngFor="let item of userRoles" [value]="item.id">
+            <span>{{ item.name }}</span>
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </form>
+
+  <mat-card class="p-0">
+    <div
+      fxLayout="row wrap"
+      fxLayoutAlign="space-between center"
+      class="w-100 p-2"
+    >
+      <h2>User List</h2>
+      <button mat-raised-button color="primary" (click)="addNewUser()">
+        Add New User
+      </button>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="mat-table admin-table">
+      <div class="mat-header-row">
+        <div class="mat-header-cell">Name</div>
+        <div class="mat-header-cell">Email</div>
+        <div class="mat-header-cell">Address</div>
+        <div class="mat-header-cell">Mobile No</div>
+        <div class="mat-header-cell">CreatedBy</div>
+        <div class="mat-header-cell">UpdatedBy</div>
+        <div class="mat-header-cell"></div>
+      </div>
+      <div
+        *ngFor="
+          let data of rowData
+            | paginate: { itemsPerPage: pageSize, currentPage: currentPage }
+        "
+        class="mat-row"
+      >
+        <div class="mat-cell">{{ data.fullName }}</div>
+        <div class="mat-cell">{{ data.email }}</div>
+        <div class="mat-cell">{{ data.address }}</div>
+        <div class="mat-cell">{{ data.mobileNumber }}</div>
+        <div class="mat-cell">{{ data.createdByName }}</div>
+        <div class="mat-cell">{{ data.updatedByName }}</div>
+        <div class="mat-cell">
+          <div class="p-1 actions">
+            <button
+              mat-mini-fab
+              color="primary"
+              matTooltip="Edit"
+              (click)="updateUser(data.id)"
+            >
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button
+              mat-mini-fab
+              color="warn"
+              matTooltip="Delete"
+              class="mx-1"
+              (click)="deleteUser(data.id)"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-card>
+
+  <div *ngIf="rowData.length > 0" fxLayout="row wrap">
+    <div fxFlex="100">
+      <mat-card class="p-0 text-center">
+        <pagination-controls
+          class="user-pagination"
+          autoHide="true"
+          maxSize="5"
+          (pageChange)="onPageChanged($event)"
+        ></pagination-controls>
+      </mat-card>
+    </div>
+  </div>
+</div>

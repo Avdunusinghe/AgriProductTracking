@@ -11,5 +11,6 @@ namespace AgriProductTracker.Business.Interfaces
     {
         List<DropDownViewModel> GetProductCategories();
         List<DropDownViewModel> GetDeliveryServices();
+        List<DropDownViewModel> GetPaymentType();
     }
 }
