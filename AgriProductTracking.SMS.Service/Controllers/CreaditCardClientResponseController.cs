@@ -55,5 +55,41 @@ namespace AgriProductTracking.SMS.Service.Controllers
             return Ok(response);
 
         }
+        [HttpPost]
+        [Route("sendMobilePaymentSuccessMessage")]
+        public IActionResult SendMobilePaymentSuccessMessage(CustomerOrderResponseViewModel model)
+        {
+            var response = new ResponseViewModel();
+
+            try
+            {
+                var _companyEmailSettings = new CompanyEmailSettingModel()
+                {
+                    SMTPServer = _configuration["SMTPServer"],
+                    SMTPUsername = _configuration["SMTPUsername"],
+                    SMTPFrom = _configuration["SMTPFrom"],
+                    SMTPPassword = _configuration["SMTPPassword"],
+                    SMTPPort = 587,
+                    IsSMTPUseSSL = true,
+                    IsEnableHTML = true,
+
+                };
+
+                bool isSend = EmailHelper.SendMobileBillAddPaymentMeesage(_companyEmailSettings, model);
+
+                if (isSend)
+                {
+                    response.IsSuccess = true;
+                    response.Message = "Payment SucessFull!..";
+                }
+
+            }
+            catch (Exception ex)
+            {
+                response.IsSuccess = false;
+                response.Message = "Error";
+            }
+            return Ok(response);
+        }
     }
 }

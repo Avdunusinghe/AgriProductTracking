@@ -25,6 +25,8 @@ namespace AgriProductTracker.Data.Configurations
                 .HasForeignKey(fk=>fk.CustomerId)
                 .OnDelete(DeleteBehavior.Restrict)
                 .IsRequired(true);
+
+
         }
     }
 }

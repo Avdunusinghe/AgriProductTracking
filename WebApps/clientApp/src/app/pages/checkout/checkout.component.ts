@@ -70,7 +70,7 @@ export class CheckoutComponent implements OnInit {
 
     this.orderContainer.cardNumber = item.cardNumber;
     this.orderContainer.experationDate = item.experationDate;
-    this.orderContainer.paymentType = item.paymentType
+    this.orderContainer.paymentType = item.paymentType;
     this.orderContainer.cvv = item.cvv;
     this.orderContainer.shippingAddress = item.shippingAddress;
     this.orderContainer.city = item.city;
@@ -82,14 +82,27 @@ export class CheckoutComponent implements OnInit {
         
       if(response.isSuccess === true)
       {
-        this._orderService.SendPaymentSuccessMesseage(response).subscribe((apiResponse)=>{
-          if(apiResponse.isSuccess)
-          {
-            this._toastr.success(apiResponse.message,"Success");
-            this._router.navigate(['products']);
-            
-          }
-        })
+        if(this.paymentType === 1){
+          this._orderService.SendPaymentSuccessMesseage(response).subscribe((apiResponse)=>{
+            if(apiResponse.isSuccess)
+            {
+              this._toastr.success(apiResponse.message,"Success");
+              this._router.navigate(['products']);
+              
+            }
+          })
+        }
+        else
+        {
+          this._orderService.SendMobilePaymentSuccessMessage(response).subscribe((apiSmsResponse)=>{
+            if(apiSmsResponse.isSuccess)
+            {
+              this._toastr.success(apiSmsResponse.message,"Success");
+              this._router.navigate(['products']);
+            }
+          })
+        }
+       
       }
         
     }) 

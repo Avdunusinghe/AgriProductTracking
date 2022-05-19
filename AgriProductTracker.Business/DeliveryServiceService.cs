@@ -81,7 +81,7 @@ namespace AgriProductTracker.Business
                         Address = vm.Address,
                         Email = vm.Email,
                         TelePhoneNumber = vm.TelePhoneNumber,
-                        DiliveryDetails = vm.DiliveryDetails,
+                        DeliveryDetails = vm.DiliveryDetails,
                         IsActive = true,
                         UpdatedOn = DateTime.UtcNow,
                         UpdatedById = loggedInUser.Id,
@@ -102,7 +102,7 @@ namespace AgriProductTracker.Business
                     deliveryservice.Address = vm.Address;
                     deliveryservice.Email = vm.Email;
                     deliveryservice.TelePhoneNumber = vm.TelePhoneNumber;
-                    deliveryservice.DiliveryDetails = vm.DiliveryDetails;
+                    deliveryservice.DeliveryDetails = vm.DiliveryDetails;
                     deliveryservice.IsActive = true;
                     deliveryservice.UpdatedOn = DateTime.UtcNow;
                     deliveryservice.UpdatedById = loggedInUser.Id;
@@ -143,7 +143,7 @@ namespace AgriProductTracker.Business
                     Address = item.Address,
                     Email = item.Email,
                     TelePhoneNumber = item.TelePhoneNumber,
-                    DiliveryDetails = item.DiliveryDetails,
+                    DiliveryDetails = item.DeliveryDetails,
                     UpdatedOn = DateTime.UtcNow,
                     CreatedOn = DateTime.UtcNow
             };
@@ -176,7 +176,7 @@ namespace AgriProductTracker.Business
             response.Address = query.Address;   
             response.Email= query.Email;
             response.TelePhoneNumber = query.TelePhoneNumber;   
-            response.DiliveryDetails = query.DiliveryDetails;               
+            response.DiliveryDetails = query.DeliveryDetails;               
 
            
 
@@ -215,7 +215,7 @@ namespace AgriProductTracker.Business
                     Address = deliveryservice.Address,
                     Email = deliveryservice.Email,
                     TelePhoneNumber = deliveryservice.TelePhoneNumber,
-                    DiliveryDetails = deliveryservice.DiliveryDetails,
+                    DiliveryDetails = deliveryservice.DeliveryDetails,
                     CreatedByName = deliveryservice.CreatedBy.FullName,
                     CreatedOn = DateTime.UtcNow,
                     UpdatedByName = deliveryservice.UpdatedBy.FullName,

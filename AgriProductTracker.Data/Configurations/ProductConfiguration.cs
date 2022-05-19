@@ -38,12 +38,6 @@ namespace AgriProductTracker.Data.Configurations
                .OnDelete(DeleteBehavior.Restrict)
                .IsRequired(true);
 
-            builder.HasOne<OrderItem>(o => o.OrderItem)
-               .WithOne(p => p.Product)
-               .HasForeignKey<OrderItem>(f => f.ProductId)
-               .OnDelete(DeleteBehavior.Restrict)
-               .IsRequired(false);
-
           
         }
     }

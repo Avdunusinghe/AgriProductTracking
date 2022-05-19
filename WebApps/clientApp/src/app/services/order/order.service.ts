@@ -6,7 +6,6 @@ import { environment } from 'src/environments/environment';
 import { CustomerOrderResponseModel } from 'src/app/models/order/customer.order.response.model';
 import { ResponseModel } from 'src/app/models/common/response.model';
 import { OrderModel } from 'src/app/models/order/order.model';
-import { ResponseModel } from 'src/app/models/common/response.model';
 
 @Injectable({
   providedIn: 'root'
@@ -28,6 +27,11 @@ export class OrderService {
   SendPaymentSuccessMesseage(model:CustomerOrderResponseModel):Observable<ResponseModel>{
     return this.httpClient.post<ResponseModel>
     (environment.smsApiUrl + "CreaditCardClientResponse",model);
+  }
+
+  SendMobilePaymentSuccessMessage(model:CustomerOrderResponseModel):Observable<ResponseModel>{
+    return this.httpClient.post<ResponseModel>
+    (environment.smsApiUrl + "CreaditCardClientResponse/sendMobilePaymentSuccessMessage", model);
   }
 
   gellAllProducts(id:number):Observable<OrderModel>

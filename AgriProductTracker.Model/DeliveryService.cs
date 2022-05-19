@@ -13,7 +13,7 @@ namespace AgriProductTracker.Model
         public string Address { get; set; }
         public string Email { get; set; }
         public string TelePhoneNumber { get; set; }
-        public string DiliveryDetails { get; set; }
+        public string DeliveryDetails { get; set; }
         public bool IsActive { get; set; }
         public DateTime CreatedOn { get; set; }
         public int CreatedById { get; set; }
@@ -22,7 +22,5 @@ namespace AgriProductTracker.Model
 
         public virtual User CreatedBy { get; set; }
         public virtual User UpdatedBy { get; set; }
-
-        public virtual ICollection<Order> Orders { get; set; }
     }
 }
