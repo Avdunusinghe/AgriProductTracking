@@ -42,7 +42,7 @@ namespace AgriProductTracking.SMS.Service.Controllers
                 if (isSend)
                 {
                     response.IsSuccess = true;
-                    response.Message = "Payment SucessFull!..";
+                    response.Message = "Payment Sucessfull!..";
                 }
 
             }
@@ -118,7 +118,7 @@ namespace AgriProductTracking.SMS.Service.Controllers
                 if (isSend)
                 {
                     response.IsSuccess = true;
-                    response.Message = "Payment SucessFull!..";
+                    response.Message = "Order Confirmed..";
                 }
 
             }

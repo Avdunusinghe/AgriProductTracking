@@ -86,7 +86,7 @@ namespace AgriProductTracking.util
         {
 
             MailMessage email = new MailMessage(_emailSetting.SMTPFrom, model.DeliveryServiceEmail);
-            email.Body = "DS Assignment O2 Order Comfirmed!";
+            email.Body = "DS Assignment O2 Order Please Pick The Order!";
             email.Subject = "Pick the order";
             email.IsBodyHtml = _emailSetting.IsEnableHTML;
             email.BodyEncoding = System.Text.Encoding.UTF8;
