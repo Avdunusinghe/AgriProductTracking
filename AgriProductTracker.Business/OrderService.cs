@@ -71,24 +71,25 @@ namespace AgriProductTracker.Business
             return dataSet;
         }
 
-        public async Task<OrderConfirmResponseViewModel> ConfirmOrder(int orderId, int deliveryServiceId)
+        public async Task<OrderConfirmResponseViewModel> ConfirmOrder(int orderId, int deliveryPartnerId)
         {
             var response = new OrderConfirmResponseViewModel();
 
             try
             {
                 var order = _db.Orders.Where(x=>x.IsProceesed == false && x.Id == orderId).FirstOrDefault();
-                var deliveryService = _db.DeliveryServices.Where(x => x.Id == deliveryServiceId).FirstOrDefault();
+                var deliveryService = _db.DeliveryServices.Where(x => x.Id == deliveryPartnerId).FirstOrDefault();
 
 
                 if (order != null)
                 {
                     order.IsProceesed = true;
+                    order.DeliveyPartnerId = deliveryPartnerId;
 
                     _db.Orders.Update(order);
 
                     response.IsSuccess = true;
-                    response.DeliveryServiceId = deliveryService.Id;
+                    response.DeliveryPartnerId = deliveryService.Id;
                     response.DeliveryServicePhoneNumber = deliveryService.TelePhoneNumber;
                     response.DeliveryServiceEmail = deliveryService.Email;
                     response.Message = "Order Confirm Successfull";
@@ -120,7 +121,6 @@ namespace AgriProductTracker.Business
 
                 response.Id = query.Id;
                 response.Amount = query.TotalPrice;
-                //response.DeliveryServiceId = query.DeleveryServiceId;
                 response.CutomerName = query.Customer.FullName;
                 response.ShippingAdderess = query.ShippingAddress;
                 response.City = query.City;

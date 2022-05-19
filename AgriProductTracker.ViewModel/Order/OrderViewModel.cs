@@ -15,7 +15,6 @@ namespace AgriProductTracker.ViewModel.Order
 
         public int Id { get; set; }
         public decimal Amount { get; set; }
-        public int DeleveryServiceId { get; set; }
         public int CutomerId { get; set; }
         public string CutomerName { get; set; }
         public int DeliveryPartnerId { get; set; } 
@@ -24,6 +23,7 @@ namespace AgriProductTracker.ViewModel.Order
         public string ShippingAdderess { get; set; }
         public string City { get; set; }
         public string PostalCode { get; set; }
+
         public List<OrderItemViewModel> OrderItems { get; set; }
 
     }

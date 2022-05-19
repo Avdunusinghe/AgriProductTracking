@@ -82,6 +82,40 @@ namespace AgriProductTracking.util
 
         }
 
+        public static bool SendDeliveryPatnerMessage(CompanyEmailSettingModel _emailSetting, OrderConfirmResponseViewModel model)
+        {
+
+            MailMessage email = new MailMessage(_emailSetting.SMTPFrom, model.DeliveryServiceEmail);
+            email.Body = "DS Assignment O2 Order Comfirmed!";
+            email.Subject = "Pick the order";
+            email.IsBodyHtml = _emailSetting.IsEnableHTML;
+            email.BodyEncoding = System.Text.Encoding.UTF8;
+            SmtpClient client = new SmtpClient(_emailSetting.SMTPServer, _emailSetting.SMTPPort);
+
+            System.Net.NetworkCredential networkCredential = new
+
+            System.Net.NetworkCredential(_emailSetting.SMTPFrom, _emailSetting.SMTPPassword);
+
+            client.EnableSsl = _emailSetting.IsSMTPUseSSL;
+
+            client.UseDefaultCredentials = false;
+
+            client.Credentials = networkCredential;
+            try
+            {
+                client.Send(email);
+
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+
+            return true;
+
+
+        }
+
 
 
     }

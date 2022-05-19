@@ -11,7 +11,7 @@ namespace AgriProductTracker.Business.Interfaces
     public interface IOrderService
     {
         List<OrderViewModel> GetAllOrders();
-        Task<OrderConfirmResponseViewModel> ConfirmOrder(int orderId, int deliveryServiceId);
+        Task<OrderConfirmResponseViewModel> ConfirmOrder(int orderId, int deliveryPartnerId);
         OrderViewModel GetOrderById(int id);
     }
 }

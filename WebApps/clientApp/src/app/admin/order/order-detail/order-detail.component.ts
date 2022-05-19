@@ -1,3 +1,4 @@
+import { isNgTemplate } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -36,6 +37,7 @@ export class OrderDetailComponent implements OnInit {
     private _router:Router,
   )
    { 
+     this.order = new OrderModel();
      this.getAllDeliveryServices();
    }
 
@@ -43,35 +45,31 @@ export class OrderDetailComponent implements OnInit {
 
     this._activatedRoute.params.subscribe(params=>{
       this.orderId = +params.id;
-
       
       if(this.orderId > 0)
       {
         this.getOrderById();
+        this.orderForm = this.createExistingOrderForm()
       }
       
       
   })
 
 }
+
 createExistingOrderForm():FormGroup
 {
   return this._formBuilder.group({
     id:[this.order.id],
     amount: [{value:this.order.amount}],
-    cutomerId:[{value:this.order.cutomerId}],
     cutomerName:[{value:this.order.cutomerName}],
     dateTime: [{value:this.order.dateTime}],
     isProcessed: [{value:this.order.isProcessed}],
     shippingAdderess: [{value:this.order.shippingAdderess}],
     city: [{value:this.order.city}],
     postalCode: [{value:this.order.postalCode}],
-    deleverySeviceId: [[null], Validators.required] 
+    deliveryPartnerId: [[null], Validators.required] 
   })
-}
-
-onFileChange(event:any, type:number){
-
 }
 
 
@@ -84,6 +82,8 @@ getAllDeliveryServices()
    this._coreDataService.getAllDeliveryServices()
      .subscribe(response=>{
      this.deliveryServices= response;
+     console.log(response);
+     
    },(error)=>{
      this._spinner.hide();
    })    
@@ -91,21 +91,29 @@ getAllDeliveryServices()
 
 confirmOrder()
   {
-    this._spinner.show();
-    this._orderService.confirmOrder(this.orderId, this.deliveryService).subscribe((response)=>{
+     this._spinner.show();
+
+     let item = new OrderModel();
+     item = this.orderForm.getRawValue();
+     
+     this._orderService.confirmOrder(item.id, item.deliveryPartnerId).subscribe((response)=>{
+       
         if(response.isSuccess)
         {
-          this._toastr.success(response.message);
+          this._orderService.sendDeliveryPatnerMessage(response).subscribe((smsApiResponse)=>{
+            if(smsApiResponse.isSuccess)
+            {
+                this._toastr.success(smsApiResponse.message,"Success");
+                this._router.navigate(["admin/order/order-list"]);
+            }
+          },(error)=>{
+            this._spinner.hide();
+          });
         }
-    })
+    },(error)=>{
+      this._spinner.hide();
+    }); 
     
-  }
-
-
-
-  get deliveryService()
-  {
-    return this.orderForm.get("deliveryServiceId").value;
   }
 
   getOrderById()
@@ -113,19 +121,15 @@ confirmOrder()
     this._spinner.show();
     this._orderService.getOrderById(this.orderId).subscribe((response)=>{
        this.order = response;
- 
+    
        this.orderForm.get("id").setValue(response.id);
        this.orderForm.get("amount").setValue(response.amount);
-       this.orderForm.get("cutomerId").setValue(response.cutomerId);
        this.orderForm.get("cutomerName").setValue(response.cutomerName);
        this.orderForm.get("dateTime").setValue(response.dateTime);
        this.orderForm.get("shippingAdderess").setValue(response.shippingAdderess);
        this.orderForm.get("city").setValue(response.city);
        this.orderForm.get("postalCode").setValue(response.postalCode);
-       this.orderForm.get(" deleveryServiceId").setValue(response.deleverySeviceId);
-
-      
-       
+        
     },(error)=>{
       this._spinner.hide();
     })

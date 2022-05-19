@@ -16,7 +16,7 @@ import { OrderService } from 'src/app/services/order/order.service';
 export class OrderListComponent implements OnInit {
 
   orderFilterForm:FormGroup;
-  rowData:OrderModel;
+  rowData:OrderModel[]=[];
   
 
   constructor(
@@ -31,24 +31,9 @@ export class OrderListComponent implements OnInit {
 
   ) { }
 
-  ngOnInit(): void {
-
-    this.orderFilterForm= this.createOrderFilterForm();
+  ngOnInit(): void { 
     this.getAllOrders();
   }
-
-   /*
- *Create order Filter Form
- */
-
-
- createOrderFilterForm():FormGroup{
-  return this._formBuilder.group({
-    searchText: new FormControl("")
-    
-  })
-}
-
  /*
  *confirm order with delivery Route with param 
  */
@@ -57,22 +42,9 @@ export class OrderListComponent implements OnInit {
  {
     this._router.navigate(["admin/order/order-detail",id]);
  }
-
- /*
- *Page Number Changed Fire Event
- */
-
-onPageChanged(pageInfo)
-{
-  this._spinner.show();
-  console.log(pageInfo);
-  this.getAllOrders();
-}
-
 /*
  *Get All order Details
  */
-
 
 getAllOrders()
 {

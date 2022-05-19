@@ -83,7 +83,7 @@ export class CheckoutComponent implements OnInit {
       if(response.isSuccess === true)
       {
         if(this.paymentType === 1){
-          this._orderService.SendPaymentSuccessMesseage(response).subscribe((apiResponse)=>{
+          this._orderService.sendPaymentSuccessMesseage(response).subscribe((apiResponse)=>{
             if(apiResponse.isSuccess)
             {
               this._toastr.success(apiResponse.message,"Success");
@@ -94,7 +94,7 @@ export class CheckoutComponent implements OnInit {
         }
         else
         {
-          this._orderService.SendMobilePaymentSuccessMessage(response).subscribe((apiSmsResponse)=>{
+          this._orderService.sendMobilePaymentSuccessMessage(response).subscribe((apiSmsResponse)=>{
             if(apiSmsResponse.isSuccess)
             {
               this._toastr.success(apiSmsResponse.message,"Success");

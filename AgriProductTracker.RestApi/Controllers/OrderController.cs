@@ -36,11 +36,11 @@ namespace AgriProductTracker.RestApi.Controllers
             return Ok(response);
         }
 
-        [HttpPost]
-        [Route("confirmOrder/{orderId:int}/{deliveryServiceId:int}")]
-        public async Task<ActionResult> ConfirmOrder(int orderId, int deliveryServiceId)
+        [HttpGet]
+        [Route("confirmOrder/{orderId:int}/{deliveryPartnerId:int}")]
+        public async Task<ActionResult> ConfirmOrder(int orderId, int deliveryPartnerId)
         {
-            var response = await _orderService.ConfirmOrder(orderId, deliveryServiceId);
+            var response = await _orderService.ConfirmOrder(orderId, deliveryPartnerId);
             return Ok(response);
         }
 

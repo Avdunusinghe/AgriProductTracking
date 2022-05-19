@@ -6,6 +6,7 @@ import { environment } from 'src/environments/environment';
 import { CustomerOrderResponseModel } from 'src/app/models/order/customer.order.response.model';
 import { ResponseModel } from 'src/app/models/common/response.model';
 import { OrderModel } from 'src/app/models/order/order.model';
+import { OrderConfirmResponseModel } from 'src/app/models/order/order.confirm.response.model';
 
 @Injectable({
   providedIn: 'root'
@@ -19,19 +20,28 @@ export class OrderService {
   { 
 
   }
-  checkOutOrder(orderContainer:OrderContainerModel):Observable<CustomerOrderResponseModel>{
+  checkOutOrder(orderContainer:OrderContainerModel):Observable<CustomerOrderResponseModel>
+  {
       return this.httpClient.post<CustomerOrderResponseModel>
       (environment.paymentApiUrl + 'PaymentService',orderContainer);
   }
 
-  SendPaymentSuccessMesseage(model:CustomerOrderResponseModel):Observable<ResponseModel>{
+  sendPaymentSuccessMesseage(model:CustomerOrderResponseModel):Observable<ResponseModel>
+  {
     return this.httpClient.post<ResponseModel>
-    (environment.smsApiUrl + "CreaditCardClientResponse",model);
+    (environment.smsApiUrl + "EmailSMSClientResponse",model);
   }
 
-  SendMobilePaymentSuccessMessage(model:CustomerOrderResponseModel):Observable<ResponseModel>{
+  sendMobilePaymentSuccessMessage(model:CustomerOrderResponseModel):Observable<ResponseModel>
+  {
     return this.httpClient.post<ResponseModel>
-    (environment.smsApiUrl + "CreaditCardClientResponse/sendMobilePaymentSuccessMessage", model);
+    (environment.smsApiUrl + "EmailSMSClientResponse/sendMobilePaymentSuccessMessage", model);
+  }
+
+  sendDeliveryPatnerMessage(model:OrderConfirmResponseModel):Observable<ResponseModel>
+  {
+    return this.httpClient.post<ResponseModel>
+    (environment.smsApiUrl + "EmailSMSClientResponse/sendDeliveryPatnerMessage", model);
   }
 
   gellAllProducts(id:number):Observable<OrderModel>
@@ -40,23 +50,23 @@ export class OrderService {
      (environment.apiUrl + "Order/gellAllProducts" + "/" + id);
   }
 
-  getAllOrders():Observable<OrderModel>
+  getAllOrders():Observable<OrderModel[]>
   {
-    return this.httpClient.get<OrderModel>
-     (environment.apiUrl + "Order/getAllOrders" + "/");
+    return this.httpClient.get<OrderModel[]>
+     (environment.apiUrl + "Order/getAllOrders");
   }
 
-  confirmOrder(orderId:number,deliveryServiceId:number):Observable<ResponseModel>
+  confirmOrder(orderId:number,deliveryPartnerId:number):Observable<OrderConfirmResponseModel>
   {
-    return this.httpClient.post<ResponseModel>
-      (environment.apiUrl + 'Orderservice/confirmOrder',  orderId + deliveryServiceId);
+    return this.httpClient.get<OrderConfirmResponseModel>
+      (environment.apiUrl + "Order/confirmOrder" + "/" +  orderId + "/" + deliveryPartnerId);
     
   }
 
   getOrderById(id:number):Observable<OrderModel>
   {
     return this.httpClient.get<OrderModel>
-     (environment.apiUrl + "Orderservice/getOrderByIdr" + "/" + id);
+     (environment.apiUrl + "Order/getOrderById" + "/" + id);
   }
 
 

@@ -1,16 +1,4 @@
 <div class="p-1">
-  <form [formGroup]="orderFilterForm">
-    <mat-form-field appearance="outline" class="w-100">
-      <input
-        matInput
-        (keyup)="filterDataTable($event.target.value)"
-        placeholder="Search user by name..."
-        formControlName="searchText"
-        name="search"
-      />
-    </mat-form-field>
-  </form>
-
   <mat-card class="p-0">
     <div
       fxLayout="row wrap"
@@ -29,16 +17,9 @@
         <div class="mat-header-cell">Customer</div>
         <div class="mat-header-cell">Shipping Address</div>
         <div class="mat-header-cell">Status</div>
-
-        <div class="mat-header-cell"></div>
+        <div class="mat-header-cell">Confirm Order</div>
       </div>
-      <div
-        *ngFor="
-          let data of rowData
-            | paginate: { itemsPerPage: pageSize, currentPage: currentPage }
-        "
-        class="mat-row"
-      >
+      <div *ngFor="let data of rowData" class="mat-row">
         <div class="mat-cell">{{ data.id }}</div>
         <div class="mat-cell">{{ data.amount }}</div>
         <div class="mat-cell">{{ data.deleveryServiceId }}</div>
@@ -51,27 +32,14 @@
             <button
               mat-mini-fab
               color="primary"
-              matTooltip="Confirm"
+              matTooltip="Edit"
               (click)="confirmOrder(data.id)"
             >
-              <mat-icon>Confirm</mat-icon>
+              <mat-icon>edit</mat-icon>
             </button>
           </div>
         </div>
       </div>
     </div>
   </mat-card>
-
-  <div *ngIf="rowData.length > 0" fxLayout="row wrap">
-    <div fxFlex="100">
-      <mat-card class="p-0 text-center">
-        <pagination-controls
-          class="order-pagination"
-          autoHide="true"
-          maxSize="5"
-          (pageChange)="onPageChanged($event)"
-        ></pagination-controls>
-      </mat-card>
-    </div>
-  </div>
 </div>
