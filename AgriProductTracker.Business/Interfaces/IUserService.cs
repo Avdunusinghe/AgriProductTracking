@@ -16,6 +16,10 @@ namespace AgriProductTracker.Business.Interfaces
         List<DropDownViewModel> GetAllRoles();
         Task<ResponseViewModel> UploadUserImage(FileContainerViewModel container);
         PaginatedItemsViewModel<BasicUserViewModel> GetUserList(UserFilterViewModel filter);
+        Task<ResponseViewModel> RegisterClient(ClientViewModel vm);
+
+
+
 
 
     }

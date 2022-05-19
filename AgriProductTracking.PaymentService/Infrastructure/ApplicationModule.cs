@@ -24,6 +24,10 @@ namespace AgriProductTracking.PaymentService.Infrastructure
               .As<ICurrentUserService>()
               .InstancePerLifetimeScope();
 
+            builder.RegisterType<PaymentService>()
+            .As<IPaymentService>()
+            .InstancePerLifetimeScope();
+
         }
     }
 }
