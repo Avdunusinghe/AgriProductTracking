@@ -345,8 +345,70 @@ namespace AgriProductTracker.Business
             return container;
 
         }
+
+        public async Task<ResponseViewModel> RegisterClient(ClientViewModel vm)
+        {
+            var response = new ResponseViewModel();
+
+            try
+            {
+                var user = _db.Users.FirstOrDefault(x => x.Id == vm.Id);
+
+                var getUserRoles = _db.Roles.FirstOrDefault(x => x.IsActive == true);
+
+
+                if (user == null)
+                {
+              
+                    user = new User()
+                    {
+                        Id = vm.Id,
+                        FullName = vm.FullName,
+                        Email = vm.Email,
+                        MobileNumber = vm.MobileNumber,
+                        UserName = vm.UserName,
+                        Address = vm.Email,
+                        Password = vm.Password,
+                        IsActive = true,
+                        CreatedOn = DateTime.UtcNow,
+                        CreatedById = 1,
+                        UpdatedOn = DateTime.UtcNow,
+                        UpdatedById = 1
+                    };
+
+                    user.UserRoles = new HashSet<UserRole>();
+
+                   
+                        var userRole = new UserRole()
+                        {
+                            RoleId = vm.Roles,
+                            IsActive = true,
+                            CreatedById = 1,
+                            CreatedOn = DateTime.UtcNow,
+                            UpdatedById = 1,
+                            UpdatedOn = DateTime.UtcNow
+                        };
+
+                        user.UserRoles.Add(userRole);
+                  
+
+                    _db.Users.Add(user);
+
+                    await _db.SaveChangesAsync();
+
+                    response.IsSuccess = true;
+                    response.Message = UserServiceConstants.NEW_USER_SAVE_SUCCESS_MESSAGE;
+                }
+            }catch (Exception ex)
+            {
+                response.IsSuccess = false;
+                response.Message = UserServiceConstants.USER_SAVE_EXCEPTION_MESSAGE; 
+            }
+
+            return response;
+        }
     }
-    }
+}
 
 
 

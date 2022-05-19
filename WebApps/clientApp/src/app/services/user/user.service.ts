@@ -7,6 +7,7 @@ import { ResponseModel } from './../../models/common/response.model';
 import { Observable } from 'rxjs';
 import { UserFilterModel } from 'src/app/models/user/user.filter.model';
 import { UserPaginatedItemModel } from 'src/app/models/user/user.paginated.item';
+import { ClientModel } from 'src/app/models/user/client.model';
 
 @Injectable({
   providedIn: 'root'
@@ -44,6 +45,13 @@ export class UserService {
   {
     return this.httpClient.post<UserPaginatedItemModel>
     (environment.apiUrl + "User/getUserList" , filter);
+  }
+
+  registerClient(model:ClientModel):Observable<ResponseModel>
+  {
+    return this.httpClient.post<ResponseModel>
+      (environment.apiUrl + 'User/registerClient', model);
+    
   }
 
 

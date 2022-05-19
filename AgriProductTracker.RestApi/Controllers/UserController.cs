@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace AgriProductTracker.RestApi.Controllers
 {
 
-    [Authorize]
+   
     [Route("api/[controller]")]
     [ApiController]
 
@@ -24,7 +24,7 @@ namespace AgriProductTracker.RestApi.Controllers
             this._identityService = _identityService;
         }
 
-
+        [Authorize]
         [HttpPost]
         public async Task<ActionResult> Post([FromBody] UserViewModel vm)
         {
@@ -34,6 +34,17 @@ namespace AgriProductTracker.RestApi.Controllers
             return Ok(response);
         }
 
+        [AllowAnonymous]
+        [HttpPost]
+        [Route("registerClient")]
+        public async Task<ActionResult> RegisterClient([FromBody] ClientViewModel vm)
+        {
+            var response = await _userService.RegisterClient(vm);
+
+            return Ok(response);
+        }
+
+        [Authorize]
         [HttpGet]
         [Route("getUserById/{id}")]
         public IActionResult GetUserById(int id)
@@ -43,6 +54,7 @@ namespace AgriProductTracker.RestApi.Controllers
             return Ok(response);
         }
 
+        [AllowAnonymous]
         [HttpGet]
         [Route("getAllRoles")]
         public ActionResult GetAllRoles()
@@ -52,7 +64,7 @@ namespace AgriProductTracker.RestApi.Controllers
             return Ok(response);
         }
 
-
+        [Authorize]
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteUser(int id)
         {
@@ -62,8 +74,8 @@ namespace AgriProductTracker.RestApi.Controllers
         }
 
 
-        
 
+        [Authorize]
         [HttpPost]
         [Route("getUserList")]
         public ActionResult GetUserList(UserFilterViewModel filter)
@@ -72,8 +84,8 @@ namespace AgriProductTracker.RestApi.Controllers
 
             return Ok(response);
         }
-        
 
+        [Authorize]
         [HttpPost]
         [RequestSizeLimit(long.MaxValue)]
         [Route("uploadUserImage")]
