@@ -3,16 +3,16 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.example</groupId>
-  <artifactId>AgriProductTrackingService</artifactId>
+  <artifactId>AgriProductTracking</artifactId>
   <version>1.0.0</version>
   <packaging>pom</packaging>
-  <name>AgriProductTrackingService</name>
-  <description>AgriProductTrackingService</description>
+  <name>AgriProductTracking</name>
+  <description>AgriProductTracking</description>
   <modules>
-    <module>AgriProductTrackingServiceRegistryResources</module>
-    <module>AgriProductTrackingServiceConnectorExporter</module>
-    <module>AgriProductTrackingServiceConfigs</module>
-    <module>AgriProductTrackingServiceCompositeExporter</module>
+    <module>AgriProductTrackingRegistryResources</module>
+    <module>AgriProductTrackingConnectorExporter</module>
+    <module>AgriProductTrackingConfigs</module>
+    <module>AgriProductTrackingCompositeExporter</module>
   </modules>
   <build />
   <profiles>

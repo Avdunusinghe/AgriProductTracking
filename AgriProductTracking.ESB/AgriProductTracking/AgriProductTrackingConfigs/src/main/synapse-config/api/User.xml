@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<api context="/user" name="User" xmlns="http://ws.apache.org/ns/synapse">
+    <resource methods="DELETE POST PUT GET" uri-template="/userService/{type}/">
+        <inSequence>
+            <switch source="">
+                <case regex=".*+"/>
+                <default/>
+            </switch>
+        </inSequence>
+        <outSequence/>
+        <faultSequence/>
+    </resource>
+</api>
