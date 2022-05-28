@@ -79,6 +79,7 @@ export class CheckoutComponent implements OnInit {
 
     this._orderService.checkOutOrder(this.orderContainer).subscribe((response)=>{
         console.log(response);
+        console.log(this.paymentType);
         
       if(response.isSuccess === true)
       {

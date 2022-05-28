@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<api context="/User" name="UserServiceApi" xmlns="http://ws.apache.org/ns/synapse">
+    <resource methods="POST" uri-template="/userService">
+        <inSequence>
+            <log>
+                <property name="Message" value="User Saving..........."/>
+            </log>
+            <send>
+                <endpoint>
+                    <http method="post" uri-template="http://localhost:35120/api/User/registerClient">
+                        <suspendOnFailure>
+                            <initialDuration>-1</initialDuration>
+                            <progressionFactor>-1</progressionFactor>
+                            <maximumDuration>0</maximumDuration>
+                        </suspendOnFailure>
+                        <markForSuspension>
+                            <retriesBeforeSuspension>0</retriesBeforeSuspension>
+                        </markForSuspension>
+                    </http>
+                </endpoint>
+            </send>
+        </inSequence>
+        <outSequence>
+            <respond/>
+        </outSequence>
+        <faultSequence/>
+    </resource>
+</api>

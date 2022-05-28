@@ -3,26 +3,47 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.example</groupId>
-  <artifactId>AgriProductTrackingServiceCompositeExporter</artifactId>
+  <artifactId>AgriProductTrackingCompositeExporter</artifactId>
   <version>1.0.0</version>
   <packaging>carbon/application</packaging>
-  <name>AgriProductTrackingServiceCompositeExporter</name>
-  <description>AgriProductTrackingServiceCompositeExporter</description>
+  <name>AgriProductTrackingCompositeExporter</name>
+  <description>AgriProductTrackingCompositeExporter</description>
   <properties>
+    <com.example.sequence_._Sequence>capp/EnterpriseServiceBus</com.example.sequence_._Sequence>
+    <com.example.api_._Auth>capp/EnterpriseServiceBus</com.example.api_._Auth>
+    <com.example.api_._ProductSaveApi>capp/EnterpriseServiceBus</com.example.api_._ProductSaveApi>
+    <com.example.api_._UserServiceApi>capp/EnterpriseServiceBus</com.example.api_._UserServiceApi>
+    <com.example.api_._DeliveryApi>capp/EnterpriseServiceBus</com.example.api_._DeliveryApi>
     <artifact.types>jaggery/app=zip,synapse/priority-executor=xml,synapse/inbound-endpoint=xml,service/rule=aar,synapse/message-store=xml,event/stream=json,service/meta=xml,datasource/datasource=xml,synapse/proxy-service=xml,bpel/workflow=zip,synapse/sequence=xml,synapse/endpointTemplate=xml,carbon/application=car,wso2/gadget=dar,synapse/api=xml,synapse/event-source=xml,synapse/message-processors=xml,event/receiver=xml,lib/dataservice/validator=jar,synapse/template=xml,synapse/endpoint=xml,lib/carbon/ui=jar,lib/synapse/mediator=jar,event/publisher=xml,synapse/local-entry=xml,synapse/task=xml,webapp/jaxws=war,registry/resource=zip,synapse/configuration=xml,service/axis2=aar,synapse/lib=zip,synapse/sequenceTemplate=xml,event/execution-plan=siddhiql,service/dataservice=dbs,web/application=war,lib/library/bundle=jar</artifact.types>
-    <com.example.endpoint_._UserDetails>capp/EnterpriseServiceBus</com.example.endpoint_._UserDetails>
-    <com.example.api_._AgriProductTrackingAPI>capp/EnterpriseServiceBus</com.example.api_._AgriProductTrackingAPI>
   </properties>
   <dependencies>
     <dependency>
       <groupId>com.example.api</groupId>
-      <artifactId>AgriProductTrackingAPI</artifactId>
+      <artifactId>Auth</artifactId>
       <version>1.0.0</version>
       <type>xml</type>
     </dependency>
     <dependency>
-      <groupId>com.example.endpoint</groupId>
-      <artifactId>UserDetails</artifactId>
+      <groupId>com.example.sequence</groupId>
+      <artifactId>Sequence</artifactId>
+      <version>1.0.0</version>
+      <type>xml</type>
+    </dependency>
+    <dependency>
+      <groupId>com.example.api</groupId>
+      <artifactId>ProductSaveApi</artifactId>
+      <version>1.0.0</version>
+      <type>xml</type>
+    </dependency>
+    <dependency>
+      <groupId>com.example.api</groupId>
+      <artifactId>UserServiceApi</artifactId>
+      <version>1.0.0</version>
+      <type>xml</type>
+    </dependency>
+    <dependency>
+      <groupId>com.example.api</groupId>
+      <artifactId>DeliveryApi</artifactId>
       <version>1.0.0</version>
       <type>xml</type>
     </dependency>

@@ -29,6 +29,14 @@ export class AuthService {
     return this.currentUserSubject.value;
   }
   
+  /*login(loginModel : LoginModel):Observable<any>{
+    return this.httpClient.post<any>(environment.esbUrl + "Auth/login", loginModel).pipe(map((UserModel)=>{
+      localStorage.setItem("currentUser",JSON.stringify(UserModel));
+      this.currentUserSubject.next(UserModel);
+      return UserModel;
+    }))
+  }*/
+
   login(loginModel : LoginModel):Observable<any>{
     return this.httpClient.post<any>(environment.apiUrl + "Auth/login", loginModel).pipe(map((UserModel)=>{
       localStorage.setItem("currentUser",JSON.stringify(UserModel));
