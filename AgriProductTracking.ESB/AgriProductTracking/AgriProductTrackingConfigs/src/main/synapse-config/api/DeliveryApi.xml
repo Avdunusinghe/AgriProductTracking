@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<api context="/Devlivery" name="DeliveryApi" xmlns="http://ws.apache.org/ns/synapse">
+    <resource methods="POST" uri-template="/deliveryService">
+        <inSequence>
+            <log>
+                <property name="Delivery" value="Delivery Service"/>
+            </log>
+            <send>
+                <endpoint>
+                    <http method="post" uri-template="http://localhost:35120/api/DeliveryService/deliveryServiceSave">
+                        <suspendOnFailure>
+                            <initialDuration>-1</initialDuration>
+                            <progressionFactor>-1</progressionFactor>
+                            <maximumDuration>0</maximumDuration>
+                        </suspendOnFailure>
+                        <markForSuspension>
+                            <retriesBeforeSuspension>0</retriesBeforeSuspension>
+                        </markForSuspension>
+                    </http>
+                </endpoint>
+            </send>
+        </inSequence>
+        <outSequence>
+            <respond/>
+        </outSequence>
+        <faultSequence/>
+    </resource>
+</api>
