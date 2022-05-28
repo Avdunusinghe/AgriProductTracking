@@ -191,6 +191,8 @@ namespace AgriProductTracker.Business
                 response.Name = query.Name;
                 response.Description = query.Description;
                 response.CategoryId = query.CategoryId;
+                response.Price = query.Price;
+                response.Quantity = query.Quantity;
 
                 var  productImages = query.ProductImages.ToList();
 
