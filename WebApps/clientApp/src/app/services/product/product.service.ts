@@ -15,6 +15,12 @@ export class ProductService {
 
   constructor( private httpClient: HttpClient) { }
 
+  /*saveProduct(model:ProductModel):Observable<ResponseModel>
+  {
+    return this.httpClient.post<ResponseModel>
+      (environment.esbUrl + 'Product/productSave', model);
+    
+  }*/
   saveProduct(model:ProductModel):Observable<ResponseModel>
   {
     return this.httpClient.post<ResponseModel>
